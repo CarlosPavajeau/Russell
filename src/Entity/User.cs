@@ -4,18 +4,18 @@ using System.Text;
 
 namespace Entity
 {
-    public enum AccessLevel
+    public enum TypeUser
     {
-        LOW,
-        MEDIUM,
-        HIGH
+        SUPERUSER,
+        ADMIN,
+        DISPATCHER
     }
     public class User
     {
-        public User(AccessData accessData, AccessLevel accessLevel)
+        public User(AccessData accessData, TypeUser typeUser)
         {
             AccessData = accessData;
-            AccessLevel = accessLevel;
+            TypeUser = typeUser;
         }
 
         public AccessData AccessData
@@ -24,25 +24,25 @@ namespace Entity
             set;
         }
 
-        public AccessLevel AccessLevel
+        public TypeUser TypeUser
         {
             get;
             set;
         }
 
-        public bool IsLowUser()
+        public bool IsSuperUser()
         {
-            return AccessLevel == AccessLevel.LOW;
+            return TypeUser == TypeUser.SUPERUSER;
         }
 
-        public bool IsMediumUser()
+        public bool IsAdmin()
         {
-            return AccessLevel == AccessLevel.MEDIUM;
+            return TypeUser == TypeUser.ADMIN;
         }
 
-        public bool IsHighUser()
+        public bool IsDispatcher()
         {
-            return AccessLevel == AccessLevel.HIGH;
+            return TypeUser == TypeUser.DISPATCHER;
         }
     }
 }
