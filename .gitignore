@@ -1,0 +1,12 @@
+.vscode
+.vs
+.obj
+Build
+bin
+obj
+*.dll
+*.pdb
+*.cache
+*.json
+*.props
+*.targets
