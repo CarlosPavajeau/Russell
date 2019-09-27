@@ -9,11 +9,12 @@ namespace Entity
         private decimal agreement;
 
         public Commend(string number, Person sender, Person receiver, Person dispatcher, 
-                       string description, decimal freightValue, decimal agreement) : base(number, sender, receiver, dispatcher)
+                       string description, decimal freightValue, decimal agreement, Vehicle vehicle) : base(number, sender, receiver, dispatcher)
         {
             Description = description;
             FreightValue = freightValue;
             Agreement = agreement;
+            Vehicle = vehicle;
         }
 
         public string Description
@@ -50,6 +51,12 @@ namespace Entity
             {
                 agreement = (value > 0) ? value : throw new ArgumentException("The agreement is invalid.");
             }
+        }
+
+        public Vehicle Vehicle
+        {
+            get;
+            set;
         }
     }
 }
