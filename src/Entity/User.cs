@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Entity
 {
     public enum TypeUser
@@ -18,17 +15,9 @@ namespace Entity
             TypeUser = typeUser;
         }
 
-        public AccessData AccessData
-        {
-            get;
-            set;
-        }
+        public AccessData AccessData { get; set; }
 
-        public TypeUser TypeUser
-        {
-            get;
-            set;
-        }
+        public TypeUser TypeUser { get; set; }
 
         public bool IsSuperUser()
         {
