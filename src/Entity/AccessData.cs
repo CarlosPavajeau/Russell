@@ -1,39 +1,46 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Entity
 {
     public class AccessData
     {
-        private string user;
-        private string password;
-
         public AccessData(string user, string password)
         {
-
+            User = user;
+            Password = password;
         }
 
-        public string User
+        public string User { get; set; }
+
+        public string Password { get; set; }
+
+        public override bool Equals(object obj)
         {
-            get
-            {
-                return user;
-            }
-            set
-            {
-                user = (value != string.Empty) ? value : throw new ArgumentException("The user is invalid");
-            }
+            if (obj is null)
+                return false;
+            if (obj is AccessData accessData)
+                return User == accessData.User && Password == accessData.Password;
+            return false;
         }
 
-        public string Password
+        public override int GetHashCode()
         {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                password = (value != string.Empty) ? value : throw new ArgumentException("The password is invalid");
-            }
+            var hashCode = -1879510246;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(User);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
+            return hashCode;
+        }
+
+        public static bool operator ==(AccessData left, AccessData right)
+        {
+            if (left is null || right is null)
+                return false;
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(AccessData left, AccessData right)
+        {
+            return !(left == right);
         }
     }
 }
