@@ -4,7 +4,6 @@ namespace Entity
 {
     public class Ticket
     {
-        private string number;
         private string destination;
         private decimal price;
 
@@ -18,17 +17,7 @@ namespace Entity
 
         }
 
-        public string Number
-        {
-            get
-            {
-                return number;
-            }
-            set
-            {
-                number = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The number is invalid");
-            }
-        }
+        public string Number { get; }
 
         public string Destination
         {
@@ -54,16 +43,8 @@ namespace Entity
             }
         }
 
-        public Person Client
-        {
-            get;
-            set;
-        }
+        public Person Client { get; set; }
 
-        public Vehicle Vehicle
-        {
-            get;
-            set;
-        }
+        public Vehicle Vehicle { get; set; }
     }
 }
