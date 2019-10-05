@@ -1,15 +1,8 @@
-﻿using System;
-
+﻿
 namespace Entity
 {
     public class VehicleFeatures
     {
-        private string type;
-        private string mark;
-        private string model;
-        private string modelNumber;
-        private string color;
-        
         public VehicleFeatures(string type, string mark, string model, string modelNumber, string color)
         {
             Type = type;
@@ -19,64 +12,19 @@ namespace Entity
             Color = color;
         }
 
-        public string Type
+        public VehicleFeatures()
         {
-            get
-            {
-                return type;
-            }
-            set
-            {
-                type = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The type is invalid");
-            }
+
         }
 
-        public string Mark
-        {
-            get
-            {
-                return mark;
-            }
-            set
-            {
-                mark = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The mark is invalid");
-            }
-        }
+        public string Type { get; set; }
 
-        public string Model
-        {
-            get
-            {
-                return model;
-            }
-            set
-            {
-                model = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The model is invalid");
-            }
-        }
+        public string Mark { get; set; }
 
-        public string ModelNumber
-        {
-            get
-            {
-                return modelNumber;
-            }
-            set
-            {
-                modelNumber = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The model number is invalid");
-            }
-        }
+        public string Model { get; set; }
 
-        public string Color
-        {
-            get
-            {
-                return color;
-            }
-            set
-            {
-                color = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The color is invalid");
-            }
-        }
+        public string ModelNumber { get; set; }
+
+        public string Color { get; set; }
     }
 }
