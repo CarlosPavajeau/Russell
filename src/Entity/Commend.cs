@@ -4,7 +4,6 @@ namespace Entity
 {
     public class Commend : Delivery
     {
-        private string description;
         private decimal freightValue;
         private decimal agreement;
 
@@ -17,17 +16,7 @@ namespace Entity
             Vehicle = vehicle;
         }
 
-        public string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The description is invalid");
-            }
-        }
+        public string Description { get; set; }
 
         public decimal FreightValue
         {
