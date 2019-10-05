@@ -1,25 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entity
 {
     public class LegalInformation
     {
-        public LegalInformation(DateTime dueDate, DateTime dateOfRenovation)
+        public Dictionary<string, Dates> Information;
+        public LegalInformation()
         {
-            DueDate = dueDate;
-            DateOfRenovation = dateOfRenovation;
+            Information = new Dictionary<string, Dates>();
         }
 
-        public DateTime DueDate
+        public void AddInformation(string type, Dates dates)
         {
-            get;
-            set;
+            Information.Add(type, dates);
         }
+    }
 
-        public DateTime DateOfRenovation
-        {
-            get;
-            set;
-        }
+    public class Dates
+    {
+        public DateTime DueDate { get; set; }
+
+        public DateTime DateOfRenovation { get; set; }
     }
 }
