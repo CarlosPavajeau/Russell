@@ -1,56 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entity
 {
     public class Vehicle
     {
-        private string licensePlate;
-        private string internalNumber;
-        private string propertyCardNumber;
+        private int chairs;
 
-        LegalInformation license;
-        LegalInformation soat;
-        LegalInformation operationCard;
-        LegalInformation technoMechanicalReview;
-        LegalInformation biMonthlyReview;
-
-        int chairs;
-
-        public string LicensePlate
+        public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Person owner,
+                       Person driver, int chairs, Dictionary<string, string> vehicleFeatures)
         {
-            get
-            {
-                return licensePlate;
-            }
-            set
-            {
-                licensePlate = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The license palte is invalid");
-            }
+            LicensePlate = licensePlate;
+            InternalNumber = internalNumber;
+            PropertyCardNumber = propertyCardNumber;
+            Chairs = chairs;
+
+            Features = new VehicleFeatures();
+            Imprint = new Imprint();
+            LegalInformation = new LegalInformation();
+
+            SetFeatures(vehicleFeatures);
+            
+            Owner = owner;
+            Driver = driver;
         }
 
-        public string InternalNumber
+        private void SetFeatures(Dictionary<string, string> vehicleFeatures)
         {
-            get
-            {
-                return internalNumber;
-            }
-            set
-            {
-                internalNumber = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The internal number is invalid");
-            }
+            Features.Color = vehicleFeatures["Color"];
+            Features.Mark = vehicleFeatures["Mark"];
+            Features.Model = vehicleFeatures["Model"];
+            Features.ModelNumber = vehicleFeatures["ModelNumber"];
+            Features.Type = vehicleFeatures["Type"];
+
+            Imprint.ChassisNumber = vehicleFeatures["ChassisNumber"];
+            Imprint.EngineNumber = vehicleFeatures["EngineNumber"];
         }
 
-        public string PropertyCardNumber
-        {
-            get
-            {
-                return propertyCardNumber;
-            }
-            set
-            {
-                propertyCardNumber = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The property card number is invalid");
-            }
-        }
+
+        public LegalInformation LegalInformation { get; }
+
+        public string LicensePlate { get; set; }
+
+        public string InternalNumber { get; set; }
+
+        public string PropertyCardNumber { get; set; }
 
         public int Chairs
         {
@@ -60,39 +54,14 @@ namespace Entity
             }
             set
             {
-                chairs = (value > 0) ? value : throw new ArgumentException("The chairs value is invalid"); 
+                chairs = (value > 0) ? value : throw new ArgumentException("The chairs value is invalid");
             }
         }
 
-        public bool Stade
-        {
-            get;
-            set;
-        }
-
-        public Person Owner
-        {
-            get;
-            set;
-        }
-
-        public Person Driver
-        {
-            get;
-            set;
-        }
-
-        public Imprint Imprint
-        {
-            get;
-            set;
-        }
-
-        public VehicleFeatures Features
-        {
-            get;
-            set;
-        }
-
+        public bool Stade { get; set; }
+        public Person Owner { get; set; }
+        public Person Driver { get; set; }
+        public Imprint Imprint { get; set; }
+        public VehicleFeatures Features { get; set; }
     }
 }
