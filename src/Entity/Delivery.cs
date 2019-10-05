@@ -4,7 +4,6 @@ namespace Entity
 {
     public abstract class Delivery
     {
-        string number;
         Person sender, receiver, dispatcher;
 
         public Delivery(string number, Person sender, Person receiver, Person dispatcher)
@@ -15,17 +14,7 @@ namespace Entity
             Dispatcher = dispatcher;
         }
 
-        public string Number
-        {
-            get
-            {
-                return number;
-            }
-            set
-            {
-                number = (value != string.Empty) ? value : throw new ArgumentException("The number value is invalid.");
-            }
-        }
+        public string Number { get; }
 
         public Person Sender
         {
