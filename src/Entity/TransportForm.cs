@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Entity
 {
     public class TransportForm
     {
-        private string number;
         private string originCity;
         private string destinationCity;
 
@@ -15,17 +13,7 @@ namespace Entity
             Tickets = new List<Ticket>();
         }
 
-        public string Number
-        {
-            get
-            {
-                return number;
-            }
-            set
-            {
-                number = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The number is invalid");
-            }
-        }
+        public string Number { get; }
 
         public string OriginCity
         {
@@ -57,7 +45,7 @@ namespace Entity
         public DateTime Date { get; set; }
 
         public DateTime DepartureTime { get; set; }
-        public List<Ticket> Tickets { get; set; }
+        public List<Ticket> Tickets { get; }
 
         public FinalcialInformation FinalcialInformation { get; set; }
 
