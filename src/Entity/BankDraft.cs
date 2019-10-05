@@ -6,9 +6,8 @@ namespace Entity
     {
         decimal valueToSend;
         decimal cost;
-        string destination;
 
-        public BankDraft(string number, Person sender, Person receiver, Person dispatcher, 
+        public BankDraft(string number, Person sender, Person receiver, Person dispatcher,
                          decimal valueToSend, decimal cost, string destination) : base(number, sender, receiver, dispatcher)
         {
             Date = DateTime.Now;
@@ -43,16 +42,6 @@ namespace Entity
             }
         }
 
-        public string Destination
-        {
-            get
-            {
-                return destination;
-            }
-            set
-            {
-                destination = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("The destination is invalid");
-            }
-        }
+        public string Destination { get; set; }
     }
 }
