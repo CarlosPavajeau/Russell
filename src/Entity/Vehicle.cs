@@ -20,7 +20,7 @@ namespace Entity
             LegalInformation = new LegalInformation();
 
             SetFeatures(vehicleFeatures);
-            
+
             Owner = owner;
             Driver = driver;
         }
@@ -63,5 +63,39 @@ namespace Entity
         public Person Driver { get; set; }
         public Imprint Imprint { get; set; }
         public VehicleFeatures Features { get; set; }
+
+        public void AddLegalInformation(string type, DateTime dueDate, DateTime dateOfRenovation)
+        {
+            LegalInformation[type] = new Dates(dueDate, dateOfRenovation);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null)
+                return false;
+            if (obj is Vehicle vehicle)
+                return LicensePlate == vehicle.LicensePlate;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1830876417;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LicensePlate);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InternalNumber);
+            return hashCode;
+        }
+
+        public static bool operator ==(Vehicle left, Vehicle right)
+        {
+            if (left is null || right is null)
+                return false;
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Vehicle left, Vehicle right)
+        {
+            return !(left == right);
+        }
     }
 }
