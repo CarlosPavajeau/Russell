@@ -5,20 +5,32 @@ namespace Entity
 {
     public class LegalInformation
     {
-        public Dictionary<string, Dates> Information;
+        private readonly Dictionary<string, Dates> _information;
         public LegalInformation()
         {
-            Information = new Dictionary<string, Dates>();
+            _information = new Dictionary<string, Dates>();
         }
 
-        public void AddInformation(string type, Dates dates)
+        public Dates this[string type]
         {
-            Information.Add(type, dates);
+            get
+            {
+                return _information[type];
+            }
+            set
+            {
+                _information[type] = value;
+            }
         }
     }
 
     public class Dates
     {
+        public Dates(DateTime dueDate, DateTime dateOfRenovation)
+        {
+            DueDate = dueDate;
+            DateOfRenovation = dateOfRenovation;
+        }
         public DateTime DueDate { get; set; }
 
         public DateTime DateOfRenovation { get; set; }
