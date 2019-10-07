@@ -1,9 +1,4 @@
-﻿/*
- * 
- * 
- * 
- */
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Entity
 {
@@ -40,7 +35,7 @@ namespace Entity
         {
             get
             {
-                return $"{FirstName} {SecondName} {LastName} {SecondLastName}".ToLower();
+                return $"{FirstName} {SecondName} {LastName} {SecondLastName}";
             }
         }
 
