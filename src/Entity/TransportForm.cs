@@ -54,40 +54,21 @@ namespace Entity
         public Person Dispatcher { get; set; }
         public Vehicle Vehicle { get; set; }
 
-        private void AddTicket(Ticket ticket)
-        {
-            Tickets.Add(ticket);
-            ValueOfTickets += ticket.Price;
-            UpdateTotalValue();
-        }
-
         public void AddTicket(Person client, decimal price)
         {
             Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", client, Vehicle, DestinationCity, price);
             AddTicket(ticket);
         }
 
-        public void UpdateTotalValue()
+        private void AddTicket(Ticket ticket)
         {
-            TotalValue = CalculateFinalcialInformation() + ValueOfTickets;
+            Tickets.Add(ticket);
+            ValueOfTickets += ticket.Price;
         }
 
-        private decimal CalculateFinalcialInformation()
+        public void UpdateTotalValue()
         {
-            decimal accumulatedValue = 0;
-
-            accumulatedValue += FinalcialInformation.Administration;
-            accumulatedValue += FinalcialInformation.ConstactInsuranceService;
-            accumulatedValue += FinalcialInformation.ExtraordinaryProtection;
-            accumulatedValue += FinalcialInformation.NonContractualSecureService;
-            accumulatedValue += FinalcialInformation.Others;
-            accumulatedValue += FinalcialInformation.ReplacementFund;
-            accumulatedValue += FinalcialInformation.SocialContribution;
-            accumulatedValue += FinalcialInformation.SocialProtection;
-            accumulatedValue += FinalcialInformation.TireService;
-            accumulatedValue += FinalcialInformation.VehicleFixService;
-
-            return accumulatedValue;
+            TotalValue = FinalcialInformation.CalculateTotal() + ValueOfTickets;
         }
     }
 }
