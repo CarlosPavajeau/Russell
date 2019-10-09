@@ -5,7 +5,6 @@ namespace Entity
     {
         public FinalcialInformation()
         {
-
         }
 
         public decimal ReplacementFund { get; set; }
@@ -27,5 +26,23 @@ namespace Entity
         public decimal Administration { get; set; }
 
         public decimal Others { get; set; }
+
+        public decimal CalculateTotal()
+        {
+            decimal accumulatedValue = 0;
+
+            accumulatedValue += Administration;
+            accumulatedValue += ConstactInsuranceService;
+            accumulatedValue += ExtraordinaryProtection;
+            accumulatedValue += NonContractualSecureService;
+            accumulatedValue += Others;
+            accumulatedValue += ReplacementFund;
+            accumulatedValue += SocialContribution;
+            accumulatedValue += SocialProtection;
+            accumulatedValue += TireService;
+            accumulatedValue += VehicleFixService;
+
+            return accumulatedValue;
+        }
     }
 }
