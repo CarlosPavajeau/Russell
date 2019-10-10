@@ -28,7 +28,7 @@ namespace Entity
             }
             set
             {
-                price = (value > 0) ? value : throw new ArgumentException("The price is invalid");
+                price = (value >= 0) ? value : throw new ArgumentException("The price is invalid");
             }
         }
 
