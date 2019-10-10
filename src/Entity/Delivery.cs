@@ -2,54 +2,56 @@
 
 namespace Entity
 {
+    public enum Stade
+    {
+        ACTIVE,
+        DELIVERED
+    }
     public abstract class Delivery
     {
-        Person sender, receiver, dispatcher;
+        private static int deliveryCount = 0;
 
-        public Delivery(string number, Person sender, Person receiver, Person dispatcher)
+        public Delivery(string number, DateTime date, Person sender, Person receiver, Person dispatcher, Stade stade)
         {
             Number = number;
+            Date = date;
             Sender = sender;
             Receiver = receiver;
             Dispatcher = dispatcher;
+            Stade = stade;
+
+        }
+
+        public Delivery(Person sender, Person receiver, Person dispatcher, Stade stade = Stade.ACTIVE)
+        {
+            Number = (++deliveryCount).ToString("00000");
+            Date = DateTime.Now;
+            Sender = sender;
+            Receiver = receiver;
+            Dispatcher = dispatcher;
+            Stade = stade;
         }
 
         public string Number { get; }
 
-        public Person Sender
+        public DateTime Date { get; }
+
+        public Person Sender { get; set; }
+
+        public Person Receiver { get; set; }
+
+        public Person Dispatcher { get; set; }
+
+        public Stade Stade { get; set; }
+
+        public bool IsActived()
         {
-            get
-            {
-                return sender;
-            }
-            set
-            {
-                sender = value ?? throw new ArgumentException("The number value is invalid.");
-            }
+            return Stade == Stade.ACTIVE;
         }
 
-        public Person Receiver
+        public bool IsDelivered()
         {
-            get
-            {
-                return receiver;
-            }
-            set
-            {
-                receiver = value ?? throw new ArgumentException("The number value is invalid.");
-            }
-        }
-
-        public Person Dispatcher
-        {
-            get
-            {
-                return dispatcher;
-            }
-            set
-            {
-                dispatcher = value ?? throw new ArgumentException("The number value is invalid.");
-            }
+            return Stade == Stade.DELIVERED;
         }
     }
 }
