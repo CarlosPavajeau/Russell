@@ -7,15 +7,16 @@ namespace Entity
     {
         private static int transportFormsCount = 0;
 
-        public TransportForm(string number, string originCity, string destinationCity, Vehicle vehicle, Person dispatcher)
+        public TransportForm(string number, string originCity, string destinationCity, Vehicle vehicle, 
+                             Person dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
         {
             Number = number;
             OriginCity = originCity;
             DestinationCity = destinationCity;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
-            Tickets = new List<Ticket>();
-            FinalcialInformation = new FinalcialInformation();
+            Tickets = tickets;
+            FinalcialInformation = finalcialInformation;
         }
 
         public TransportForm(string originCity, string destinationCity, Vehicle vehicle, Person dispatcher)
@@ -49,7 +50,7 @@ namespace Entity
         public DateTime DepartureTime { get; set; }
         public List<Ticket> Tickets { get; }
 
-        public FinalcialInformation FinalcialInformation { get; set; }
+        public FinalcialInformation FinalcialInformation { get; }
 
         public Person Dispatcher { get; set; }
         public Vehicle Vehicle { get; set; }
@@ -68,7 +69,7 @@ namespace Entity
 
         public void UpdateTotalValue()
         {
-            TotalValue = FinalcialInformation.CalculateTotal() + ValueOfTickets;
+            TotalValue = ValueOfTickets + FinalcialInformation.CalculateTotal();
         }
     }
 }
