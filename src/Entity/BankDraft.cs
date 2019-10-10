@@ -7,16 +7,22 @@ namespace Entity
         decimal valueToSend;
         decimal cost;
 
-        public BankDraft(string number, Person sender, Person receiver, Person dispatcher,
-                         decimal valueToSend, decimal cost, string destination) : base(number, sender, receiver, dispatcher)
+        public BankDraft(string number, DateTime date, Person sender, Person receiver, Person dispatcher,
+                         decimal valueToSend, decimal cost, string destination, State state = State.ACTIVE) : base(number, date, sender, 
+                                                                                                                   receiver, dispatcher, state)
         {
-            Date = DateTime.Now;
             ValueToSend = valueToSend;
             Cost = cost;
             Destination = destination;
         }
 
-        public DateTime Date { get; }
+        public BankDraft(Person sender, Person receiver, Person dispatcher,
+                         decimal valueToSend, decimal cost, string destination) : base(sender, receiver, dispatcher)
+        {
+            ValueToSend = valueToSend;
+            Cost = cost;
+            Destination = destination;
+        }
 
         public decimal ValueToSend
         {

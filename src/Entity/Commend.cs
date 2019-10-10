@@ -7,10 +7,20 @@ namespace Entity
         private decimal freightValue;
         private decimal agreement;
 
-        public Commend(string number, Person sender, Person receiver, Person dispatcher, 
-                       string description, decimal freightValue, decimal agreement, Vehicle vehicle) : base(number, sender, receiver, dispatcher)
+        public Commend(string number, DateTime date,Person sender, Person receiver, Person dispatcher, string description,
+                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : base(number, date, sender, 
+                                                                                                                    receiver, dispatcher, state)
         {
             Description = description;
+            FreightValue = freightValue;
+            Agreement = agreement;
+            Vehicle = vehicle;
+        }
+
+        public Commend(Person sender, Person receiver, Person dispatcher, string desciption, 
+                       decimal freightValue, decimal agreement, Vehicle vehicle) : base(sender, receiver, dispatcher)
+        {
+            Description = desciption;
             FreightValue = freightValue;
             Agreement = agreement;
             Vehicle = vehicle;
