@@ -44,7 +44,7 @@ namespace Entity
             }
             set
             {
-                cost = (value > 0) ? value : throw new ArgumentException("The cost is invalid");
+                cost = (value >= 0) ? value : throw new ArgumentException("The cost is invalid");
             }
         }
 
