@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-    public enum Stade
+    public enum State
     {
         ACTIVE,
         DELIVERED
@@ -11,25 +11,25 @@ namespace Entity
     {
         private static int deliveryCount = 0;
 
-        public Delivery(string number, DateTime date, Person sender, Person receiver, Person dispatcher, Stade stade)
+        public Delivery(string number, DateTime date, Person sender, Person receiver, Person dispatcher, State state)
         {
             Number = number;
             Date = date;
             Sender = sender;
             Receiver = receiver;
             Dispatcher = dispatcher;
-            Stade = stade;
+            State = state;
 
         }
 
-        public Delivery(Person sender, Person receiver, Person dispatcher, Stade stade = Stade.ACTIVE)
+        public Delivery(Person sender, Person receiver, Person dispatcher, State state = State.ACTIVE)
         {
             Number = (++deliveryCount).ToString("00000");
             Date = DateTime.Now;
             Sender = sender;
             Receiver = receiver;
             Dispatcher = dispatcher;
-            Stade = stade;
+            State = state;
         }
 
         public string Number { get; }
@@ -42,16 +42,16 @@ namespace Entity
 
         public Person Dispatcher { get; set; }
 
-        public Stade Stade { get; set; }
+        public State State { get; set; }
 
         public bool IsActived()
         {
-            return Stade == Stade.ACTIVE;
+            return State == State.ACTIVE;
         }
 
         public bool IsDelivered()
         {
-            return Stade == Stade.DELIVERED;
+            return State == State.DELIVERED;
         }
     }
 }
