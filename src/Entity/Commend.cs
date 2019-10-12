@@ -7,8 +7,8 @@ namespace Entity
         private decimal freightValue;
         private decimal agreement;
 
-        public Commend(string number, DateTime date,Person sender, Person receiver, Person dispatcher, string description,
-                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : base(number, date, sender, 
+        public Commend(string number, DateTime date, Person sender, Person receiver, Person dispatcher, string description,
+                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : base(number, date, sender,
                                                                                                                     receiver, dispatcher, state)
         {
             Description = description;
@@ -17,7 +17,7 @@ namespace Entity
             Vehicle = vehicle;
         }
 
-        public Commend(Person sender, Person receiver, Person dispatcher, string desciption, 
+        public Commend(Person sender, Person receiver, Person dispatcher, string desciption,
                        decimal freightValue, decimal agreement, Vehicle vehicle) : base(sender, receiver, dispatcher)
         {
             Description = desciption;
@@ -30,26 +30,14 @@ namespace Entity
 
         public decimal FreightValue
         {
-            get
-            {
-                return freightValue;
-            }
-            set
-            {
-                freightValue = (value > 0) ? value : throw new ArgumentException("The freight value is invalid.");
-            }
+            get => freightValue;
+            set => freightValue = (value > 0) ? value : throw new ArgumentException("The freight value is invalid.");
         }
 
         public decimal Agreement
         {
-            get
-            {
-                return agreement;
-            }
-            set
-            {
-                agreement = (value > 0) ? value : throw new ArgumentException("The agreement is invalid.");
-            }
+            get => agreement;
+            set => agreement = (value > 0) ? value : throw new ArgumentException("The agreement is invalid.");
         }
 
         public Vehicle Vehicle

@@ -4,11 +4,11 @@ namespace Entity
 {
     public class BankDraft : Delivery
     {
-        decimal valueToSend;
-        decimal cost;
+        private decimal valueToSend;
+        private decimal cost;
 
         public BankDraft(string number, DateTime date, Person sender, Person receiver, Person dispatcher,
-                         decimal valueToSend, decimal cost, string destination, State state = State.ACTIVE) : base(number, date, sender, 
+                         decimal valueToSend, decimal cost, string destination, State state = State.ACTIVE) : base(number, date, sender,
                                                                                                                    receiver, dispatcher, state)
         {
             ValueToSend = valueToSend;
@@ -26,26 +26,14 @@ namespace Entity
 
         public decimal ValueToSend
         {
-            get
-            {
-                return valueToSend;
-            }
-            set
-            {
-                valueToSend = (value > 0) ? value : throw new ArgumentException("The value to send is invalid");
-            }
+            get => valueToSend;
+            set => valueToSend = (value > 0) ? value : throw new ArgumentException("The value to send is invalid");
         }
 
         public decimal Cost
         {
-            get
-            {
-                return cost;
-            }
-            set
-            {
-                cost = (value >= 0) ? value : throw new ArgumentException("The cost is invalid");
-            }
+            get => cost;
+            set => cost = (value >= 0) ? value : throw new ArgumentException("The cost is invalid");
         }
 
         public string Destination { get; set; }

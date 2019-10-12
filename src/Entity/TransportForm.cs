@@ -7,7 +7,7 @@ namespace Entity
     {
         private static int transportFormsCount = 0;
 
-        public TransportForm(string number, string originCity, string destinationCity, Vehicle vehicle, 
+        public TransportForm(string number, string originCity, string destinationCity, Vehicle vehicle,
                              Person dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
         {
             Number = number;

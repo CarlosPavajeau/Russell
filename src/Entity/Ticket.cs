@@ -22,14 +22,8 @@ namespace Entity
 
         public decimal Price
         {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                price = (value >= 0) ? value : throw new ArgumentException("The price is invalid");
-            }
+            get => price;
+            set => price = (value >= 0) ? value : throw new ArgumentException("The price is invalid");
         }
 
         public Person Client { get; set; }

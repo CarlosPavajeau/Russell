@@ -13,14 +13,8 @@ namespace Entity
 
         public Dates this[string type]
         {
-            get
-            {
-                return _information[type];
-            }
-            set
-            {
-                _information[type] = value;
-            }
+            get => _information[type];
+            set => _information[type] = value;
         }
     }
 

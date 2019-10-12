@@ -48,14 +48,8 @@ namespace Entity
 
         public int Chairs
         {
-            get
-            {
-                return chairs;
-            }
-            set
-            {
-                chairs = (value > 0) ? value : throw new ArgumentException("The chairs value is invalid");
-            }
+            get => chairs;
+            set => chairs = (value > 0) ? value : throw new ArgumentException("The chairs value is invalid");
         }
 
         public bool Stade { get; set; }
@@ -73,14 +67,16 @@ namespace Entity
         {
             if (obj is null)
                 return false;
+
             if (obj is Vehicle vehicle)
                 return LicensePlate == vehicle.LicensePlate;
+
             return false;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1830876417;
+            int hashCode = 1830876417;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LicensePlate);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InternalNumber);
             return hashCode;
@@ -90,6 +86,7 @@ namespace Entity
         {
             if (left is null || right is null)
                 return false;
+
             return left.Equals(right);
         }
 

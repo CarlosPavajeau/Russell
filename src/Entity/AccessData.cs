@@ -18,14 +18,16 @@ namespace Entity
         {
             if (obj is null)
                 return false;
+
             if (obj is AccessData accessData)
                 return User == accessData.User && Password == accessData.Password;
+
             return false;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = -1879510246;
+            int hashCode = -1879510246;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(User);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
             return hashCode;
@@ -35,6 +37,7 @@ namespace Entity
         {
             if (left is null || right is null)
                 return false;
+
             return left.Equals(right);
         }
 

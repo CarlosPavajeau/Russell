@@ -31,13 +31,7 @@ namespace Entity
         public string LastName { get; set; }
 
         public string SecondLastName { get; set; }
-        public string Name
-        {
-            get
-            {
-                return $"{FirstName} {SecondName} {LastName} {SecondLastName}";
-            }
-        }
+        public string Name => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
 
         public string Address { get; set; }
 
@@ -49,8 +43,10 @@ namespace Entity
         {
             if (obj is null)
                 return false;
+
             if (obj is Person person)
                 return person.ID == ID;
+
             return false;
         }
 
