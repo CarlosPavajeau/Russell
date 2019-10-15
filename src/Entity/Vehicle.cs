@@ -5,15 +5,12 @@ namespace Entity
 {
     public class Vehicle
     {
-        private int chairs;
-
         public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Person owner,
-                       Person driver, int chairs, Dictionary<string, string> vehicleFeatures)
+                       Person driver, Dictionary<string, string> vehicleFeatures)
         {
             LicensePlate = licensePlate;
             InternalNumber = internalNumber;
             PropertyCardNumber = propertyCardNumber;
-            Chairs = chairs;
 
             Features = new VehicleFeatures();
             Imprint = new Imprint();
@@ -32,6 +29,7 @@ namespace Entity
             Features.Model = vehicleFeatures["Model"];
             Features.ModelNumber = vehicleFeatures["ModelNumber"];
             Features.Type = vehicleFeatures["Type"];
+            Features.Chairs = byte.Parse(vehicleFeatures["Chairs"]);
 
             Imprint.ChassisNumber = vehicleFeatures["ChassisNumber"];
             Imprint.EngineNumber = vehicleFeatures["EngineNumber"];
@@ -46,19 +44,13 @@ namespace Entity
 
         public string PropertyCardNumber { get; set; }
 
-        public int Chairs
-        {
-            get => chairs;
-            set => chairs = (value > 0) ? value : throw new ArgumentException("The chairs value is invalid");
-        }
-
         public bool Stade { get; set; }
         public Person Owner { get; set; }
         public Person Driver { get; set; }
         public Imprint Imprint { get; set; }
         public VehicleFeatures Features { get; set; }
 
-        public void AddLegalInformation(string type, DateTime dueDate, DateTime dateOfRenovation)
+        public void AddLegalInformation(LegalInformationType type, DateTime dueDate, DateTime dateOfRenovation)
         {
             LegalInformation[type] = new Dates(dueDate, dateOfRenovation);
         }
