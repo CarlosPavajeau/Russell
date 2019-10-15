@@ -3,15 +3,23 @@ using System.Collections.Generic;
 
 namespace Entity
 {
+    public enum LegalInformationType
+    {
+        LICENSE,
+        SOAT,
+        OPERATIONCARD,
+        TECHNOMECHANICALREVIEW,
+        BIMONTHLYREVIEW
+    }
     public class LegalInformation
     {
-        private readonly Dictionary<string, Dates> _information;
+        private readonly Dictionary<LegalInformationType, Dates> _information;
         public LegalInformation()
         {
-            _information = new Dictionary<string, Dates>();
+            _information = new Dictionary<LegalInformationType, Dates>();
         }
 
-        public Dates this[string type]
+        public Dates this[LegalInformationType type]
         {
             get => _information[type];
             set => _information[type] = value;
