@@ -5,7 +5,8 @@ namespace Entity
     public enum State
     {
         ACTIVE,
-        DELIVERED
+        DELIVERED,
+        CANCEL
     }
     public abstract class Delivery
     {
