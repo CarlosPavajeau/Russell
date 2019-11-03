@@ -4,37 +4,41 @@ namespace Entity
 {
     public class Ticket
     {
-        private decimal price;
+        private int amount;
 
-        public Ticket(string number, Person client, Vehicle vehicle, string destination, decimal price)
+        public Ticket(string number, Person client, Vehicle vehicle, Route route, int amount)
         {
             Number = number;
-            Destination = destination;
-            Price = price;
+            Route = route;
+            Amount = amount;
             Client = client;
             Vehicle = vehicle;
             Date = DateTime.Now;
+            Total = Route.Cost * Amount;
         }
 
-        public Ticket(string number, Person client, Vehicle vehicle, string destination, decimal price, DateTime date)
+        public Ticket(string number, Person client, Vehicle vehicle, Route route, int amount, DateTime date)
         {
             Number = number;
-            Destination = destination;
-            Price = price;
+            Route = route;
+            Amount = amount;
             Client = client;
             Vehicle = vehicle;
             Date = date;
+            Total = Route.Cost * Amount;
         }
 
         public string Number { get; }
 
-        public string Destination { get; set; }
+        public Route Route { get; set; }
 
-        public decimal Price
+        public int Amount
         {
-            get => price;
-            set => price = (value >= 0) ? value : throw new ArgumentException("The price is invalid");
+            get => amount;
+            set => amount = (value >= 0) ? value : throw new ArgumentException("The price is invalid");
         }
+
+        public decimal Total { get; }
 
         public Person Client { get; set; }
 

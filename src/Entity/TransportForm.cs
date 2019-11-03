@@ -7,23 +7,21 @@ namespace Entity
     {
         private static int transportFormsCount = 0;
 
-        public TransportForm(string number, string originCity, string destinationCity, Vehicle vehicle,
+        public TransportForm(string number, Route route, Vehicle vehicle,
                              Person dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
         {
             Number = number;
-            OriginCity = originCity;
-            DestinationCity = destinationCity;
+            Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
             Tickets = tickets;
             FinalcialInformation = finalcialInformation;
         }
 
-        public TransportForm(string originCity, string destinationCity, Vehicle vehicle, Person dispatcher)
+        public TransportForm(Route route, Vehicle vehicle, Person dispatcher)
         {
             Number = (++transportFormsCount).ToString("00000");
-            OriginCity = originCity;
-            DestinationCity = destinationCity;
+            Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
             Date = DateTime.Now;
@@ -40,8 +38,7 @@ namespace Entity
 
         public string Number { get; }
 
-        public string OriginCity { get; set; }
-        public string DestinationCity { get; set; }
+        public Route Route { get; set; }
         public decimal ValueOfTickets { get; private set; }
 
         public decimal TotalValue { get; private set; }
@@ -55,16 +52,16 @@ namespace Entity
         public Person Dispatcher { get; set; }
         public Vehicle Vehicle { get; set; }
 
-        public void AddTicket(Person client, decimal price)
+        public void AddTicket(Person client, int amount)
         {
-            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", client, Vehicle, DestinationCity, price);
+            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", client, Vehicle, Route, amount);
             AddTicket(ticket);
         }
 
         private void AddTicket(Ticket ticket)
         {
             Tickets.Add(ticket);
-            ValueOfTickets += ticket.Price;
+            ValueOfTickets += ticket.Total;
         }
 
         public void UpdateTotalValue()
