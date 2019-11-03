@@ -16,6 +16,16 @@ namespace Entity
             Date = DateTime.Now;
         }
 
+        public Ticket(string number, Person client, Vehicle vehicle, string destination, decimal price, DateTime date)
+        {
+            Number = number;
+            Destination = destination;
+            Price = price;
+            Client = client;
+            Vehicle = vehicle;
+            Date = date;
+        }
+
         public string Number { get; }
 
         public string Destination { get; set; }
