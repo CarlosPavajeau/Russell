@@ -7,21 +7,20 @@ namespace Entity
         private decimal valueToSend;
         private decimal cost;
 
-        public BankDraft(string number, DateTime date, Person sender, Person receiver, Person dispatcher,
-                         decimal valueToSend, decimal cost, string destination, State state = State.ACTIVE) : base(number, date, sender,
-                                                                                                                   receiver, dispatcher, state)
+        public BankDraft(string number, DateTime date, Person sender, Person receiver, Person dispatcher, string destination,
+                         decimal valueToSend, decimal cost, State state = State.ACTIVE) : base(number, date, sender,
+                                                                                               receiver, dispatcher, destination, state)
         {
             ValueToSend = valueToSend;
             Cost = cost;
             Destination = destination;
         }
 
-        public BankDraft(Person sender, Person receiver, Person dispatcher,
-                         decimal valueToSend, decimal cost, string destination) : base(sender, receiver, dispatcher)
+        public BankDraft(Person sender, Person receiver, Person dispatcher, string destination,
+                         decimal valueToSend, decimal cost) : base(sender, receiver, dispatcher, destination)
         {
             ValueToSend = valueToSend;
             Cost = cost;
-            Destination = destination;
         }
 
         public decimal ValueToSend
@@ -35,7 +34,5 @@ namespace Entity
             get => cost;
             set => cost = (value >= 0) ? value : throw new ArgumentException("The cost is invalid");
         }
-
-        public string Destination { get; set; }
     }
 }
