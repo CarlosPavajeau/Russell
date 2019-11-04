@@ -8,7 +8,7 @@ namespace Entity
         private static int transportFormsCount = 0;
 
         public TransportForm(string number, Route route, Vehicle vehicle,
-                             Person dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
+                             AdministrativeEmployee dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
         {
             Number = number;
             Route = route;
@@ -18,7 +18,7 @@ namespace Entity
             FinalcialInformation = finalcialInformation;
         }
 
-        public TransportForm(Route route, Vehicle vehicle, Person dispatcher)
+        public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher)
         {
             Number = (++transportFormsCount).ToString("00000");
             Route = route;
@@ -49,12 +49,12 @@ namespace Entity
 
         public FinalcialInformation FinalcialInformation { get; }
 
-        public Person Dispatcher { get; set; }
+        public AdministrativeEmployee Dispatcher { get; set; }
         public Vehicle Vehicle { get; set; }
 
-        public void AddTicket(Person client, int amount)
+        public void AddTicket(Passenger passenger, int seats)
         {
-            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", client, Vehicle, Route, amount);
+            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", passenger, Vehicle, Route, seats);
             AddTicket(ticket);
         }
 

@@ -5,8 +5,8 @@ namespace Entity
 {
     public class Vehicle
     {
-        public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Person owner,
-                       Person driver, Dictionary<string, string> vehicleFeatures)
+        public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Employee owner,
+                       Employee driver, Dictionary<string, string> vehicleFeatures)
         {
             LicensePlate = licensePlate;
             InternalNumber = internalNumber;
@@ -45,8 +45,8 @@ namespace Entity
         public string PropertyCardNumber { get; set; }
 
         public bool Stade { get; set; }
-        public Person Owner { get; set; }
-        public Person Driver { get; set; }
+        public Employee Owner { get; set; }
+        public Employee Driver { get; set; }
         public Imprint Imprint { get; set; }
         public VehicleFeatures Features { get; set; }
 
