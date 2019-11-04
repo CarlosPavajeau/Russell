@@ -7,12 +7,9 @@ namespace Entity
         ADMIN,
         DISPATCHER
     }
-    public class User : Person
+    public class User
     {
-        public User(AccessData accessData, TypeUser typeUser, string id, string firstName,
-            string secondName, string lastName, string secondLastName, string address = "",
-            string cellphone = "", string email = "") : base(id, firstName, secondName, lastName,
-                                                            secondLastName, address, cellphone, email)
+        public User(AccessData accessData, TypeUser typeUser)
         {
             AccessData = accessData;
             TypeUser = typeUser;
