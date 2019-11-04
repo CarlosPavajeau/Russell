@@ -9,8 +9,7 @@ namespace Entity
             ID = id;
         }
 
-        public Person(string id, string firstName, string secondName, string lastName,
-                      string secondLastName)
+        public Person(string id, string firstName, string secondName, string lastName, string secondLastName)
         {
             ID = id;
             FirstName = firstName;
