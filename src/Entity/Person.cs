@@ -10,16 +10,13 @@ namespace Entity
         }
 
         public Person(string id, string firstName, string secondName, string lastName,
-                      string secondLastName, string address = "", string cellphone = "", string email = "")
+                      string secondLastName)
         {
             ID = id;
             FirstName = firstName;
             SecondName = secondName;
             LastName = lastName;
             SecondLastName = secondLastName;
-            Address = address;
-            Cellphone = cellphone;
-            Email = email;
         }
 
         public string ID { get; }
@@ -32,12 +29,6 @@ namespace Entity
 
         public string SecondLastName { get; set; }
         public string Name => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
-
-        public string Address { get; set; }
-
-        public string Cellphone { get; set; }
-
-        public string Email { get; set; }
 
         public override bool Equals(object obj)
         {
