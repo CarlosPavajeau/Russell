@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="View.Login"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="400">
+    <Grid Background="White">
+        <StackPanel Margin="10">
+            <TextBlock Text="Inicio de sesión" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel HorizontalAlignment="Center" Margin="0,60,0,0">
+                <TextBlock Text="Usuario" Style="{StaticResource TextField}"></TextBlock>
+                <TextBox Width="200" Height="30" Style="{StaticResource TextBoxStyle}"></TextBox>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+                <TextBlock Text="Contraseña" Style="{StaticResource TextField}"></TextBlock>
+                <TextBox Width="200" Height="30" Style="{StaticResource TextBoxStyle}"></TextBox>
+            </StackPanel>
+            <TextBlock Text="¿Ha olvidado su contraseña?" HorizontalAlignment="Center" Margin="0,15,0,0" Foreground="Gray"></TextBlock>
+            <Button Content="Ingresar" HorizontalAlignment="Center" Margin="0,30,0,0" Style="{StaticResource PrimaryButton}"></Button>
+            <Button x:Name="ExitButton" Content="Salir" HorizontalAlignment="Left" Margin="20,130,0,0" Width="50" Style="{StaticResource PrimaryButton}" Click="ExitButton_Click"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
