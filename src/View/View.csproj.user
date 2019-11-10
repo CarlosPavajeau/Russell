@@ -7,7 +7,36 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="RegisterVehicle.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VehicleMainPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VehiclePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterVehicle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TextStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VehicleMainPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VehiclePanel.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
