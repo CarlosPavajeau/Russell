@@ -6,4 +6,56 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\Pictures\Calendar32x32.png" />
+    <None Remove="Assets\Pictures\car1_83961.png" />
+    <None Remove="Assets\Pictures\Car32x32.png" />
+    <None Remove="Assets\Pictures\Car48x48.png" />
+    <None Remove="Assets\Pictures\Cash48x48.png" />
+    <None Remove="Assets\Pictures\Clock32x32.png" />
+    <None Remove="Assets\Pictures\Clock48x48.png" />
+    <None Remove="Assets\Pictures\Close32x32.png" />
+    <None Remove="Assets\Pictures\Delete32x32.png" />
+    <None Remove="Assets\Pictures\Delivery32x32.png" />
+    <None Remove="Assets\Pictures\Delivery48x48.png" />
+    <None Remove="Assets\Pictures\Delivery_with_clock32x32.png" />
+    <None Remove="Assets\Pictures\File32x32.png" />
+    <None Remove="Assets\Pictures\Form32x32.png" />
+    <None Remove="Assets\Pictures\Form48x48.png" />
+    <None Remove="Assets\Pictures\Home32x32.png" />
+    <None Remove="Assets\Pictures\Money32x32.png" />
+    <None Remove="Assets\Pictures\Search32x32.png" />
+    <None Remove="Assets\Pictures\Settings32x32.png" />
+    <None Remove="Assets\Pictures\Settings48x48.png" />
+    <None Remove="Assets\Pictures\User32x32.png" />
+    <None Remove="Assets\Pictures\User48x48.png" />
+    <None Remove="Assets\Pictures\Vehicle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Pictures\Calendar32x32.png" />
+    <Resource Include="Assets\Pictures\car1_83961.png" />
+    <Resource Include="Assets\Pictures\Car32x32.png" />
+    <Resource Include="Assets\Pictures\Car48x48.png" />
+    <Resource Include="Assets\Pictures\Cash48x48.png" />
+    <Resource Include="Assets\Pictures\Clock32x32.png" />
+    <Resource Include="Assets\Pictures\Clock48x48.png" />
+    <Resource Include="Assets\Pictures\Close32x32.png" />
+    <Resource Include="Assets\Pictures\Delete32x32.png" />
+    <Resource Include="Assets\Pictures\Delivery32x32.png" />
+    <Resource Include="Assets\Pictures\Delivery48x48.png" />
+    <Resource Include="Assets\Pictures\Delivery_with_clock32x32.png" />
+    <Resource Include="Assets\Pictures\File32x32.png" />
+    <Resource Include="Assets\Pictures\Form32x32.png" />
+    <Resource Include="Assets\Pictures\Form48x48.png" />
+    <Resource Include="Assets\Pictures\Home32x32.png" />
+    <Resource Include="Assets\Pictures\Money32x32.png" />
+    <Resource Include="Assets\Pictures\Search32x32.png" />
+    <Resource Include="Assets\Pictures\Settings32x32.png" />
+    <Resource Include="Assets\Pictures\Settings48x48.png" />
+    <Resource Include="Assets\Pictures\User32x32.png" />
+    <Resource Include="Assets\Pictures\User48x48.png" />
+    <Resource Include="Assets\Pictures\Vehicle.png" />
+  </ItemGroup>
+
 </Project>
