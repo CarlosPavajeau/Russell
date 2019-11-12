@@ -4,15 +4,20 @@
     <Style x:Key="BaseTextBlock" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Arial"></Setter>
     </Style>
+
+    <Style x:Key="NormalText" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+        <Setter Property="FontSize" Value="12"></Setter>
+    </Style>
+    
     <Style x:Key="TitleText" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
         <Setter Property="FontSize" Value="25"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Property="Margin" Value="0,20"></Setter>
+        <Setter Property="Margin" Value="0,10"></Setter>
     </Style>
 
     <Style x:Key="TextField" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
-        <Setter Property="FontSize" Value="20"></Setter>
-        
+        <Setter Property="FontSize" Value="17"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
     </Style>
     
 </ResourceDictionary>
