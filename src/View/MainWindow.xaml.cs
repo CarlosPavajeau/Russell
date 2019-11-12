@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace View
 {
@@ -9,7 +8,11 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() => InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
+            ShowLoginPanel();
+        }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
@@ -18,13 +21,33 @@ namespace View
 
         private void ShowVehiclesOptions(object sender, RoutedEventArgs e)
         {
-            SetMainPanel(new VehiclePanel());
+            SetMainPanel(new VehicleUserControl());
         }
 
         public void SetMainPanel(UserControl userControl)
         {
-            MainGrid.Children.Clear();
-            MainGrid.Children.Add(userControl);
+            GridMain.Children.Clear();
+            GridMain.Children.Add(userControl);
+        }
+
+        private void LoginSucces()
+        {
+            WindowState = WindowState.Maximized;
+            SetMainPanel(new MainPanel(LogOutAction));
+        }
+
+        private void LogOutAction()
+        {
+            ShowLoginPanel();
+        }
+
+        private void ShowLoginPanel()
+        {
+            WindowState = WindowState.Normal;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Width = 400;
+            Height = 550;
+            SetMainPanel(new LoginUserControl(LoginSucces));
         }
     }
 }
