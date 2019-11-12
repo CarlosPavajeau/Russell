@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="View.VehicleMainPanel"
+﻿<UserControl x:Class="View.VehicleUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="730" d:DesignWidth="1080">
-    <Grid>
-        <StackPanel x:Name="MainPanel" Margin="15,15">
+    <Grid x:Name="VehicleMainGrid">
+        <StackPanel x:Name="MainPanel" Margin="15">
             <TextBlock Text="Gestión de vehículos" Style="{StaticResource TitleText}"></TextBlock>
-            <Button Content="Agregar un vehículo" Style="{StaticResource ControlButton}" Margin="0,30,0,0"></Button>
-            <Button Content="Buscar un vehículo" Style="{StaticResource ControlButton}"></Button>
+            <Button x:Name="RegisterVehicleButton" Content="Agregar un vehículo" Style="{StaticResource ControlButton}" Margin="0,30,0,0" Click="RegisterVehicleButton_Click"></Button>
+            <Button x:Name="SearchVehicleButton" Content="Buscar un vehículo" Style="{StaticResource ControlButton}" Click="SearchVehicleButton_Click"></Button>
             <Button Content="Eliminar un vehículo" Style="{StaticResource ControlButton}" Margin="0,0"></Button>
             <Button Content="Listar Vehículos" Style="{StaticResource ControlButton}"></Button>
         </StackPanel>

@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="View.RegisterVehicleUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel Margin="10">
+            <TextBlock Text="Registro de vehículo" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="30,20,0,0" Width="Auto">
+                <StackPanel Margin="0,0,40,0">
+                    <TextBlock Text="Placa: " Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="PlateField" Width="185"  Style="{StaticResource TextBoxStyle}" CharacterCasing="Upper"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="0,0,40,0">
+                    <TextBlock Text="Número interno: " Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="N° tarjeta de propiedad: " Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox Width="240"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Improntas" Style="{StaticResource TitleText}"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Número de chasis:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="ChassisNumberField" Width="195"  Style="{StaticResource TextBoxStyle}"></TextBox> 
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock Text="Número de motor:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="EngineNumberField" Width="195"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Características del vehículo" Style="{StaticResource TitleText}" Margin="0,20"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Color:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock Text="Marca:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="MarkField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock Text="Tipo: " Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="TypeField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="30,10,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Modelo:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="ModelField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock Text="Número de modelo:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="ModelNumberField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock Text="Números de sillas:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="ChaisField" Width="170" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Empleados" Style="{StaticResource TitleText}"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Propietario:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="OwnerField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="35,0">
+                        <TextBlock Text="Conductor:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="DriverField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Información legal" Style="{StaticResource TitleText}"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="S.O.A.T:" Style="{StaticResource TextField}"></TextBlock>
+                        <StackPanel>
+                            <TextBlock Text="Fecha de renovación:"></TextBlock>
+                            <DatePicker Width="120" Height="25"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="Fecha de vencimiento: "></TextBlock>
+                            <DatePicker Width="120" Height="25"></DatePicker>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                    <StackPanel Margin="25,0">
+                        <TextBlock Text="Licencia:" Style="{StaticResource TextField}"></TextBlock>
+                        <StackPanel>
+                            <TextBlock Text="Fecha de renovación:"></TextBlock>
+                            <DatePicker Width="120" Height="25"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="Fecha de vencimiento: "></TextBlock>
+                            <DatePicker Width="120" Height="25"></DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Tarjeta de operación: " Style="{StaticResource TextField}"></TextBlock>
+                        <StackPanel>
+                            <TextBlock Text="Fecha de renovación:"></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="Fecha de vencimiento: "></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="10,0">
+                        <TextBlock Text="Revisión BiMensual: " Style="{StaticResource TextField}"></TextBlock>
+                        <StackPanel>
+                            <TextBlock Text="Fecha de renovación:"></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="Fecha de vencimiento: "></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Revision Tecnomecánica: " Style="{StaticResource TextField}"></TextBlock>
+                        <StackPanel>
+                            <TextBlock Text="Fecha de renovación:"></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="Fecha de vencimiento: "></TextBlock>
+                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="SaveVehileButton" Content="Guardar" HorizontalAlignment="Right" Margin="30,0,100,0" Style="{StaticResource PrimaryButton}"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
