@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="View.SearchVehicleUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="Búsqueda de vehículo" Style="{StaticResource TitleText}" Margin="0,30"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="50,0,0,0">
+                    <TextBlock Text="Placa: " Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="PlateField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <Button x:Name="SearchButton" Style="{StaticResource PrimaryButton}" VerticalAlignment="Bottom" Margin="30,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                        <TextBlock Text="Buscar"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="0,25">
+                
+            </StackPanel>
+        </StackPanel>   
+    </Grid>
+</UserControl>
