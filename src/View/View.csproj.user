@@ -7,24 +7,81 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="RegisterVehicle.xaml.cs">
+    <Compile Update="BankDraftUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="VehicleMainPanel.xaml.cs">
+    <Compile Update="CommendUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="VehiclePanel.xaml.cs">
+    <Compile Update="LoginUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterAdministrativeEmployeeUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterEmployeeFields.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterEmployeeUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterPersonFields.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterPersonUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterVehicleUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SearchVehicleUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VehicleUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="BankDraftUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CommendUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LoginUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="RegisterVehicle.xaml">
+    <Page Update="RegisterAdministrativeEmployeeUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterEmployeeFields.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterEmployeeUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterPersonFields.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterPersonUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterVehicleUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SearchVehicleUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextBoxStyles.xaml">
@@ -33,10 +90,7 @@
     <Page Update="TextStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="VehicleMainPanel.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="VehiclePanel.xaml">
+    <Page Update="VehicleUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
