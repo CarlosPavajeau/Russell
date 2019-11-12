@@ -2,15 +2,15 @@
 {
     public sealed class Message
     {
-        public Message(byte[] data)
+        public Message(byte[] byteBuffer)
         {
-            Data = data;
+            ByteBuffer = byteBuffer;
         }
 
         public Message()
         {
-            Data = new byte[ConnectionSettings.ByteBufferSize];
+            ByteBuffer = new byte[ConnectionSettings.ByteBufferSize];
         }
-        public byte[] Data { get; set; }
+        public byte[] ByteBuffer { get; set; }
     }
 }

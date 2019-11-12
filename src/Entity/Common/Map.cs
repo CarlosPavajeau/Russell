@@ -17,7 +17,7 @@ namespace Entity.Common
 
         public static object Deserialize(Message message)
         {
-            using (MemoryStream memoryStream = new MemoryStream(message.Data))
+            using (MemoryStream memoryStream = new MemoryStream(message.ByteBuffer))
                 return new BinaryFormatter().Deserialize(memoryStream);
         }
     }
