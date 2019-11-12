@@ -15,11 +15,11 @@ namespace Entity.Common
 
         public static IPAddress IPAddress { get => _connectionSettings.IPAddress; }
 
-        public static int PORT { get => _connectionSettings.Port; }
+        public static int Port { get => _connectionSettings.Port; }
 
-        public static int MAX_CLIENTS { get => _connectionSettings.MaxClients; }
+        public static int MaxClients { get => _connectionSettings.MaxClients; }
 
-        public static IPEndPoint IPEndPoint => new IPEndPoint(IPAddress, PORT);
+        public static IPEndPoint IPEndPoint => new IPEndPoint(IPAddress, Port);
 
         public static int ByteBufferSize => 1024;
 

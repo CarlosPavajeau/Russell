@@ -12,7 +12,7 @@ namespace Entity.Common
             {
                 socket = CreateSocket();
                 socket.Bind(ConnectionSettings.IPEndPoint);
-                socket.Listen(ConnectionSettings.MAX_CLIENTS);
+                socket.Listen(ConnectionSettings.MaxClients);
             }
             catch (System.Exception)
             {
