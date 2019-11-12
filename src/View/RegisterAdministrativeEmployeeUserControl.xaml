@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="View.RegisterAdministrativeEmployeeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel>
+            <local:RegisterEmployeeFields x:Name="RegisterEmployeeFields"></local:RegisterEmployeeFields>
+            <StackPanel Margin="20">
+                <TextBlock Text="Datos de acceso" Style="{StaticResource TitleText}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock Text="Usuario:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="UserField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="25,0">
+                        <TextBlock Text="Contraseña" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="PasswordField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="RegisterEmployeeButton" Content="Registrar empleado" Width="125" Style="{StaticResource PrimaryButton}" Margin="0,30"></Button>
+        </StackPanel>  
+    </Grid>
+</UserControl>
