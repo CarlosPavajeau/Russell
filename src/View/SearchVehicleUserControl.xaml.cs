@@ -22,5 +22,16 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void SearchFields_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchFields.SearchTitleField.Text = "Placa: ";
+            SearchFields.SearchButton.Click += SearchButton_Click;
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

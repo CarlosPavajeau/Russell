@@ -9,21 +9,7 @@
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="Búsqueda de vehículo" Style="{StaticResource TitleText}" Margin="0,30"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="50,0,0,0">
-                    <TextBlock Text="Placa: " Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox x:Name="PlateField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
-                </StackPanel>
-                <Button x:Name="SearchButton" Style="{StaticResource PrimaryButton}" VerticalAlignment="Bottom" Margin="30,0">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/Pictures/Search32x32.png"></Image>
-                        <TextBlock Text="Buscar"></TextBlock>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-            <StackPanel Margin="0,25">
-                
-            </StackPanel>
+            <local:SearchFields x:Name="SearchFields" Loaded="SearchFields_Loaded"></local:SearchFields>
         </StackPanel>   
     </Grid>
 </UserControl>
