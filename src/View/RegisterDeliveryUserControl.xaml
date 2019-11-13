@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="View.RegisterDeliveryUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid>
+        <StackPanel Margin="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="DeliveryNumber" Text="Número: " Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="DeliveryDate" Text="Fecha: " Margin="150,0,70,0" Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="DeliveryDispatcher" Text="Despachador: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,30">
+                <StackPanel>
+                    <TextBlock Text="Remitente:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="SenderField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="40,0">
+                    <TextBlock Text="Destinario:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="ReceiverField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Destino:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="DestinationField" Width="180" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>  
+    </Grid>
+</UserControl>

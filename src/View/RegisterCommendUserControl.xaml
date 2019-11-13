@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="View.RegisterCommendUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel>
+            <TextBlock Text="Registro de encomienda" Style="{StaticResource TitleText}"></TextBlock>
+            <local:RegisterDeliveryUserControl x:Name="RegisterDelivery"></local:RegisterDeliveryUserControl>
+            <StackPanel Margin="20,0">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel >
+                        <TextBlock Text="Placa del vehículo:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="VehiclePlateField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,20" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock Text="Descripción" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="CommendDescriptionField" Width="400" Height="45" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,20">
+                    <StackPanel>
+                        <TextBlock Text="Valor del flete:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="FreightValueField" Width="180" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="30,0">
+                        <TextBlock Text="Convenio encomienda: " Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="AgreementField" Width="190" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock x:Name="TotalCommend" Text="Total a pagar: " Style="{StaticResource TextField}"></TextBlock>
+                <Button x:Name="RegisterCommendButton" Content="Registrar encomienda" Width="130" Style="{StaticResource PrimaryButton}"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
