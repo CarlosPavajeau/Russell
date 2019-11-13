@@ -22,7 +22,12 @@ namespace Entity
         public Dates this[LegalInformationType type]
         {
             get => _information[type];
-            set => _information[type] = value;
+            private set => _information[type] = value;
+        }
+
+        public void AddLegalInformation(LegalInformationType type, DateTime dueDate, DateTime dateOfRenovation)
+        {
+            _information[type] = new Dates(dueDate, dateOfRenovation);
         }
     }
 
