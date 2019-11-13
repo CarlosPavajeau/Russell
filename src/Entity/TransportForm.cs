@@ -28,13 +28,6 @@ namespace Entity
             Tickets = new List<Ticket>();
             FinalcialInformation = new FinalcialInformation();
         }
-        public TransportForm()
-        {
-            Number = (++transportFormsCount).ToString("00000");
-            Date = DateTime.Now;
-            Tickets = new List<Ticket>();
-            FinalcialInformation = new FinalcialInformation();
-        }
 
         public string Number { get; }
 
