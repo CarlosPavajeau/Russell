@@ -13,6 +13,8 @@ namespace Entity.Common
 
         const char DELIMITER = '=';
 
+        public const int ByteBufferSize = 1024;
+
         public static IPAddress IPAddress { get => _connectionSettings.IPAddress; }
 
         public static int Port { get => _connectionSettings.Port; }
@@ -20,8 +22,6 @@ namespace Entity.Common
         public static int MaxClients { get => _connectionSettings.MaxClients; }
 
         public static IPEndPoint IPEndPoint => new IPEndPoint(IPAddress, Port);
-
-        public static int ByteBufferSize => 1024;
 
         private static _ConnectionSettings _connectionSettings = new _ConnectionSettings();
 
