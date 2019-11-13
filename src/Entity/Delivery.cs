@@ -12,7 +12,7 @@ namespace Entity
     {
         private static int deliveryCount = 0;
 
-        public Delivery(string number, DateTime date, Person sender, Person receiver, Person dispatcher, string destination, State state)
+        public Delivery(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state)
         {
             Number = number;
             Date = date;
@@ -24,7 +24,7 @@ namespace Entity
 
         }
 
-        public Delivery(Person sender, Person receiver, Person dispatcher, string destination, State state = State.ACTIVE)
+        public Delivery(Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state = State.ACTIVE)
         {
             Number = (++deliveryCount).ToString("00000");
             Date = DateTime.Now;
@@ -43,7 +43,7 @@ namespace Entity
 
         public Person Receiver { get; set; }
 
-        public Person Dispatcher { get; set; }
+        public AdministrativeEmployee Dispatcher { get; set; }
 
         public State State { get; set; }
 

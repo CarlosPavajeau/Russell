@@ -7,7 +7,7 @@ namespace Entity
         private decimal valueToSend;
         private decimal cost;
 
-        public BankDraft(string number, DateTime date, Person sender, Person receiver, Person dispatcher, string destination,
+        public BankDraft(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
                          decimal valueToSend, decimal cost, State state = State.ACTIVE) : base(number, date, sender,
                                                                                                receiver, dispatcher, destination, state)
         {
@@ -16,7 +16,7 @@ namespace Entity
             Destination = destination;
         }
 
-        public BankDraft(Person sender, Person receiver, Person dispatcher, string destination,
+        public BankDraft(Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
                          decimal valueToSend, decimal cost) : base(sender, receiver, dispatcher, destination)
         {
             ValueToSend = valueToSend;
