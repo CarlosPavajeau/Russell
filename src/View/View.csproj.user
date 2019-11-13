@@ -22,6 +22,15 @@
     <Compile Update="RegisterAdministrativeEmployeeUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="RegisterBankDraftUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterCommendUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterDeliveryUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RegisterEmployeeFields.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,7 +46,19 @@
     <Compile Update="RegisterVehicleUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SearchBankDraftUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SearchCommendUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SearchFields.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="SearchVehicleUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="VehicleUserControl.xaml.cs">
@@ -66,6 +87,15 @@
     <Page Update="RegisterAdministrativeEmployeeUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="RegisterBankDraftUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterCommendUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterDeliveryUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="RegisterEmployeeFields.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -81,6 +111,15 @@
     <Page Update="RegisterVehicleUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="SearchBankDraftUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SearchCommendUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SearchFields.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="SearchVehicleUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -88,6 +127,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TransportFormUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="VehicleUserControl.xaml">

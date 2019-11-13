@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Resource Include="Assets\Pictures\Calendar32x32.png" />
-    <Resource Include="Assets\Pictures\car1_83961.png" />
     <Resource Include="Assets\Pictures\Car32x32.png" />
     <Resource Include="Assets\Pictures\Car48x48.png" />
     <Resource Include="Assets\Pictures\Cash48x48.png" />
