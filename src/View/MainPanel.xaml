@@ -35,10 +35,16 @@
                         <TextBlock Text="Encomiendas"></TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource MenuButton}">
+                <Button x:Name="TransportFormButton" Style="{StaticResource MenuButton}" Click="TransportFormButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Pictures/Form48x48.png"></Image>
                         <TextBlock Text="Planillas"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="RutesButton" Style="{StaticResource MenuButton}" Visibility="Hidden">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/File32x32.png"></Image>
+                        <TextBlock Text="Rutas"></TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource MenuButton}">

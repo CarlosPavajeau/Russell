@@ -48,5 +48,10 @@ namespace View
         {
             SetMainPanel(new CommendUserControl());
         }
+
+        private void TransportFormButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetMainPanel(new TransportFormUserControl());
+        }
     }
 }
