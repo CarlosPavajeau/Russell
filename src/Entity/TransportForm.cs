@@ -45,6 +45,11 @@ namespace Entity
         public AdministrativeEmployee Dispatcher { get; set; }
         public Vehicle Vehicle { get; set; }
 
+        public void AddFinalcialInformation(FinalcialInformationType type, decimal value)
+        {
+            FinalcialInformation[type] = value;
+        }
+
         public void AddTicket(Passenger passenger, int seats)
         {
             Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", passenger, Vehicle, Route, seats);
