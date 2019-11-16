@@ -8,14 +8,14 @@ namespace Entity
         private static int transportFormsCount = 0;
 
         public TransportForm(string number, Route route, Vehicle vehicle,
-                             AdministrativeEmployee dispatcher, List<Ticket> tickets, FinalcialInformation finalcialInformation)
+                             AdministrativeEmployee dispatcher, List<Ticket> tickets)
         {
             Number = number;
             Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
             Tickets = tickets;
-            FinalcialInformation = finalcialInformation;
+            FinalcialInformation = new FinalcialInformation();
         }
 
         public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher)
