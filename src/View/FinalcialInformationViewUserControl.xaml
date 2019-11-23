@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="View.FinalcialInformationViewUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel>
+            <TextBlock Text="Información Financiera" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <StackPanel>
+                    <TextBlock Text="Fondo reposición:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="ReplacementFundField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="30,0">
+                    <TextBlock Text="Aporte social:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="SocialContributionField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
