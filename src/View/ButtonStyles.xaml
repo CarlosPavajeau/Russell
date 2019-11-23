@@ -82,7 +82,7 @@
         <Setter Property="Height" Value="30"></Setter>
         <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Property="Margin" Value="0, 25"></Setter>
+        <Setter Property="Margin" Value="0,20"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
         
         <Style.Triggers>
