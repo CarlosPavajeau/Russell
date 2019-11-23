@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="View.CurrentTransportFormUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel Margin="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="TransportFormID" Text="Número planilla: " Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="TransportFormDate" Text="Fecha: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="TransportFormDispatcher" Text="Despachador: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,30">
+                <TextBlock x:Name="VehiclePlate" Text="Vehículo: " Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="VehicleDriver" Text="Conductor: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="Route" Text="Ruta: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <local:PassegersViewUserControl x:Name="PassengersView"></local:PassegersViewUserControl>
+            <local:FinalcialInformationViewUserControl></local:FinalcialInformationViewUserControl>
+            <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
+                <Button x:Name="SaveTransportForm" Content="Guardar" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="EndTransportForm" Content="Finalizar" Margin="20" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="PrintTransportForm" Content="Imprimir" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="GenerateLeads" Content="Generar Conduce" Margin="20,0,0,20" Width="115" Style="{StaticResource PrimaryButton}"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
