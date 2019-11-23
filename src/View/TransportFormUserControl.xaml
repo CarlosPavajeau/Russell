@@ -9,7 +9,8 @@
     <Grid x:Name="TransportTemplateMainGrid">
         <StackPanel x:Name="MainPanel" Margin="20,0,10,30">
             <TextBlock Text="Gestión de planillas de transporte" Style="{StaticResource TitleText}"></TextBlock>
-            <Button x:Name="RegisterTransportForm" Content="Agregar planilla de transportes" Width="380" Style="{StaticResource ControlButton}" Margin="0,30,0,0"></Button>
+            <Button x:Name="RegisterTransportForm" Content="Agregar planilla de transportes" Width="380" Style="{StaticResource ControlButton}" Margin="0,30,0,0" Click="RegisterTransportForm_Click"></Button>
+            <Button x:Name="SeeCurrentTransportFrom" Content="Ver planilla actual"  Width="380" Margin="0,30,0,0" Style="{StaticResource ControlButton}" Click="SeeCurrentTransportFrom_Click"></Button>
             <Button x:Name="SearchTransportForm" Content="Buscar planilla de transporte" Width="380" Style="{StaticResource ControlButton}"></Button>
             <Button Content="Listar planillas" Width="380" Margin="0,0" Style="{StaticResource ControlButton}"></Button>
         </StackPanel>

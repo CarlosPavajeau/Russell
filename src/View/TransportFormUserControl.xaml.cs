@@ -22,5 +22,17 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void RegisterTransportForm_Click(object sender, RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new RegisterTransportFormUserControl());
+        }
+
+        private void SeeCurrentTransportFrom_Click(object sender, RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new CurrentTransportFormUserControl());
+        }
     }
 }
