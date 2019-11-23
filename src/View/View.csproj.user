@@ -13,10 +13,19 @@
     <Compile Update="CommendUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="CurrentTransportFormUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FinalcialInformationViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LoginUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PassegersViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterAdministrativeEmployeeUserControl.xaml.cs">
@@ -37,10 +46,16 @@
     <Compile Update="RegisterEmployeeUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="RegisterFinalcialInformationFields.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RegisterPersonFields.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterPersonUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterTransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterVehicleUserControl.xaml.cs">
@@ -75,6 +90,12 @@
     <Page Update="CommendUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="CurrentTransportFormUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FinalcialInformationViewUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="LoginUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -82,6 +103,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PassegersViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterAdministrativeEmployeeUserControl.xaml">
@@ -102,10 +126,16 @@
     <Page Update="RegisterEmployeeUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="RegisterFinalcialInformationFields.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="RegisterPersonFields.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterPersonUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterTransportFormUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterVehicleUserControl.xaml">
