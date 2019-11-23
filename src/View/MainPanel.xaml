@@ -41,10 +41,16 @@
                         <TextBlock Text="Planillas"></TextBlock>
                     </StackPanel>
                 </Button>
-                <Button x:Name="RutesButton" Style="{StaticResource MenuButton}" Visibility="Hidden">
+                <Button x:Name="RutesButton" Style="{StaticResource MenuButton}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Pictures/File32x32.png"></Image>
                         <TextBlock Text="Rutas"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="Reports" Style="{StaticResource MenuButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/File32x32.png"></Image>
+                        <TextBlock Text="Reportes"></TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource MenuButton}">
