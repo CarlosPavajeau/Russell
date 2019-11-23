@@ -9,9 +9,9 @@ namespace Entity
     }
     public class User
     {
-        public User(AccessData accessData, TypeUser typeUser)
+        public User(string user, string password, TypeUser typeUser)
         {
-            AccessData = accessData;
+            AccessData = new AccessData(user, password);
             TypeUser = typeUser;
         }
 
