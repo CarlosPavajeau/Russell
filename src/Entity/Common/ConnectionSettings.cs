@@ -13,7 +13,7 @@ namespace Entity.Common
 
         const char DELIMITER = '=';
 
-        public const int ByteBufferSize = 1024;
+        public const int ByteBufferSize = 2048;
 
         public static IPAddress IPAddress { get => _connectionSettings.IPAddress; }
 
