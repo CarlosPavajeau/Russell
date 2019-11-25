@@ -31,7 +31,7 @@ namespace Server
             }
             catch (Exception exeption)
             {
-
+                Log.PrintMsg(exeption.Message);
             }
         }
 
