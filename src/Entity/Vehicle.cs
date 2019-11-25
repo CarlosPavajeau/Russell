@@ -44,7 +44,7 @@ namespace Entity
 
         public string PropertyCardNumber { get; set; }
 
-        public bool Stade { get; set; }
+        public bool State { get; set; }
         public Employee Owner { get; set; }
         public Employee Driver { get; set; }
         public Imprint Imprint { get; set; }
