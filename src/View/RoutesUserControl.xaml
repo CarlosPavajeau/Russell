@@ -10,7 +10,7 @@
         <StackPanel x:Name="MainPanel" Margin="15">
             <TextBlock Text="Gestión de rutas" Style="{StaticResource TitleText}"></TextBlock>
             <StackPanel Margin="0,20">
-                <Button x:Name="AddRouteButton"  Content="Agregar una ruta" Style="{StaticResource ControlButton}"></Button>
+                <Button x:Name="AddRouteButton"  Content="Agregar una ruta" Style="{StaticResource ControlButton}" Click="AddRouteButton_Click"></Button>
                 <Button x:Name="DeleteRouteButton" Content="Eliminar una ruta" Style="{StaticResource ControlButton}"></Button>
                 <Button x:Name="ListRoutesButton" Content="Listar rutas" Style="{StaticResource ControlButton}">
                 </Button>

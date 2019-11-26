@@ -55,6 +55,9 @@
     <Compile Update="RegisterPersonUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="RegisterRouteUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RegisterTransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +142,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterPersonUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterRouteUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterTransportFormUserControl.xaml">

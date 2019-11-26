@@ -14,19 +14,13 @@ using System.Windows.Shapes;
 namespace View
 {
     /// <summary>
-    /// Interaction logic for RoutesUserControl.xaml
+    /// Interaction logic for RegisterRouteUserControl.xaml
     /// </summary>
-    public partial class RoutesUserControl : UserControl
+    public partial class RegisterRouteUserControl : UserControl
     {
-        public RoutesUserControl()
+        public RegisterRouteUserControl()
         {
             InitializeComponent();
-        }
-
-        private void AddRouteButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainPanel.Children.Clear();
-            MainPanel.Children.Add(new RegisterRouteUserControl());
         }
     }
 }
