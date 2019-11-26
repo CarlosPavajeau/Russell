@@ -23,12 +23,6 @@ namespace View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            VehicleMainGrid.Children.Clear();
-            VehicleMainGrid.Children.Add(new RegisterVehicleUserControl());
-        }
-
         private void RegisterVehicleButton_Click(object sender, RoutedEventArgs e)
         {
             MainPanel.Children.Clear();
