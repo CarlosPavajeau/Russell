@@ -25,7 +25,7 @@ namespace View
 
         private void SearchFields_Loaded(object sender, RoutedEventArgs e)
         {
-            SearchFields.SearchTitleField.Text = "Codido: ";
+            SearchFields.SearchTitleField.Text = "Codigo: ";
         }
     }
 }
