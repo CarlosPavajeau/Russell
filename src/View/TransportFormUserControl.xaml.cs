@@ -34,5 +34,11 @@ namespace View
             MainPanel.Children.Clear();
             MainPanel.Children.Add(new CurrentTransportFormUserControl());
         }
+
+        private void SearchTransportForm_Click(object sender, RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new SearchTransportFormUserControl());
+        }
     }
 }

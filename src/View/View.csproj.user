@@ -76,6 +76,9 @@
     <Compile Update="SearchFields.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SearchTransportFormUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="SearchVehicleUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -163,6 +166,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SearchFields.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SearchTransportFormUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SearchVehicleUserControl.xaml">
