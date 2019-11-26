@@ -18,7 +18,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,20">
                     <StackPanel>
                         <TextBlock Text="Ruta" Style="{StaticResource TextField}"></TextBlock>
-                        <ComboBox x:Name="RuteComboBox" Width="235">
+                        <ComboBox x:Name="RuteComboBox" Template="{DynamicResource ComboBoxStyle}" Width="250" Height="25">
                             <ComboBoxItem>
                                 <TextBlock Text="Pueblo Bello a Valleduar, Valor 13000$"></TextBlock>
                             </ComboBoxItem>
@@ -26,7 +26,7 @@
                     </StackPanel>
                     <StackPanel Margin="40,0">
                         <TextBlock Text="Vehiculo" Style="{StaticResource TextField}"></TextBlock>
-                        <ComboBox x:Name="VehicleComboBox" Width="200">
+                        <ComboBox Template="{DynamicResource ComboBoxStyle}" x:Name="VehicleComboBox" Width="200" Height="25">
                             <ComboBoxItem>
                                 <TextBlock Text="EJL-555 / Carlos Pavajeau"></TextBlock>
                             </ComboBoxItem>
