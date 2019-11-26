@@ -87,6 +87,9 @@
     <Page Update="ButtonStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="ComboBoxStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="CommendUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
