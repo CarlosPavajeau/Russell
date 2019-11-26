@@ -59,8 +59,9 @@ namespace BusinessLogicLayer.Client
                 }
                 catch (SocketException)
                 {
-
                     client.Close();
+                    Thread.CurrentThread.Abort();
+                    Connect();
                 }
                 catch (Exception)
                 {
