@@ -11,5 +11,14 @@ namespace DataAccessLayer
         {
             dbConnection = connection;
         }
+
+        protected DbParameter CreateDbParameter(DbCommand command, string parameterName, object value)
+        {
+            DbParameter dbParameter = command.CreateParameter();
+            dbParameter.ParameterName = parameterName;
+            dbParameter.Value = value;
+
+            return dbParameter;
+        }
     }
 }
