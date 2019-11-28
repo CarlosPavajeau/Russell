@@ -5,9 +5,15 @@ namespace DataAccessLayer
 {
     public class VehicleRepository : Repository, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete
     {
+        private readonly VehicleFeatureRepository _featureRepository;
+        private readonly ImprintRepository _imprintRepository;
+        private readonly LegalInformationRepository _legalInformationRepository;
+
         public VehicleRepository(DbConnection connection) : base(connection)
         {
-
+            _featureRepository = new VehicleFeatureRepository(connection);
+            _imprintRepository = new ImprintRepository(connection);
+            _legalInformationRepository = new LegalInformationRepository(connection);
         }
 
         public bool Save(Vehicle data)
@@ -26,14 +32,9 @@ namespace DataAccessLayer
 
                 command.ExecuteNonQuery();
 
-                VehicleFeatureRepository vehicleFeatureRepository = new VehicleFeatureRepository(dbConnection);
-                vehicleFeatureRepository.Save(data);
-
-                ImprintRepository imprintRepository = new ImprintRepository(dbConnection);
-                imprintRepository.Save(data);
-
-                LegalInformationRepository legalInformationRepository = new LegalInformationRepository(dbConnection);
-                legalInformationRepository.Save(data);
+                _featureRepository.Save(data);
+                _imprintRepository.Save(data);
+                _legalInformationRepository.Save(data);
 
                 return true;
             }
@@ -63,7 +64,7 @@ namespace DataAccessLayer
             }
         }
 
-        class VehicleFeatureRepository : Repository, ISave<Vehicle>
+        class VehicleFeatureRepository : Repository, ISave<Vehicle>, IUpdate
         {
             public VehicleFeatureRepository(DbConnection connection) : base(connection)
             {
@@ -88,9 +89,14 @@ namespace DataAccessLayer
                     return true;
                 }
             }
+
+            public bool Update(string primarykey, string columToModify, object newValue)
+            {
+                return false;
+            }
         }
 
-        class ImprintRepository : Repository, ISave<Vehicle>
+        class ImprintRepository : Repository, ISave<Vehicle>, IUpdate
         {
             public ImprintRepository(DbConnection connection) : base(connection)
             {
@@ -112,9 +118,14 @@ namespace DataAccessLayer
                     return true;
                 }
             }
+
+            public bool Update(string primarykey, string columToModify, object newValue)
+            {
+                return false;
+            }
         }
 
-        class LegalInformationRepository : Repository, ISave<Vehicle>
+        class LegalInformationRepository : Repository, ISave<Vehicle>, IUpdate
         {
             public LegalInformationRepository(DbConnection connection) : base(connection)
             {
@@ -140,6 +151,11 @@ namespace DataAccessLayer
                 }
 
                 return true;
+            }
+
+            public bool Update(string primarykey, string columToModify, object newValue)
+            {
+                return false;
             }
         }
 
