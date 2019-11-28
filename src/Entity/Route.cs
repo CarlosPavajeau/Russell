@@ -7,12 +7,15 @@
 
         }
 
-        public Route(string originCity, string destinationCity, decimal cost)
+        public Route(string code, string originCity, string destinationCity, decimal cost)
         {
+            Code = code;
             OriginCity = originCity;
             DestinationCity = destinationCity;
             Cost = cost;
         }
+
+        public string Code { get; set; }
 
         public string OriginCity { get; set; }
 
