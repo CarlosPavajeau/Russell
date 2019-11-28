@@ -20,7 +20,7 @@ namespace Entity
 
         public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher)
         {
-            Number = (++transportFormsCount).ToString("00000");
+            Number = (++transportFormsCount).ToString("0000");
             Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
@@ -52,7 +52,7 @@ namespace Entity
 
         public void AddTicket(Passenger passenger, int seats)
         {
-            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("00000")}", passenger, Vehicle, Route, seats);
+            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("000")}", passenger, Vehicle, Route, seats);
             AddTicket(ticket);
         }
 

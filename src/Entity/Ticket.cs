@@ -45,5 +45,10 @@ namespace Entity
         public Vehicle Vehicle { get; set; }
 
         public DateTime Date { get; }
+
+        public string GetTransportFormCode()
+        {
+            return Number.Split('-')[0];
+        }
     }
 }
