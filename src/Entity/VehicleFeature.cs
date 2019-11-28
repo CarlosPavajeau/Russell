@@ -1,10 +1,10 @@
 ﻿
 namespace Entity
 {
-    public class VehicleFeatures
+    public class VehicleFeature
     {
         private byte _chairs;
-        public VehicleFeatures(string type, string mark, string model, string modelNumber, string color, byte chairs)
+        public VehicleFeature(string type, string mark, string model, string modelNumber, string color, byte chairs)
         {
             Type = type;
             Mark = mark;
@@ -14,7 +14,7 @@ namespace Entity
             Chairs = chairs;
         }
 
-        public VehicleFeatures()
+        public VehicleFeature()
         {
 
         }

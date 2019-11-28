@@ -29,6 +29,11 @@ namespace Entity
         {
             _information[type] = new Dates(dueDate, dateOfRenovation);
         }
+
+        public Dictionary<LegalInformationType, Dates> GetLegalInformation()
+        {
+            return _information;
+        }
     }
 
     public class Dates

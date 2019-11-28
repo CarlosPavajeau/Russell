@@ -12,7 +12,7 @@ namespace Entity
             InternalNumber = internalNumber;
             PropertyCardNumber = propertyCardNumber;
 
-            Features = new VehicleFeatures();
+            Feature = new VehicleFeature();
             Imprint = new Imprint();
             LegalInformation = new LegalInformation();
 
@@ -24,12 +24,12 @@ namespace Entity
 
         private void SetFeatures(Dictionary<string, string> vehicleFeatures)
         {
-            Features.Color = vehicleFeatures["Color"];
-            Features.Mark = vehicleFeatures["Mark"];
-            Features.Model = vehicleFeatures["Model"];
-            Features.ModelNumber = vehicleFeatures["ModelNumber"];
-            Features.Type = vehicleFeatures["Type"];
-            Features.Chairs = byte.Parse(vehicleFeatures["Chairs"]);
+            Feature.Color = vehicleFeatures["Color"];
+            Feature.Mark = vehicleFeatures["Mark"];
+            Feature.Model = vehicleFeatures["Model"];
+            Feature.ModelNumber = vehicleFeatures["ModelNumber"];
+            Feature.Type = vehicleFeatures["Type"];
+            Feature.Chairs = byte.Parse(vehicleFeatures["Chairs"]);
 
             Imprint.ChassisNumber = vehicleFeatures["ChassisNumber"];
             Imprint.EngineNumber = vehicleFeatures["EngineNumber"];
@@ -48,7 +48,7 @@ namespace Entity
         public Employee Owner { get; set; }
         public Employee Driver { get; set; }
         public Imprint Imprint { get; set; }
-        public VehicleFeatures Features { get; set; }
+        public VehicleFeature Feature { get; set; }
 
         public void AddLegalInformation(LegalInformationType type, DateTime dueDate, DateTime dateOfRenovation)
         {
