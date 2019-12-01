@@ -74,11 +74,17 @@ namespace BusinessLogicLayer.Client
 
         public void Send(object objectToSend)
         {
+            Thread thread = new Thread(() => StartSend(objectToSend));
+            thread.Start();
+        }
+
+        private void StartSend(object objectToSend)
+        {
             client.Message = Map.Serialize(objectToSend);
 
             try
             {
-                client.Socket.BeginSend(client.Message.ByteBuffer, 0, ConnectionSettings.ByteBufferSize, SocketFlags.None, new AsyncCallback(SendCallBack), client);
+                client.Socket.BeginSend(client.Message.ByteBuffer, 0, client.Message.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), client);
             }
             catch (SocketException)
             {
