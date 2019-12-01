@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data.Common;
+﻿using System.Data.Common;
+using System.Diagnostics;
 
 namespace DataAccessLayer
 {
@@ -19,6 +19,14 @@ namespace DataAccessLayer
             dbParameter.Value = value;
 
             return dbParameter;
+        }
+
+        protected void MapCommandParameters(DbCommand command, string[] parametersNames, object[] values)
+        {
+            Debug.Assert(parametersNames.Length == values.Length);
+
+            for (int i = 0; i < parametersNames.Length; ++i)
+                command.Parameters.Add(CreateDbParameter(command, parametersNames[i], values[i]));
         }
     }
 }
