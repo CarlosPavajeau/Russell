@@ -30,7 +30,7 @@ namespace DataAccessLayer
             }
         }
 
-        Employee ISearch<Employee>.Search(string primaryKey)
+        public new Employee Search(string primaryKey)
         {
             return null;
         }

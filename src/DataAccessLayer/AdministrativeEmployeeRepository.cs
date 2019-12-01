@@ -30,7 +30,7 @@ namespace DataAccessLayer
             }
         }
 
-        AdministrativeEmployee ISearch<AdministrativeEmployee>.Search(string primaryKey)
+        public new AdministrativeEmployee Search(string primaryKey)
         {
             return null;
         }
