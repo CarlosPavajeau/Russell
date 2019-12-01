@@ -5,6 +5,7 @@ namespace DataAccessLayer
 {
     public class AdministrativeEmployeeRepository : EmployeeRepository, ISave<AdministrativeEmployee>, ISearch<AdministrativeEmployee>
     {
+        static readonly string[] ADMINISTRATIVE_EMPLOYEE_FIELDS = { "@person_id", "@username", "@passwordname", "@type_user" };
         public AdministrativeEmployeeRepository(DbConnection connection) : base(connection)
         {
 
@@ -20,10 +21,14 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
                                       "VALUES(@person_id, @username, @passwordname, @type_user)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@person_id", data.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@username", data.User.AccessData.User));
-                command.Parameters.Add(CreateDbParameter(command, "@passwordname", data.User.AccessData.Password));
-                command.Parameters.Add(CreateDbParameter(command, "@type_user", data.User.TypeUser.ToString()[0]));
+                MapCommandParameters(command, ADMINISTRATIVE_EMPLOYEE_FIELDS,
+                    new object[]
+                    {
+                        data.ID,
+                        data.User.AccessData.User,
+                        data.User.AccessData.Password,
+                        data.User.TypeUser.ToString()[0]
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

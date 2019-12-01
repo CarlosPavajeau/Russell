@@ -5,6 +5,7 @@ namespace DataAccessLayer
 {
     public class BankDraftRepository : DeliveryRepository, ISave<BankDraft>, ISearch<BankDraft>
     {
+        static readonly string[] BANKDRAFT_FIELDS = { "@delivery_number", "@value_to_send", "@cost" };
         public BankDraftRepository(DbConnection connection) : base(connection)
         {
 
@@ -20,9 +21,13 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO bankdrafts(delivery_number, value_to_send, cost)" +
                                       "VALUES(@delivery_number, @value_to_send, @cost)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@delivery_number", data.Number));
-                command.Parameters.Add(CreateDbParameter(command, "@value_to_send", data.ValueToSend));
-                command.Parameters.Add(CreateDbParameter(command, "@cost", data.Cost));
+                MapCommandParameters(command, BANKDRAFT_FIELDS,
+                    new object[]
+                    {
+                        data.Number,
+                        data.ValueToSend,
+                        data.Cost
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

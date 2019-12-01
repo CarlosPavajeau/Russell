@@ -5,6 +5,8 @@ namespace DataAccessLayer
 {
     public class EmployeeRepository : PersonRepository, ISave<Employee>, ISearch<Employee>
     {
+        static readonly string[] EMPLOYEE_FIELDS = { "@person_id", "@cellphone", "@email", "@address" };
+
         public EmployeeRepository(DbConnection connection) : base(connection)
         {
 
@@ -20,10 +22,14 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
                                       "VALUES(@person_id, @cellphone, @email, @address)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@person_id", data.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@cellphone", data.Cellphone));
-                command.Parameters.Add(CreateDbParameter(command, "@email", data.Email));
-                command.Parameters.Add(CreateDbParameter(command, "@address", data.Address));
+                MapCommandParameters(command, EMPLOYEE_FIELDS,
+                    new object[]
+                    {
+                        data.ID,
+                        data.Cellphone,
+                        data.Email,
+                        data.Address
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

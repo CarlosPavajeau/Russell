@@ -5,6 +5,8 @@ namespace DataAccessLayer
 {
     public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete
     {
+        static readonly string[] PERSON_FIELDS = { "@person_id", "@first_name", "@last_name", "@second_last_name" };
+
         public PersonRepository(DbConnection connection) : base(connection)
         {
         }
@@ -16,11 +18,14 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO people(person_id, first_name, second_name, last_name, second_last_name) " +
                                       "VALUES(@person_id, @first_name, @second_name, @last_name, @second_last_name)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@person_id", data.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@first_name", data.FirstName));
-                command.Parameters.Add(CreateDbParameter(command, "@second_name", data.SecondName));
-                command.Parameters.Add(CreateDbParameter(command, "@last_name", data.LastName));
-                command.Parameters.Add(CreateDbParameter(command, "@second_last_name", data.SecondLastName));
+                MapCommandParameters(command, PERSON_FIELDS,
+                    new object[] {
+                        data.ID,
+                        data.FirstName,
+                        data.SecondName,
+                        data.LastName,
+                        data.SecondLastName
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

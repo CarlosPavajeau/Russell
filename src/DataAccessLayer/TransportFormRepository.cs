@@ -5,7 +5,12 @@ namespace DataAccessLayer
 {
     public class TransportFormRepository : Repository, ISave<TransportForm>, ISearch<TransportForm>, IUpdate
     {
+        static readonly string[] TRANSPORT_FORM_FIELDS = { "@transport_form_number", "@start_date", "@depature_time",
+                                                           "@value_of_tickets", "@total_value", "@license_plate", "@route_code", 
+                                                           "@dispatcher"};
+
         private readonly FinalcialInformationRepository _finalcialInformationRepository;
+
         public TransportFormRepository(DbConnection connection) : base(connection)
         {
             _finalcialInformationRepository = new FinalcialInformationRepository(connection);
@@ -20,14 +25,18 @@ namespace DataAccessLayer
                                       "VALUES(@transport_form_number, @start_date, @depature_time, " +
                                              "@value_of_tickets, @total_value, @license_plate, @route_code, @dispatcher)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@transport_form_number", data.Number));
-                command.Parameters.Add(CreateDbParameter(command, "@start_date", data.Date));
-                command.Parameters.Add(CreateDbParameter(command, "@depature_time", data.DepartureTime));
-                command.Parameters.Add(CreateDbParameter(command, "@value_of_tickets", data.ValueOfTickets));
-                command.Parameters.Add(CreateDbParameter(command, "@total_value", data.TotalValue));
-                command.Parameters.Add(CreateDbParameter(command, "@license_plate", data.Vehicle.LicensePlate));
-                command.Parameters.Add(CreateDbParameter(command, "@route_code", data.Route.Code));
-                command.Parameters.Add(CreateDbParameter(command, "@dispatcher", data.Dispatcher.ID));
+                MapCommandParameters(command, TRANSPORT_FORM_FIELDS,
+                    new object[]
+                    {
+                        data.Number,
+                        data.Date,
+                        data.DepartureTime,
+                        data.ValueOfTickets,
+                        data.TotalValue,
+                        data.Vehicle.LicensePlate,
+                        data.Route.Code,
+                        data.Dispatcher.ID
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

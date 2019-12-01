@@ -5,6 +5,9 @@ namespace DataAccessLayer
 {
     public class VehicleRepository : Repository, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete
     {
+        static readonly string[] VEHICLE_FIELDS = { "@license_plate", "@internal_number", "@property_card_number", "@state",
+                                                    "@owner", "@driver"};
+
         private readonly VehicleFeatureRepository _featureRepository;
         private readonly ImprintRepository _imprintRepository;
         private readonly LegalInformationRepository _legalInformationRepository;
@@ -23,12 +26,16 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO vehicles(license_plate, internal_number, property_card_number, state, owner, driver)" +
                                       "VALUES(@license_plate, @internal_number, @property_card_number, @state, @owner, @driver)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@license_plate", data.LicensePlate));
-                command.Parameters.Add(CreateDbParameter(command, "@internal_number", data.InternalNumber));
-                command.Parameters.Add(CreateDbParameter(command, "@property_card_number", data.PropertyCardNumber));
-                command.Parameters.Add(CreateDbParameter(command, "@state", data.State));
-                command.Parameters.Add(CreateDbParameter(command, "@owner", data.Owner.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@driver", data.Driver.ID));
+                MapCommandParameters(command, VEHICLE_FIELDS,
+                    new object[]
+                    {
+                        data.LicensePlate,
+                        data.InternalNumber,
+                        data.PropertyCardNumber,
+                        data.State,
+                        data.Owner.ID,
+                        data.Driver.ID
+                    });
 
                 command.ExecuteNonQuery();
 
@@ -66,6 +73,9 @@ namespace DataAccessLayer
 
         class VehicleFeatureRepository : Repository, ISave<Vehicle>, IUpdate
         {
+            static readonly string[] VEHICLE_FEATURE_FIELDS = { "@license_plate", "@type", "@mark", "@model", 
+                                                                "@model_number", "@color", "@chairs"};
+
             public VehicleFeatureRepository(DbConnection connection) : base(connection)
             {
             }
@@ -77,13 +87,17 @@ namespace DataAccessLayer
                     command.CommandText = "INSET INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
                                           "VALUES(@license_plate, @type, @mark, @model, @model_number, @color, @chairs)";
 
-                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", data.LicensePlate));
-                    command.Parameters.Add(CreateDbParameter(command, "@type", data.Feature.Type));
-                    command.Parameters.Add(CreateDbParameter(command, "@mark", data.Feature.Mark));
-                    command.Parameters.Add(CreateDbParameter(command, "@model", data.Feature.Model));
-                    command.Parameters.Add(CreateDbParameter(command, "@model_number", data.Feature.ModelNumber));
-                    command.Parameters.Add(CreateDbParameter(command, "@color", data.Feature.Color));
-                    command.Parameters.Add(CreateDbParameter(command, "@chairs", data.Feature.Chairs));
+                    MapCommandParameters(command, VEHICLE_FEATURE_FIELDS,
+                        new object[]
+                        {
+                            data.LicensePlate,
+                            data.Feature.Type,
+                            data.Feature.Mark,
+                            data.Feature.Model,
+                            data.Feature.ModelNumber,
+                            data.Feature.Color,
+                            data.Feature.Chairs
+                        });
 
                     command.ExecuteNonQuery();
                     return true;
@@ -98,6 +112,8 @@ namespace DataAccessLayer
 
         class ImprintRepository : Repository, ISave<Vehicle>, IUpdate
         {
+            static readonly string[] IMPRINT_FIELDS = { "@license_plate", "@engine_number", "@chassis_number" };
+
             public ImprintRepository(DbConnection connection) : base(connection)
             {
 
@@ -110,9 +126,13 @@ namespace DataAccessLayer
                     command.CommandText = "INSET INTO imprints(license_plate, engine_number, chassis_number)" +
                                           "VALUES(@license_plate, @engine_number, @chassis_number)";
 
-                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", data.LicensePlate));
-                    command.Parameters.Add(CreateDbParameter(command, "@engine_number", data.Imprint.EngineNumber));
-                    command.Parameters.Add(CreateDbParameter(command, "@chassis_number", data.Imprint.ChassisNumber));
+                    MapCommandParameters(command, IMPRINT_FIELDS,
+                        new object[]
+                        {
+                            data.LicensePlate,
+                            data.Imprint.EngineNumber,
+                            data.Imprint.ChassisNumber
+                        });
 
                     command.ExecuteNonQuery();
                     return true;
@@ -127,6 +147,8 @@ namespace DataAccessLayer
 
         class LegalInformationRepository : Repository, ISave<Vehicle>, IUpdate
         {
+            static readonly string[] LEGAL_INFORMATION_FIELDS = { "@license_plate", "@legal_information_type", "@due_date", "@renovation_date" };
+
             public LegalInformationRepository(DbConnection connection) : base(connection)
             {
 
@@ -141,10 +163,14 @@ namespace DataAccessLayer
                         command.CommandText = "INSERT INTO legal_information(license_plate, legal_information_type, due_date, renovation_date)" +
                                               "VALUES(@license_plate, @legal_information_type, @due_date, @renovation_date)";
 
-                        command.Parameters.Add(CreateDbParameter(command, "@license_plate", data.LicensePlate));
-                        command.Parameters.Add(CreateDbParameter(command, "@legal_information_type", legalInformation.Key.ToString()));
-                        command.Parameters.Add(CreateDbParameter(command, "@due_date", legalInformation.Value.DueDate));
-                        command.Parameters.Add(CreateDbParameter(command, "@renovation_date", legalInformation.Value.DateOfRenovation));
+                        MapCommandParameters(command, LEGAL_INFORMATION_FIELDS,
+                            new object[]
+                            {
+                                data.LicensePlate,
+                                legalInformation.Key.ToString(),
+                                legalInformation.Value.DueDate,
+                                legalInformation.Value.DateOfRenovation
+                            });
 
                         command.ExecuteNonQuery();
                     }

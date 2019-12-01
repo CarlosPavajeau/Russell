@@ -5,6 +5,8 @@ namespace DataAccessLayer
 {
     public class RouteRepository : Repository, ISave<Route>, ISearch<Route>, IUpdate, IDelete
     {
+        static readonly string[] ROUTE_FIELDS = { "@route_code", "@origin_city", "@destination_city", "@cost" };
+
         public RouteRepository(DbConnection connection) : base(connection)
         {
 
@@ -17,10 +19,14 @@ namespace DataAccessLayer
                 command.CommandText = "INSER INTO routes(route_code, origin_city, destination_city, cost)" +
                                       "VALUES(@route_code, @origin_city, @destination_city, @cost)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@route_code", data.Code));
-                command.Parameters.Add(CreateDbParameter(command, "@origin_city", data.OriginCity));
-                command.Parameters.Add(CreateDbParameter(command, "@destination_city", data.DestinationCity));
-                command.Parameters.Add(CreateDbParameter(command, "@cost", data.Cost));
+                MapCommandParameters(command, ROUTE_FIELDS,
+                    new object[]
+                    {
+                        data.Code,
+                        data.OriginCity,
+                        data.DestinationCity,
+                        data.Cost
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

@@ -5,6 +5,9 @@ namespace DataAccessLayer
 {
     public abstract class DeliveryRepository : Repository, ISave<Delivery>, IUpdate
     {
+        static readonly string[] DELIVERY_FIELDS = { "@delivery_number", "@destination", "@delivery_date", "@state", 
+                                                     "@dispatcher", "@sender", "@receiver" };
+
         public DeliveryRepository(DbConnection connection) : base(connection)
         {
 
@@ -17,13 +20,17 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispacher, sender, receiver)" +
                                       "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispacher, @sender, @receiver)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@delivery_number", data.Number));
-                command.Parameters.Add(CreateDbParameter(command, "@destination", data.Destination));
-                command.Parameters.Add(CreateDbParameter(command, "@delivery_date", data.Date));
-                command.Parameters.Add(CreateDbParameter(command, "@state", data.State.ToString()[0]));
-                command.Parameters.Add(CreateDbParameter(command, "@dispatcher", data.Dispatcher.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@sender", data.Sender.ID));
-                command.Parameters.Add(CreateDbParameter(command, "@receiver", data.Receiver.ID));
+                MapCommandParameters(command, DELIVERY_FIELDS,
+                    new object[]
+                    {
+                        data.Number,
+                        data.Destination,
+                        data.Date,
+                        data.State.ToString()[0],
+                        data.Dispatcher.ID,
+                        data.Sender.ID,
+                        data.Receiver.ID
+                    });
 
                 command.ExecuteNonQuery();
                 return true;

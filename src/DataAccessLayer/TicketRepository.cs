@@ -5,6 +5,8 @@ namespace DataAccessLayer
 {
     public class TicketRepository : Repository, ISave<Ticket>, ISearch<Ticket>, IUpdate, IDelete
     {
+        static readonly string[] TICKET_FIELDS = { "@ticket_number", "@seats", "@ticket_date", "@total",
+                                                   "@transport_form_number", "@passenger"};
         public TicketRepository(DbConnection connection) : base(connection)
         {
 
@@ -17,12 +19,15 @@ namespace DataAccessLayer
                 command.CommandText = "INSERT INTO tickets(ticket_number, seats, ticket_date, total, transport_form_number, passenger) " +
                                       "VALUES(@ticket_number, @seats, @ticket_date, @total, @transport_form_number, @passenger)";
 
-                command.Parameters.Add(CreateDbParameter(command, "@ticket_number", data.Number));
-                command.Parameters.Add(CreateDbParameter(command, "@seats", data.Seats));
-                command.Parameters.Add(CreateDbParameter(command, "@ticket_date", data.Date));
-                command.Parameters.Add(CreateDbParameter(command, "@total", data.Total));
-                command.Parameters.Add(CreateDbParameter(command, "@transport_form_number", data.GetTransportFormCode()));
-                command.Parameters.Add(CreateDbParameter(command, "@passenger", data.Passenger.ID));
+                MapCommandParameters(command, TICKET_FIELDS,
+                    new object[] {
+                        data.Number,
+                        data.Seats,
+                        data.Date,
+                        data.Total,
+                        data.GetTransportFormCode(),
+                        data.Passenger.ID
+                    });
 
                 command.ExecuteNonQuery();
                 return true;
