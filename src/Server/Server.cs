@@ -77,7 +77,7 @@ namespace Server
 
                 if (receiveData is DataPacket data)
                 {
-                    DataPacketHandler.HandleDataPacket(data);
+                    //DataPacketHandler.HandleDataPacket(data);
                 }
                 else if (receiveData is ClientRequest request)
                 {
