@@ -27,6 +27,8 @@ namespace Server
                     _connected.Reset();
 
                     _serverSocket.BeginAccept(new AsyncCallback(AcceptCallBack), _serverSocket);
+
+                    _connected.WaitOne();
                 }
             }
             catch (Exception exeption)
@@ -75,7 +77,7 @@ namespace Server
 
                 if (receiveData is DataPacket data)
                 {
-
+                    DataPacketHandler.HandleDataPacket(data);
                 }
                 else if (receiveData is ClientRequest request)
                 {
