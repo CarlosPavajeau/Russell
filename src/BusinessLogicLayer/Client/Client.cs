@@ -12,7 +12,7 @@ namespace BusinessLogicLayer.Client
 
         public ProcessReceiveData ReceiveData;
         public ProcessServerAnswer ServerAnswer;
-
+        
         public Client()
         {
 
@@ -37,6 +37,7 @@ namespace BusinessLogicLayer.Client
             }
 
             Thread receiveThread = new Thread(() => Receive());
+            receiveThread.Start();
         }
 
         private void Receive()
@@ -60,7 +61,6 @@ namespace BusinessLogicLayer.Client
                 catch (SocketException)
                 {
                     client.Close();
-                    Thread.CurrentThread.Abort();
                     Connect();
                 }
                 catch (Exception)
