@@ -22,6 +22,7 @@ namespace View
         {
             InitializeComponent();
             DeliveryDate.Text += DateTime.Now.ToShortDateString();
+            DeliveryDispatcher.Text += $"{MainWindow.AdministrativeEmployee.Name}";
         }
     }
 }
