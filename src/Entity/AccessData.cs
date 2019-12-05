@@ -1,5 +1,6 @@
 ﻿namespace Entity
 {
+    [System.Serializable]
     public class AccessData
     {
         public AccessData(string user, string password)

@@ -1,5 +1,6 @@
 ﻿namespace Entity
 {
+    [System.Serializable]
     public class Person
     {
         public Person(string id, string firstName, string secondName, string lastName, string secondLastName)

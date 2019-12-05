@@ -7,6 +7,8 @@ namespace Entity
         ADMIN,
         DISPATCHER
     }
+
+    [System.Serializable]
     public class User
     {
         public User(string user, string password, TypeUser typeUser)
