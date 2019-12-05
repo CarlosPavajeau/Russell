@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace View
@@ -16,7 +17,7 @@ namespace View
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Environment.Exit(0);
         }
 
         private void ShowVehiclesOptions(object sender, RoutedEventArgs e)
