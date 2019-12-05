@@ -77,11 +77,13 @@ namespace Server
 
                 if (receiveData is DataPacket data)
                 {
-                    //DataPacketHandler.HandleDataPacket(data);
+                    object datapacketProcesed = DataPacketHandler.HandleDataPacket(data);
+                    SendReply(client, datapacketProcesed);
                 }
                 else if (receiveData is ClientRequest request)
                 {
-
+                    object clientrequestProcesed = ClientRequestHanlder.ProccessClientRequest(request);
+                    SendReply(client, clientrequestProcesed);
                 }
 
                 client.Message.Clear();
