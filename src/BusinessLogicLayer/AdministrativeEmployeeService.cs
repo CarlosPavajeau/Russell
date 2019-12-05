@@ -80,5 +80,10 @@ namespace BusinessLogicLayer
             }
         }
 
+        public bool IsEmpty()
+        {
+            return _administrativeEmployeeRepository.IsEmpty();
+        }
+
     }
 }
