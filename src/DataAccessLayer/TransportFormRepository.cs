@@ -3,7 +3,7 @@ using System.Data.Common;
 
 namespace DataAccessLayer
 {
-    public class TransportFormRepository : Repository, ISave<TransportForm>, ISearch<TransportForm>, IUpdate
+    public class TransportFormRepository : Repository, ISave<TransportForm>, ISearch<TransportForm>, IUpdate, IMap<TransportForm>
     {
         static readonly string[] TRANSPORT_FORM_FIELDS = { "@transport_form_number", "@start_date", "@depature_time",
                                                            "@value_of_tickets", "@total_value", "@license_plate", "@route_code", 
@@ -44,6 +44,11 @@ namespace DataAccessLayer
         }
 
         public TransportForm Search(string primaryKey)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public TransportForm Map(DbDataReader dbDataReader)
         {
             throw new System.NotImplementedException();
         }
