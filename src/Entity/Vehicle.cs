@@ -5,8 +5,7 @@ namespace Entity
 {
     public class Vehicle
     {
-        public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Employee owner,
-                       Employee driver, Dictionary<string, string> vehicleFeatures)
+        public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Employee owner, Employee driver)
         {
             LicensePlate = licensePlate;
             InternalNumber = internalNumber;
@@ -16,25 +15,9 @@ namespace Entity
             Imprint = new Imprint();
             LegalInformation = new LegalInformation();
 
-            SetFeatures(vehicleFeatures);
-
             Owner = owner;
             Driver = driver;
         }
-
-        private void SetFeatures(Dictionary<string, string> vehicleFeatures)
-        {
-            Feature.Color = vehicleFeatures["Color"];
-            Feature.Mark = vehicleFeatures["Mark"];
-            Feature.Model = vehicleFeatures["Model"];
-            Feature.ModelNumber = vehicleFeatures["ModelNumber"];
-            Feature.Type = vehicleFeatures["Type"];
-            Feature.Chairs = byte.Parse(vehicleFeatures["Chairs"]);
-
-            Imprint.ChassisNumber = vehicleFeatures["ChassisNumber"];
-            Imprint.EngineNumber = vehicleFeatures["EngineNumber"];
-        }
-
 
         public LegalInformation LegalInformation { get; }
 
