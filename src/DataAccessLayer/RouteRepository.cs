@@ -3,7 +3,7 @@ using Entity;
 
 namespace DataAccessLayer
 {
-    public class RouteRepository : Repository, ISave<Route>, ISearch<Route>, IUpdate, IDelete
+    public class RouteRepository : Repository, ISave<Route>, ISearch<Route>, IUpdate, IDelete, IMap<Route>
     {
         static readonly string[] ROUTE_FIELDS = { "@route_code", "@origin_city", "@destination_city", "@cost" };
 
@@ -39,6 +39,11 @@ namespace DataAccessLayer
             {
                 return null;
             }
+        }
+
+        public Route Map(DbDataReader dbDataReader)
+        {
+            throw new System.NotImplementedException();
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)

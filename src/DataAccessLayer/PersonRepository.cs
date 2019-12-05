@@ -3,7 +3,7 @@ using System.Data.Common;
 
 namespace DataAccessLayer
 {
-    public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete
+    public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete, IMap<Person>
     {
         static readonly string[] PERSON_FIELDS = { "@person_id", "@first_name", "@last_name", "@second_last_name" };
 
@@ -34,7 +34,31 @@ namespace DataAccessLayer
 
         public Person Search(string primaryKey)
         {
-            return null;
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name" +
+                                      "FROM people WHERE person_id = @person_id";
+
+                command.Parameters.Add(CreateDbParameter(command, "person_id", primaryKey));
+
+                return Map(command.ExecuteReader());
+            }
+        }
+
+        public Person Map(DbDataReader dbDataReader)
+        {
+            if (!dbDataReader.Read())
+                return null;
+
+            string person_id, first_name, second_name, last_name, second_last_name;
+
+            person_id = dbDataReader.GetString(0);
+            first_name = dbDataReader.GetString(1);
+            second_name = dbDataReader.GetString(2);
+            last_name = dbDataReader.GetString(3);
+            second_last_name = dbDataReader.GetString(4);
+
+            return new Person(person_id, first_name, second_name, last_name, second_last_name);
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)
