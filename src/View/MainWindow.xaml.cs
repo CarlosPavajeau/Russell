@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
+using BusinessLogicLayer.Client;
+using Entity;
+using Entity.Common;
 
 namespace View
 {
@@ -8,20 +12,28 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static readonly Client Client = new Client();
+        public static AdministrativeEmployee AdministrativeEmployee;
+
         public MainWindow()
         {
             InitializeComponent();
-            ShowLoginPanel();
+            StartApp();
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
+        private void StartApp()
         {
-            Application.Current.Shutdown();
+            Client.ServerAnswer = IsFirstApplicationStart;
+            Client.Connect();
+            Client.Send(ClientRequest.IS_IT_THE_FIRST_APPLICATION_START);
         }
 
-        private void ShowVehiclesOptions(object sender, RoutedEventArgs e)
+        private void IsFirstApplicationStart(ServerAnswer answer)
         {
-            SetMainPanel(new VehicleUserControl());
+            if (answer == ServerAnswer.IS_THE_FIRST_APPLICATION_START)
+                Dispatcher.Invoke(new ThreadStart(() => SetMainPanel(new RegisterAdministrativeEmployeeUserControl())));
+            else
+                Dispatcher.Invoke(new ThreadStart(() => ShowLoginPanel()));
         }
 
         public void SetMainPanel(UserControl userControl)
@@ -32,6 +44,7 @@ namespace View
 
         private void LoginSucces()
         {
+
             WindowState = WindowState.Maximized;
             SetMainPanel(new MainPanel(LogOutAction));
         }
@@ -44,9 +57,9 @@ namespace View
         private void ShowLoginPanel()
         {
             WindowState = WindowState.Normal;
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Width = 400;
             Height = 550;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             SetMainPanel(new LoginUserControl(LoginSucces));
         }
     }
