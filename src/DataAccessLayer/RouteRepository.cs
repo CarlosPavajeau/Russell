@@ -37,13 +37,29 @@ namespace DataAccessLayer
         {
             using (var command = dbConnection.CreateCommand())
             {
-                return null;
+                command.CommandText = "SELECT route_code, origin_city, destination_city, cost " +
+                                      "FROM routes WHERE route_code = @route_code";
+
+                command.Parameters.Add(CreateDbParameter(command, "@route_code", primaryKey));
+
+                return Map(command.ExecuteReader());
             }
         }
 
         public Route Map(DbDataReader dbDataReader)
         {
-            throw new System.NotImplementedException();
+            if (!dbDataReader.Read())
+                return null;
+
+            string route_code, origin_city, destination_city;
+            decimal cost;
+
+            route_code = dbDataReader.GetString(0);
+            origin_city = dbDataReader.GetString(1);
+            destination_city = dbDataReader.GetString(2);
+            cost = dbDataReader.GetDecimal(3);
+
+            return new Route(route_code, origin_city, destination_city, cost);
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)
