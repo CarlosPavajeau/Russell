@@ -3,7 +3,7 @@ using Entity;
 
 namespace BusinessLogicLayer
 {
-    public class TransportFormService : Service, ISave<TransportForm>, ISearch<TransportForm>, IUpdate
+    public class TransportFormService : Service, ISave<TransportForm>, ISave<Ticket>, ISearch<TransportForm>, IUpdate
     {
         private readonly TransportFormRepository _transportFormRepository;
 
@@ -13,6 +13,23 @@ namespace BusinessLogicLayer
         }
 
         public bool Save(TransportForm data)
+        {
+            try
+            {
+                dbConnection.Open();
+                return _transportFormRepository.Save(data);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                dbConnection?.Close();
+            }
+        }
+
+        public bool Save(Ticket data)
         {
             try
             {
