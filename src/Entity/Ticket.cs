@@ -6,17 +6,6 @@ namespace Entity
     {
         private int seats;
 
-        public Ticket(string number, Passenger passenger, Vehicle vehicle, Route route, int seats)
-        {
-            Number = number;
-            Route = route;
-            Seats = seats;
-            Passenger = passenger;
-            Vehicle = vehicle;
-            Date = DateTime.Now;
-            Total = Route.Cost * Seats;
-        }
-
         public Ticket(string number, Passenger passenger, Vehicle vehicle, Route route, int seats, DateTime date)
         {
             Number = number;

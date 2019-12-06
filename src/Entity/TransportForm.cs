@@ -7,14 +7,16 @@ namespace Entity
     {
         private static int transportFormsCount = 0;
 
-        public TransportForm(string number, Route route, Vehicle vehicle,
-                             AdministrativeEmployee dispatcher, List<Ticket> tickets)
+        public TransportForm(string number, Route route, Vehicle vehicle, AdministrativeEmployee dispatcher, DateTime startDate,
+                             DateTime depatureTime)
         {
             Number = number;
             Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
-            Tickets = tickets;
+            Date = startDate;
+            DepartureTime = depatureTime;
+            Tickets = new List<Ticket>();
             FinalcialInformation = new FinalcialInformation();
         }
 
@@ -52,7 +54,12 @@ namespace Entity
 
         public void AddTicket(Passenger passenger, int seats)
         {
-            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("000")}", passenger, Vehicle, Route, seats);
+            AddTicket(passenger, seats, DateTime.Now);
+        }
+
+        public void AddTicket(Passenger passenger, int seats, DateTime date)
+        {
+            Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("000")}", passenger, Vehicle, Route, seats, date);
             AddTicket(ticket);
         }
 
