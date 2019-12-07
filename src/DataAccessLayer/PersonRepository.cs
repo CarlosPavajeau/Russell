@@ -5,7 +5,7 @@ namespace DataAccessLayer
 {
     public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete, IMap<Person>
     {
-        static readonly string[] PERSON_FIELDS = { "@person_id", "@first_name", "@last_name", "@second_last_name" };
+        static readonly string[] PERSON_FIELDS = { "@person_id", "@first_name", "@second_name", "@last_name", "@second_last_name" };
 
         public PersonRepository(DbConnection connection) : base(connection)
         {
