@@ -3,7 +3,7 @@ namespace Entity
 {
     public class VehicleFeature
     {
-        private byte _chairs;
+        private int _chairs;
         public VehicleFeature(string type, string mark, string model, string modelNumber, string color, byte chairs)
         {
             Type = type;
@@ -29,7 +29,7 @@ namespace Entity
 
         public string Color { get; set; }
 
-        public byte Chairs
+        public int Chairs
         {
             get => _chairs;
             set => _chairs = (value > 0) ? value : throw new System.ArgumentException("The chairs value is invalid");
