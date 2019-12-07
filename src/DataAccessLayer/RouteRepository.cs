@@ -16,7 +16,7 @@ namespace DataAccessLayer
         {
             using (var command = dbConnection.CreateCommand())
             {
-                command.CommandText = "INSER INTO routes(route_code, origin_city, destination_city, cost)" +
+                command.CommandText = "INSERT INTO routes(route_code, origin_city, destination_city, cost)" +
                                       "VALUES(@route_code, @origin_city, @destination_city, @cost)";
 
                 MapCommandParameters(command, ROUTE_FIELDS,
