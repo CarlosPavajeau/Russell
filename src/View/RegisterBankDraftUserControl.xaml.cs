@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-
+using BusinessLogicLayer;
 using Entity;
 using Entity.Common;
 
@@ -19,22 +19,27 @@ namespace View
         private void RegisterBankDraftButton_Click(object sender, RoutedEventArgs e)
         {
             Person psender, receiver;
+            PersonService personService = new PersonService();
 
-            psender = receiver = null;
+            psender = personService.Search(DeliveryFields.SenderField.Text);
+            receiver = personService.Search(DeliveryFields.ReceiverField.Text);
+
+            if (psender is null)
+                return;
+            if (receiver is null)
+                return;
 
             int.TryParse(ValueToSendField.Text, out int valueToSend);
             int.TryParse(CostField.Text, out int cost);
 
             BankDraft bankDraft = new BankDraft(psender, receiver, MainWindow.AdministrativeEmployee, DeliveryFields.DestinationField.Text, valueToSend, cost);
 
-            MainWindow.Client.ReceiveData = ReceiveData;
+            BankDraftService bankDraftService = new BankDraftService();
 
-            MainWindow.Client.Send(new SearchCommand(TypeData.PERSON), DeliveryFields.SenderField.Text);
-        }
-
-        private void ReceiveData(object data)
-        {
-
+            if (bankDraftService.Save(bankDraft))
+                MessageBox.Show("Datos guardadados");
+            else
+                MessageBox.Show("Error al guardar los datos");
         }
     }
 }

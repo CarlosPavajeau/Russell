@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BusinessLogicLayer;
 using Entity;
 using Entity.Common;
 
@@ -22,9 +23,12 @@ namespace View
 
             Route route = new Route(RouteCodeField.Text, OriginCityField.Text, DestinationCityField.Text, cost);
 
-            MainWindow.Client.ServerAnswer = HandleServerAnswer;
+            RouteService routeService = new RouteService();
 
-            MainWindow.Client.Send(new SaveCommand(TypeData.ROUTE), route);
+            if (routeService.Save(route))
+                MessageBox.Show("Datos guardados");
+            else
+                MessageBox.Show("Error al guardar los datos");
         }
 
         private void HandleServerAnswer(ServerAnswer answer)

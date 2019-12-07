@@ -1,8 +1,7 @@
-﻿using System.Threading;
+﻿using BusinessLogicLayer;
+using Entity;
 using System.Windows;
 using System.Windows.Controls;
-using Entity;
-using Entity.Common;
 
 namespace View
 {
@@ -51,14 +50,12 @@ namespace View
             AdministrativeEmployee administrativeEmployee = new AdministrativeEmployee(id, firstName, secondName, lastName,
                                                                                        secondLastName, cellphone, email, address, new User(user, password, typeUser));
 
-            MainWindow.Client.ServerAnswer = ProcessServerAnswer;
-            MainWindow.Client.Send(new SaveCommand(TypeData.ADMINISTRATIVE_EMPLOYEE), administrativeEmployee);
-        }
+            AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
 
-        private void ProcessServerAnswer(ServerAnswer answer)
-        {
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
-                Dispatcher.Invoke(new ThreadStart(() => _afterRegister?.AfterRegister()));
+            if (administrativeEmployeeService.Save(administrativeEmployee))
+                MessageBox.Show("Empleado registrado con exito");
+            else
+                MessageBox.Show("Usuario ya registrado");
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using BusinessLogicLayer;
+using Entity;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Entity;
-using Entity.Common;
 
 namespace View
 {
@@ -22,28 +21,17 @@ namespace View
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Client.ReceiveData = SetAdministrativeEmployee;
-            MainWindow.Client.ServerAnswer = HandleServerAnswer;
+            AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
 
-            MainWindow.Client.Send(new SearchCommand(TypeData.ADMINISTRATIVE_EMPLOYEE), UserField.Text);
+            AdministrativeEmployee administrativeEmployee = administrativeEmployeeService.Search(UserField.Text);
+
+            if (administrativeEmployee is null)
+                MessageBox.Show("Usuario no registrado");
+            else
+                Action?.Invoke(administrativeEmployee);
         }
 
-        private void SetAdministrativeEmployee(object data)
-        {
-            if (data is AdministrativeEmployee administrativeEmployee)
-            {
-                MainWindow.AdministrativeEmployee = administrativeEmployee;
-                Dispatcher.Invoke(new ThreadStart(() => Action?.Invoke()));
-            }
-        }
-
-        private void HandleServerAnswer(ServerAnswer answer)
-        {
-            if (answer == ServerAnswer.NOT_FOUND_DATA)
-                MessageBox.Show("Usuario no registrado", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        public delegate void LoginAction();
+        public delegate void LoginAction(AdministrativeEmployee administrativeEmployee);
 
         private readonly LoginAction Action;
     }
