@@ -1,5 +1,5 @@
-﻿using System.Data.Common;
-using Entity;
+﻿using Entity;
+using System.Data.Common;
 
 namespace DataAccessLayer
 {
@@ -46,8 +46,8 @@ namespace DataAccessLayer
 
                 command.Parameters.Add(CreateDbParameter(command, "@username", primaryKey));
 
-                DbDataReader dbDataReader = command.ExecuteReader();
-                return Map(dbDataReader);
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 

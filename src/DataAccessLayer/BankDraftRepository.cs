@@ -47,7 +47,8 @@ namespace DataAccessLayer
 
                 command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
 
-                return Map(command.ExecuteReader());
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 

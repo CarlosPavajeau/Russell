@@ -36,12 +36,13 @@ namespace DataAccessLayer
         {
             using (var command = dbConnection.CreateCommand())
             {
-                command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name" +
+                command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
                                       "FROM people WHERE person_id = @person_id";
 
-                command.Parameters.Add(CreateDbParameter(command, "person_id", primaryKey));
+                command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
-                return Map(command.ExecuteReader());
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 

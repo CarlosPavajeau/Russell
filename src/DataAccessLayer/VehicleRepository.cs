@@ -53,16 +53,17 @@ namespace DataAccessLayer
         {
             using (var command = dbConnection.CreateCommand())
             {
-                command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type, " +
-                                      "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number " +
+                command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
+                                      "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number "+
                                       "FROM vehicles vh " +
                                       "JOIN vehicle_features vhf ON vh.license_plate = vhf.license_plate " +
-                                      "JOIN imprints im ON vh.license_plate = im.license_plate" +
+                                      "JOIN imprints im ON vh.license_plate = im.license_plate " +
                                       "WHERE vh.license_plate = @license_plate";
 
                 command.Parameters.Add(CreateDbParameter(command, "@license_plate", primaryKey));
 
-                return Map(command.ExecuteReader());
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 
@@ -87,15 +88,16 @@ namespace DataAccessLayer
 
             Vehicle vehicle = new Vehicle(licensePlate, internalNumber, propertyCardNumber, owner, driver);
 
-            vehicle.Feature.Type = dbDataReader.GetString(5);
-            vehicle.Feature.Mark = dbDataReader.GetString(6);
-            vehicle.Feature.Model = dbDataReader.GetString(7);
-            vehicle.Feature.ModelNumber = dbDataReader.GetString(8);
-            vehicle.Feature.Color = dbDataReader.GetString(9);
-            vehicle.Feature.Chairs = dbDataReader.GetByte(10);
+            //vehicle.State = dbDataReader.GetBoolean(5);
+            vehicle.Feature.Type = dbDataReader.GetString(6);
+            vehicle.Feature.Mark = dbDataReader.GetString(7);
+            vehicle.Feature.Model = dbDataReader.GetString(8);
+            vehicle.Feature.ModelNumber = dbDataReader.GetString(9);
+            vehicle.Feature.Color = dbDataReader.GetString(10);
+            vehicle.Feature.Chairs = dbDataReader.GetInt16(11);
 
-            vehicle.Imprint.EngineNumber = dbDataReader.GetString(11);
-            vehicle.Imprint.ChassisNumber = dbDataReader.GetString(12);
+            vehicle.Imprint.EngineNumber = dbDataReader.GetString(12);
+            vehicle.Imprint.ChassisNumber = dbDataReader.GetString(13);
 
             using (var command = dbConnection.CreateCommand())
             {
@@ -104,37 +106,37 @@ namespace DataAccessLayer
 
                 command.Parameters.Add(CreateDbParameter(command, "@license_plate", vehicle.LicensePlate));
 
-                DbDataReader legalInformationDR = command.ExecuteReader();
+                using (var legalInformationDR = command.ExecuteReader())
+                {
+                    if (!legalInformationDR.Read())
+                        return null;
 
-                if (!legalInformationDR.Read())
-                    return null;
+                    DateTime renovationDate, dueDate;
+                    dueDate = legalInformationDR.GetDateTime(1);
+                    renovationDate = legalInformationDR.GetDateTime(2);
 
-                DateTime renovationDate, dueDate;
-                dueDate = legalInformationDR.GetDateTime(1);
-                renovationDate = legalInformationDR.GetDateTime(2);
+                    vehicle.AddLegalInformation(LegalInformationType.BIMONTHLYREVIEW, dueDate, renovationDate);
+                    legalInformationDR.Read();
 
-                vehicle.AddLegalInformation(LegalInformationType.BIMONTHLYREVIEW, dueDate, renovationDate);
-                legalInformationDR.NextResult();
+                    dueDate = legalInformationDR.GetDateTime(1);
+                    renovationDate = legalInformationDR.GetDateTime(2);
+                    vehicle.AddLegalInformation(LegalInformationType.LICENSE, dueDate, renovationDate);
+                    legalInformationDR.Read();
 
-                dueDate = legalInformationDR.GetDateTime(1);
-                renovationDate = legalInformationDR.GetDateTime(2);
-                vehicle.AddLegalInformation(LegalInformationType.LICENSE, dueDate, renovationDate);
-                legalInformationDR.NextResult();
+                    dueDate = legalInformationDR.GetDateTime(1);
+                    renovationDate = legalInformationDR.GetDateTime(2);
+                    vehicle.AddLegalInformation(LegalInformationType.OPERATIONCARD, dueDate, renovationDate);
+                    legalInformationDR.Read();
 
-                dueDate = legalInformationDR.GetDateTime(1);
-                renovationDate = legalInformationDR.GetDateTime(2);
-                vehicle.AddLegalInformation(LegalInformationType.OPERATIONCARD, dueDate, renovationDate);
-                legalInformationDR.NextResult();
+                    dueDate = legalInformationDR.GetDateTime(1);
+                    renovationDate = legalInformationDR.GetDateTime(2);
+                    vehicle.AddLegalInformation(LegalInformationType.SOAT, dueDate, renovationDate);
+                    legalInformationDR.Read();
 
-                dueDate = legalInformationDR.GetDateTime(1);
-                renovationDate = legalInformationDR.GetDateTime(2);
-                vehicle.AddLegalInformation(LegalInformationType.SOAT, dueDate, renovationDate);
-                legalInformationDR.NextResult();
-
-                dueDate = legalInformationDR.GetDateTime(1);
-                renovationDate = legalInformationDR.GetDateTime(2);
-                vehicle.AddLegalInformation(LegalInformationType.TECHNOMECHANICALREVIEW, dueDate, renovationDate);
-
+                    dueDate = legalInformationDR.GetDateTime(1);
+                    renovationDate = legalInformationDR.GetDateTime(2);
+                    vehicle.AddLegalInformation(LegalInformationType.TECHNOMECHANICALREVIEW, dueDate, renovationDate);
+                }
             }
 
             return vehicle;
@@ -169,7 +171,7 @@ namespace DataAccessLayer
             {
                 using (var command = dbConnection.CreateCommand())
                 {
-                    command.CommandText = "INSET INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
+                    command.CommandText = "INSERT INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
                                           "VALUES(@license_plate, @type, @mark, @model, @model_number, @color, @chairs)";
 
                     MapCommandParameters(command, VEHICLE_FEATURE_FIELDS,
@@ -208,7 +210,7 @@ namespace DataAccessLayer
             {
                 using (var command = dbConnection.CreateCommand())
                 {
-                    command.CommandText = "INSET INTO imprints(license_plate, engine_number, chassis_number)" +
+                    command.CommandText = "INSERT INTO imprints(license_plate, engine_number, chassis_number)" +
                                           "VALUES(@license_plate, @engine_number, @chassis_number)";
 
                     MapCommandParameters(command, IMPRINT_FIELDS,

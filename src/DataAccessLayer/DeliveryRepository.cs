@@ -17,8 +17,8 @@ namespace DataAccessLayer
         {
             using (var command = dbConnection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispacher, sender, receiver)" +
-                                      "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispacher, @sender, @receiver)";
+                command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispatcher, sender, receiver)" +
+                                      "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispatcher, @sender, @receiver)";
 
                 MapCommandParameters(command, DELIVERY_FIELDS,
                     new object[]

@@ -42,12 +42,13 @@ namespace DataAccessLayer
             {
                 command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
                                       "em.email, em.address FROM employees em " +
-                                      "JOIN people p ON em.person_id = p.person_id" +
+                                      "JOIN people p ON em.person_id = p.person_id " +
                                       "WHERE em.person_id = @person_id";
 
                 command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
-                return Map(command.ExecuteReader());
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 

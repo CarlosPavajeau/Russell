@@ -42,7 +42,8 @@ namespace DataAccessLayer
 
                 command.Parameters.Add(CreateDbParameter(command, "@route_code", primaryKey));
 
-                return Map(command.ExecuteReader());
+                using (var dbDataReader = command.ExecuteReader())
+                    return Map(dbDataReader);
             }
         }
 
