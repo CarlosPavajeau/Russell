@@ -72,7 +72,17 @@ namespace BusinessLogicLayer.Client
             }
         }
 
-        public void Send(object objectToSend)
+        public void Send(Command command, object data)
+        {
+            DataPacket dataPacket = new DataPacket(command, data);
+            SendObject(dataPacket);
+        }
+
+        public void Send(ClientRequest clientRequest)
+        {
+            SendObject(clientRequest);
+        }
+        private void SendObject(object objectToSend)
         {
             Thread thread = new Thread(() => StartSend(objectToSend));
             thread.Start();
