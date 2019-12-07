@@ -1,5 +1,6 @@
 ﻿namespace Entity
 {
+    [System.Serializable]
     public class Route
     {
         public Route()
