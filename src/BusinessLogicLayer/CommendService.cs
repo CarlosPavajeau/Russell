@@ -25,7 +25,7 @@ namespace BusinessLogicLayer
             }
             finally
             {
-                dbConnection?.Close();
+                dbConnection.Close();
             }
         }
 
@@ -42,7 +42,7 @@ namespace BusinessLogicLayer
             }
             finally
             {
-                dbConnection?.Close();
+                dbConnection.Close();
             }
         }
 
@@ -59,7 +59,7 @@ namespace BusinessLogicLayer
             }
             finally
             {
-                dbConnection?.Close();
+                dbConnection.Close();
             }
         }
     }
