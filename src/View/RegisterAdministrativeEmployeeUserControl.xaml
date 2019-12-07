@@ -17,12 +17,26 @@
                         <TextBox x:Name="UserField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
                     </StackPanel>
                     <StackPanel Margin="25,0">
-                        <TextBlock Text="Contraseña" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBlock Text="Contraseña:" Style="{StaticResource TextField}"></TextBlock>
                         <TextBox x:Name="PasswordField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock x:Name="TypeUserText" Text="Tipo de usuario:" Style="{StaticResource TextField}"></TextBlock>
+                        <ComboBox x:Name="TypeOfUserComboBox" Height="30" Width="170">
+                            <ComboBoxItem>
+                                <TextBlock Text="Superusuario"></TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="Administrador"></TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="Despachador"></TextBlock>
+                            </ComboBoxItem>
+                        </ComboBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="RegisterEmployeeButton" Content="Registrar empleado" Width="125" Style="{StaticResource PrimaryButton}" Margin="0,30"></Button>
+            <Button x:Name="RegisterEmployeeButton" Content="Registrar empleado" Width="125" Style="{StaticResource PrimaryButton}" Margin="0,30" Click="RegisterEmployeeButton_Click"></Button>
         </StackPanel>  
     </Grid>
 </UserControl>
