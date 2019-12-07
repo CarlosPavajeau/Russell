@@ -28,7 +28,12 @@ namespace View
             if (administrativeEmployee is null)
                 MessageBox.Show("Usuario no registrado");
             else
-                Action?.Invoke(administrativeEmployee);
+            {
+                if (administrativeEmployee.User.AccessData.Password == PasswordField.Password)
+                    Action?.Invoke(administrativeEmployee);
+                else
+                    MessageBox.Show("Contraseña incorrecta");
+            }
         }
 
         public delegate void LoginAction(AdministrativeEmployee administrativeEmployee);
