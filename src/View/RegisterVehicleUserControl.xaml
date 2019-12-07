@@ -16,11 +16,11 @@
                 </StackPanel>
                 <StackPanel Margin="0,0,40,0">
                     <TextBlock Text="Número interno: " Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    <TextBox x:Name="InternalNumberField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="N° tarjeta de propiedad: " Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox Width="240"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                    <TextBox x:Name="PropertyCardNumberField" Width="240"  Style="{StaticResource TextBoxStyle}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel>
@@ -41,7 +41,7 @@
                 <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Color:" Style="{StaticResource TextField}"></TextBlock>
-                        <TextBox Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
+                        <TextBox x:Name="ColorField" Width="185"  Style="{StaticResource TextBoxStyle}"></TextBox>
                     </StackPanel>
                     <StackPanel Margin="40,0,0,0">
                         <TextBlock Text="Marca:" Style="{StaticResource TextField}"></TextBlock>
@@ -64,7 +64,7 @@
                     </StackPanel>
                     <StackPanel Margin="40,0,0,0">
                         <TextBlock Text="Números de sillas:" Style="{StaticResource TextField}"></TextBlock>
-                        <TextBox x:Name="ChaisField" Width="170" Style="{StaticResource TextBoxStyle}"></TextBox>
+                        <TextBox x:Name="ChairsField" Width="170" Style="{StaticResource TextBoxStyle}"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -88,11 +88,11 @@
                         <TextBlock Text="S.O.A.T:" Style="{StaticResource TextField}"></TextBlock>
                         <StackPanel>
                             <TextBlock Text="Fecha de renovación:"></TextBlock>
-                            <DatePicker Width="120" Height="25"></DatePicker>
+                            <DatePicker Name="SoatDateOfRenovation" Width="120" Height="25"></DatePicker>
                         </StackPanel>
                         <StackPanel Margin="0,10">
                             <TextBlock Text="Fecha de vencimiento: "></TextBlock>
-                            <DatePicker Width="120" Height="25"></DatePicker>
+                            <DatePicker Name="SoatDueDate" Width="120" Height="25"></DatePicker>
                         </StackPanel>
                         
                     </StackPanel>
@@ -100,44 +100,44 @@
                         <TextBlock Text="Licencia:" Style="{StaticResource TextField}"></TextBlock>
                         <StackPanel>
                             <TextBlock Text="Fecha de renovación:"></TextBlock>
-                            <DatePicker Width="120" Height="25"></DatePicker>
+                            <DatePicker Name="LicenseDateOfRenovation" Width="120" Height="25"></DatePicker>
                         </StackPanel>
                         <StackPanel Margin="0,10">
                             <TextBlock Text="Fecha de vencimiento: "></TextBlock>
-                            <DatePicker Width="120" Height="25"></DatePicker>
+                            <DatePicker Name="LicenseDueDate" Width="120" Height="25"></DatePicker>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Tarjeta de operación: " Style="{StaticResource TextField}"></TextBlock>
                         <StackPanel>
                             <TextBlock Text="Fecha de renovación:"></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="OperationCardDateOfRanovation" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                         <StackPanel Margin="0,10">
                             <TextBlock Text="Fecha de vencimiento: "></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="OperationCardDueDate" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="10,0">
                         <TextBlock Text="Revisión BiMensual: " Style="{StaticResource TextField}"></TextBlock>
                         <StackPanel>
                             <TextBlock Text="Fecha de renovación:"></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="BiMonthlyDateOfRenovation" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                         <StackPanel Margin="0,10">
                             <TextBlock Text="Fecha de vencimiento: "></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="BiMonthlyDueDate" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Revision Tecnomecánica: " Style="{StaticResource TextField}"></TextBlock>
                         <StackPanel>
                             <TextBlock Text="Fecha de renovación:"></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="TechnreviewDateOfRenovation" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                         <StackPanel Margin="0,10">
                             <TextBlock Text="Fecha de vencimiento: "></TextBlock>
-                            <DatePicker Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
+                            <DatePicker Name="TechnreviewDueDate" Width="120" Height="25" HorizontalAlignment="Left"></DatePicker>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
@@ -145,7 +145,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="SaveVehileButton" Content="Guardar" HorizontalAlignment="Right" Margin="30,0,100,0" Style="{StaticResource PrimaryButton}"></Button>
+            <Button x:Name="SaveVehileButton" Content="Guardar" HorizontalAlignment="Right" Margin="30,0,100,0" Style="{StaticResource PrimaryButton}" Click="SaveVehileButton_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

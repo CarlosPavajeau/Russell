@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using BusinessLogicLayer;
+﻿using BusinessLogicLayer;
 using Entity;
-using Entity.Common;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace View
 {

@@ -9,7 +9,7 @@
     <Grid Background="White">
         <StackPanel>
             <local:RegisterEmployeeFields x:Name="RegisterEmployeesField"></local:RegisterEmployeeFields>
-            <Button x:Name="RegisterEmployee" Content="Registrar emplado" Width="120" Style="{StaticResource PrimaryButton}"></Button> 
+            <Button x:Name="RegisterEmployee" Content="Registrar emplado" Width="120" Style="{StaticResource PrimaryButton}" Click="RegisterEmployee_Click"></Button> 
         </StackPanel>  
     </Grid>
 </UserControl>

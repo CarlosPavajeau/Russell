@@ -9,7 +9,7 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Registro de encomienda" Style="{StaticResource TitleText}"></TextBlock>
-            <local:RegisterDeliveryUserControl x:Name="RegisterDelivery"></local:RegisterDeliveryUserControl>
+            <local:RegisterDeliveryUserControl x:Name="DeliveryFields"></local:RegisterDeliveryUserControl>
             <StackPanel Margin="20,0">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
@@ -34,7 +34,7 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBlock x:Name="TotalCommend" Text="Total a pagar: " Style="{StaticResource TextField}"></TextBlock>
-                <Button x:Name="RegisterCommendButton" Content="Registrar encomienda" Width="130" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="RegisterCommendButton" Content="Registrar encomienda" Width="130" Style="{StaticResource PrimaryButton}" Click="RegisterCommendButton_Click"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -33,7 +33,7 @@ namespace View
             firstName = RegisterEmployeeFields.RegisterPersonFields.FirstNameField.Text;
             secondName = RegisterEmployeeFields.RegisterPersonFields.SecondNameField.Text;
             lastName = RegisterEmployeeFields.RegisterPersonFields.LastNameField.Text;
-            secondLastName = RegisterEmployeeFields.RegisterPersonFields.SecondNameField.Text;
+            secondLastName = RegisterEmployeeFields.RegisterPersonFields.SecondLastNameField.Text;
             cellphone = RegisterEmployeeFields.CellphoneField.Text;
             email = RegisterEmployeeFields.EmailField.Text;
             address = RegisterEmployeeFields.AddressField.Text;
@@ -53,7 +53,10 @@ namespace View
             AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
 
             if (administrativeEmployeeService.Save(administrativeEmployee))
+            {
                 MessageBox.Show("Empleado registrado con exito");
+                _afterRegister.AfterRegister();
+            }
             else
                 MessageBox.Show("Usuario ya registrado");
         }
