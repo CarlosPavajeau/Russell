@@ -83,7 +83,7 @@ namespace DataAccessLayer
             {
                 command.CommandText = "SELECT COUNT(*) FROM administrative_employees";
 
-                return ((int)command.ExecuteScalar()) > 0;
+                return ((int)command.ExecuteScalar()) == 0;
             }
         }
     }
