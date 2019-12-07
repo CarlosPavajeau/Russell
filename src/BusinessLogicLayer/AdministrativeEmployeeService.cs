@@ -82,7 +82,19 @@ namespace BusinessLogicLayer
 
         public bool IsEmpty()
         {
-            return _administrativeEmployeeRepository.IsEmpty();
+            try
+            {
+                dbConnection.Open();
+                return _administrativeEmployeeRepository.IsEmpty();
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                dbConnection?.Close();
+            }
         }
 
     }
