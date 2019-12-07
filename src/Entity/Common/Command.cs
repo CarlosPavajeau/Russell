@@ -1,36 +1,26 @@
 ﻿namespace Entity.Common
 {
-    public enum Command
+    public enum TypeData
     {
-        SAVE_PERSON,
-        SAVE_EMPLOYEE,
-        SAVE_ADMINISTRATIVE_EMPLOYEE,
-        SAVE_VEHICLE,
-        SAVE_ROUTE,
-        SAVE_COMMEND,
-        SAVE_BANKDRAFT,
-        SAVE_TRANSPORT_FORM,
-        SAVE_TICKET,
-        SEARCH_PERSON,
-        SEARCH_EMPLOYEE,
-        SEARCH_ADMINISTRATIVE_EMPLOYEE,
-        SEARCH_VEHICLE,
-        SEARCH_ROUTE,
-        SEARCH_COMMEND,
-        SEARCH_BANKDRAFT,
-        SEARCH_TRANSPORT_FORM,
-        SEARCH_TICKET,
-        UPDATE_PERSON,
-        UPDATE_VEHICLE,
-        UPDATE_ROUTE,
-        UPDATE_COMMEND,
-        UPDATE_BANKDRAFT,
-        UPDATE_TRANSPORT_FORM,
-        UPDATE_TICKET,
-        DELETE_EMPLOYEE,
-        DELETE_ADMINISTRATIVE_EMPLOYEE,
-        DELETE_VEHICLE,
-        DELETE_ROUTE,
-        DELETE_TICKET
+        PERSON, 
+        EMPLOYEE,
+        ADMINISTRATIVE_EMPLOYEE,
+        BANKDRAFT,
+        COMMEND,
+        ROUTE,
+        TRANSPORT_FORM,
+        VEHICLE,
+        TICKET
+    }
+
+    [System.Serializable]
+    public abstract class Command
+    {
+        public Command(TypeData typeData)
+        {
+            TypeData = typeData;
+        }
+
+        public TypeData TypeData { get; }
     }
 }
