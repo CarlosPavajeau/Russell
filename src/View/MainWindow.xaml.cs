@@ -10,7 +10,7 @@ namespace View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IAfterRegister
     {
         public static readonly Client Client = new Client();
         public static AdministrativeEmployee AdministrativeEmployee;
@@ -31,7 +31,7 @@ namespace View
         private void IsFirstApplicationStart(ServerAnswer answer)
         {
             if (answer == ServerAnswer.IS_THE_FIRST_APPLICATION_START)
-                Dispatcher.Invoke(new ThreadStart(() => SetMainPanel(new RegisterAdministrativeEmployeeUserControl())));
+                Dispatcher.Invoke(new ThreadStart(() => SetMainPanel(new RegisterAdministrativeEmployeeUserControl(this))));
             else
                 Dispatcher.Invoke(new ThreadStart(() => ShowLoginPanel()));
         }
@@ -61,6 +61,11 @@ namespace View
             Height = 550;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             SetMainPanel(new LoginUserControl(LoginSucces));
+        }
+
+        public void AfterRegister()
+        {
+            ShowLoginPanel();
         }
     }
 }

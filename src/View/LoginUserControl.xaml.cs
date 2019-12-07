@@ -25,9 +25,7 @@ namespace View
             MainWindow.Client.ReceiveData = SetAdministrativeEmployee;
             MainWindow.Client.ServerAnswer = HandleServerAnswer;
 
-            DataPacket dataPacket = new DataPacket(Command.SEARCH_ADMINISTRATIVE_EMPLOYEE, UserField.Text);
-
-            MainWindow.Client.Send(dataPacket);
+            MainWindow.Client.Send(new SearchCommand(TypeData.ADMINISTRATIVE_EMPLOYEE), UserField.Text);
         }
 
         private void SetAdministrativeEmployee(object data)

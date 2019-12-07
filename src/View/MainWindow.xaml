@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
         Title="MainWindow" 
-        WindowStyle="None" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowState="Maximized" d:DesignWidth="1280" d:DesignHeight="720">
     <Grid x:Name="GridMain">
