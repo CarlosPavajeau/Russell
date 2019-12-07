@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Entity;
+using Entity.Common;
 
 namespace View
 {
@@ -21,6 +14,27 @@ namespace View
         public RegisterBankDraftUserControl()
         {
             InitializeComponent();
+        }
+
+        private void RegisterBankDraftButton_Click(object sender, RoutedEventArgs e)
+        {
+            Person psender, receiver;
+
+            psender = receiver = null;
+
+            int.TryParse(ValueToSendField.Text, out int valueToSend);
+            int.TryParse(CostField.Text, out int cost);
+
+            BankDraft bankDraft = new BankDraft(psender, receiver, MainWindow.AdministrativeEmployee, DeliveryFields.DestinationField.Text, valueToSend, cost);
+
+            MainWindow.Client.ReceiveData = ReceiveData;
+
+            MainWindow.Client.Send(new SearchCommand(TypeData.PERSON), DeliveryFields.SenderField.Text);
+        }
+
+        private void ReceiveData(object data)
+        {
+
         }
     }
 }

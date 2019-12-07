@@ -11,12 +11,16 @@
             <TextBlock Text="Registro de ruta" Style="{StaticResource TitleText}"></TextBlock>
             <StackPanel Margin="0,20">
                 <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="0,0,30,0">
+                        <TextBlock Text="Código de la ruta:" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBox x:Name="RouteCodeField" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Ciudad de origen:" Style="{StaticResource TextField}"></TextBlock>
                         <TextBox x:Name="OriginCityField" Style="{StaticResource TextBoxStyle}" Width="200"></TextBox>
                     </StackPanel>
                     <StackPanel Margin="35,0">
-                        <TextBlock Text="Ciudad destino" Style="{StaticResource TextField}"></TextBlock>
+                        <TextBlock Text="Ciudad destino:" Style="{StaticResource TextField}"></TextBlock>
                         <TextBox x:Name="DestinationCityField" Style="{StaticResource TextBoxStyle}" Width="200"></TextBox>
                     </StackPanel>
                 </StackPanel>
@@ -27,7 +31,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="RegisterRouteButton" Content="Registrar ruta" Style="{StaticResource PrimaryButton}" Width="100"></Button>
+            <Button x:Name="RegisterRouteButton" Content="Registrar ruta" Style="{StaticResource PrimaryButton}" Width="100" Click="RegisterRouteButton_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

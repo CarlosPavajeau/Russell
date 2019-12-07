@@ -9,7 +9,7 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Registro de giros" Style="{StaticResource TitleText}"></TextBlock>
-            <local:RegisterDeliveryUserControl></local:RegisterDeliveryUserControl>
+            <local:RegisterDeliveryUserControl x:Name="DeliveryFields"></local:RegisterDeliveryUserControl>
             <StackPanel Margin="20,0">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
@@ -22,7 +22,7 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBlock x:Name="TotalBankDraft" Text="Total a pagar: " Margin="0,30" Style="{StaticResource TextField}"></TextBlock>
-                <Button x:Name="RegisterBankDraftButton" Content="Registrar giro" Width="90" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="RegisterBankDraftButton" Content="Registrar giro" Width="90" Style="{StaticResource PrimaryButton}" Click="RegisterBankDraftButton_Click"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
