@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="BankDraftsViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="BankDraftUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CommendsViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="CommendUserControl.xaml.cs">
@@ -26,6 +32,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="PassegersViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PeopleViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterAdministrativeEmployeeUserControl.xaml.cs">
@@ -56,6 +65,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterRouteUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RegisterTicketUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegisterTransportFormUserControl.xaml.cs">
@@ -90,6 +102,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="BankDraftsViewUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="BankDraftUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -97,6 +112,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ComboBoxStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CommendsViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CommendUserControl.xaml">
@@ -118,6 +136,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="PassegersViewUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PeopleViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterAdministrativeEmployeeUserControl.xaml">
@@ -148,6 +169,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterRouteUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RegisterTicketUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterTransportFormUserControl.xaml">
