@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class BankDraftService : Service, ISave<BankDraft>, ISearch<BankDraft>, IUpdate
+    public class BankDraftService : Service, ISave<BankDraft>, ISearch<BankDraft>, IUpdate, IGetAllData<BankDraft>
     {
         private readonly BankDraftRepository _bankDraftRepository;
 
@@ -62,5 +63,23 @@ namespace BusinessLogicLayer
                 dbConnection.Close();
             }
         }
+
+        public IList<BankDraft> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _bankDraftRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
     }
 }

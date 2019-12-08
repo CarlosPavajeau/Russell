@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class PersonService : Service, ISave<Person>, ISearch<Person>, IUpdate, IDelete
+    public class PersonService : Service, ISave<Person>, ISearch<Person>, IUpdate, IDelete, IGetAllData<Person>
     {
         private readonly PersonRepository _personRepository;
 
@@ -80,5 +81,21 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IList<Person> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _personRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class VehicleService : Service, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete
+    public class VehicleService : Service, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete, IGetAllData<Vehicle>
     {
         private readonly VehicleRepository _vehicleRepository;
 
@@ -80,5 +81,21 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IList<Vehicle> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _vehicleRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
     }
 }

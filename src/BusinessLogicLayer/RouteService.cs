@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class RouteService : Service, ISave<Route>, ISearch<Route>, IUpdate, IDelete
+    public class RouteService : Service, ISave<Route>, ISearch<Route>, IUpdate, IDelete, IGetAllData<Route>
     {
         private RouteRepository _routeRepository;
 
@@ -80,5 +81,21 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IList<Route> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _routeRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
     }
 }

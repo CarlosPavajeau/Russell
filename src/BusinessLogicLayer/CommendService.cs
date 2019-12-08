@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class CommendService : Service, ISave<Commend>, ISearch<Commend>, IUpdate
+    public class CommendService : Service, ISave<Commend>, ISearch<Commend>, IUpdate, IGetAllData<Commend>
     {
         private readonly CommendRepository _commendRepository;
 
@@ -62,5 +63,23 @@ namespace BusinessLogicLayer
                 dbConnection.Close();
             }
         }
+
+        public IList<Commend> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _commendRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
     }
 }

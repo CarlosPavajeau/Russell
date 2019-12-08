@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class TransportFormService : Service, ISave<TransportForm>, ISave<Ticket>, ISearch<TransportForm>, IUpdate
+    public class TransportFormService : Service, ISave<TransportForm>, ISave<Ticket>, ISearch<TransportForm>, IUpdate, IGetAllData<TransportForm>
     {
         private readonly TransportFormRepository _transportFormRepository;
 
@@ -73,6 +74,23 @@ namespace BusinessLogicLayer
             catch (System.Exception)
             {
                 return false;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
+        public IList<TransportForm> GetAllData()
+        {
+            try
+            {
+                dbConnection.Open();
+                return _transportFormRepository.GetAllData();
+            }
+            catch (System.Exception)
+            {
+                return null;
             }
             finally
             {
