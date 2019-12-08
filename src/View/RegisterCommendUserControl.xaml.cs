@@ -18,11 +18,17 @@ namespace View
     /// <summary>
     /// Interaction logic for RegisterCommendUserControl.xaml
     /// </summary>
-    public partial class RegisterCommendUserControl : UserControl
+    public partial class RegisterCommendUserControl : UserControl, IReception<Vehicle>
     {
         public RegisterCommendUserControl()
         {
             InitializeComponent();
+        }
+
+        public void Receive(Vehicle data)
+        {
+            SearchVehicle.IsOpen = false;
+            VehiclePlateField.Text = data.LicensePlate;
         }
 
         private void RegisterCommendButton_Click(object sender, RoutedEventArgs e)
@@ -54,6 +60,12 @@ namespace View
                 MessageBox.Show("Datos guardados");
             else
                 MessageBox.Show("Error al guardar los datos");
+        }
+
+        private void SearchVehicleButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchVehicle.Child = new LittleVehiclesViewUserControl(this);
+            SearchVehicle.IsOpen = true;
         }
     }
 }
