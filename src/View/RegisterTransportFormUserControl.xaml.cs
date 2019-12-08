@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BusinessLogicLayer;
+using Entity;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BusinessLogicLayer;
-using Entity;
 
 namespace View
 {
@@ -20,7 +11,8 @@ namespace View
     /// </summary>
     public partial class RegisterTransportFormUserControl : UserControl
     {
-        public RegisterTransportFormUserControl()
+        readonly AfterRegister _afterRegister;
+        public RegisterTransportFormUserControl(AfterRegister afterRegister)
         {
             InitializeComponent();
 
@@ -29,6 +21,8 @@ namespace View
 
             LoadRoutes();
             LoadVehicles();
+
+            _afterRegister = afterRegister;
         }
 
         private void LoadRoutes()
@@ -43,6 +37,32 @@ namespace View
             VehicleService vehicleService = new VehicleService();
 
             VehicleComboBox.ItemsSource = vehicleService.GetAllData();
+        }
+
+        private void GenerateTransportFormButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(CurrentTransportFormUserControl.CurrentTransportForm is null))
+            {
+                MessageBox.Show("Ya tiene registrada una planilla");
+                _afterRegister?.Invoke();
+            }
+            else
+            {
+                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm(RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
+
+                TransportFormService transportFormService = new TransportFormService();
+
+                if (transportFormService.Save(CurrentTransportFormUserControl.CurrentTransportForm))
+                {
+                    MessageBox.Show("Planilla registrada");
+                    _afterRegister?.Invoke();
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                    CurrentTransportFormUserControl.CurrentTransportForm = null;
+                }
+            }
         }
     }
 }

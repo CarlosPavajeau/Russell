@@ -47,7 +47,7 @@
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
-                <Button x:Name="GenerateTransportFormButton" Content="Generar planilla" Width="110" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="GenerateTransportFormButton" Content="Generar planilla" Width="110" Style="{StaticResource PrimaryButton}" Click="GenerateTransportFormButton_Click"></Button>
             </StackPanel>
         </StackPanel>  
     </Grid>
