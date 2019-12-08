@@ -9,7 +9,14 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Pasajeros" Style="{StaticResource TitleText}"></TextBlock>
-            <DataGrid Height="150"></DataGrid>
+            <DataGrid x:Name="Passengers" Height="150" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Identificación" Width="120" Binding="{Binding Passenger.ID}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre" Width="200" Binding="{Binding Passenger.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Asientos" Width="100" Binding="{Binding Seats}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total" Width="150" Binding="{Binding Total}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>
