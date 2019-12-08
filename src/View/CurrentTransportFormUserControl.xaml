@@ -15,21 +15,23 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,30">
                 <TextBlock x:Name="VehiclePlate" Text="Vehículo: " Style="{StaticResource TextField}"></TextBlock>
-                <TextBlock x:Name="VehicleDriver" Text="Conductor: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
-                <TextBlock x:Name="Route" Text="Ruta: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="VehicleDriver" Text="Conductor: " Margin="50,0,0,0" Style="{StaticResource TextField}"></TextBlock>
+                <TextBlock x:Name="Route" Text="Ruta: " Margin="80,0,0,0" Style="{StaticResource TextField}"></TextBlock>
             </StackPanel>
             <local:PassegersViewUserControl x:Name="PassengersView"></local:PassegersViewUserControl>
-            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
-            <local:FinalcialInformationViewUserControl></local:FinalcialInformationViewUserControl>
+            <StackPanel Orientation="Horizontal" Margin="0,15">
+                <TextBlock x:Name="TotalTransportForm" Style="{StaticResource TextField}" Width="200"></TextBlock>
+                <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Margin="700,0" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
+            </StackPanel>
+            <local:FinalcialInformationViewUserControl x:Name="FinancialInformationFields"></local:FinalcialInformationViewUserControl>
             <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
-                <Button x:Name="SaveTransportForm" Content="Guardar" Style="{StaticResource PrimaryButton}"></Button>
+                <Button x:Name="SaveTransportForm" Content="Guardar" Style="{StaticResource PrimaryButton}" Click="SaveTransportForm_Click"></Button>
                 <Button x:Name="EndTransportForm" Content="Finalizar" Margin="20" Style="{StaticResource PrimaryButton}"></Button>
                 <Button x:Name="PrintTransportForm" Content="Imprimir" Style="{StaticResource PrimaryButton}"></Button>
                 <Button x:Name="GenerateLeads" Content="Generar Conduce" Margin="20,0,0,20" Width="115" Style="{StaticResource PrimaryButton}"></Button>
             </StackPanel>
         </StackPanel>
         <Popup x:Name="AddNewTicket" Placement="Center">
-            <local:RegisterTicketUserControl></local:RegisterTicketUserControl>
         </Popup>
     </Grid>
 </UserControl>
