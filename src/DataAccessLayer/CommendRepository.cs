@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using Entity;
 
 namespace DataAccessLayer
 {
-    public class CommendRepository : DeliveryRepository, ISave<Commend>, ISearch<Commend>, IMap<Commend>
+    public class CommendRepository : DeliveryRepository, ISave<Commend>, ISearch<Commend>, IMap<Commend>, IGetAllData<Commend>
     {
         static readonly string[] COMMEND_FIELDS = { "@delivery_number", "@freight_value", "@agreement", "@description", "@license_plate" };
 
@@ -51,15 +52,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public Commend Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             Person sender, receiver;
             PersonRepository personRepository = new PersonRepository(dbConnection);
 
@@ -71,7 +69,7 @@ namespace DataAccessLayer
 
             AdministrativeEmployeeRepository administrativeEmployee = new AdministrativeEmployeeRepository(dbConnection);
             VehicleRepository vehicleRepository = new VehicleRepository(dbConnection);
-            AdministrativeEmployee dispatcher = administrativeEmployee.Search(dbDataReader.GetString(6));
+            AdministrativeEmployee dispatcher = administrativeEmployee.Search(dbDataReader.GetString(6), true);
             Vehicle vehicle = vehicleRepository.Search(dbDataReader.GetString(7));
 
             if (dispatcher is null || vehicle is null)
@@ -94,6 +92,27 @@ namespace DataAccessLayer
             state = (stateStr == "D") ? State.DELIVERED : (stateStr == "C") ? State.CANCEL : State.ACTIVE;
 
             return new Commend(delivery_number, delivery_date, sender, receiver, dispatcher, destination, description, freightValue, agreement, vehicle, state);
+        }
+
+        public IList<Commend> GetAllData()
+        {
+            IList<Commend> commends = new List<Commend>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
+                                      "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +
+                                      "FROM commends cm " +
+                                      "JOIN deliveries dl ON cm.delivery_number = dl.delivery_number";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        commends.Add(Map(dbDataReader));
+                }
+            }
+
+            return commends;
         }
     }
 }

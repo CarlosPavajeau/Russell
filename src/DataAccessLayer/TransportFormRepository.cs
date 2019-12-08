@@ -1,12 +1,13 @@
 ﻿using Entity;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 
 using static Entity.FinalcialInformationType;
 
 namespace DataAccessLayer
 {
-    public class TransportFormRepository : Repository, ISave<TransportForm>, ISave<Ticket>, ISearch<TransportForm>, IUpdate, IMap<TransportForm>
+    public class TransportFormRepository : Repository, ISave<TransportForm>, ISave<Ticket>, ISearch<TransportForm>, IUpdate, IMap<TransportForm>, IGetAllData<TransportForm>
     {
         static readonly string[] TRANSPORT_FORM_FIELDS = { "@transport_form_number", "@start_date", "@depature_time",
                                                            "@value_of_tickets", "@total_value", "@license_plate", "@route_code", 
@@ -68,17 +69,14 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@transport_form_number", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public TransportForm Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             AdministrativeEmployeeRepository administrativeEmployeeRepository = new AdministrativeEmployeeRepository(dbConnection);
-            AdministrativeEmployee dispatcher = administrativeEmployeeRepository.Search(dbDataReader.GetString(7));
+            AdministrativeEmployee dispatcher = administrativeEmployeeRepository.Search(dbDataReader.GetString(7), true);
             VehicleRepository vehicleRepository = new VehicleRepository(dbConnection);
             Vehicle vehicle = vehicleRepository.Search(dbDataReader.GetString(5));
             RouteRepository routeRepository = new RouteRepository(dbConnection);
@@ -133,6 +131,30 @@ namespace DataAccessLayer
         public bool Update(string primarykey, string columToModify, object newValue)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IList<TransportForm> GetAllData()
+        {
+            IList<TransportForm> transportForms = new List<TransportForm>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT tf.transport_form_number, tf.start_date, tf.depature_time, tf.value_of_tickets, " +
+                                      "tf.total_value, tf.license_plate, tf.route_code, tf.dispatcher, fi.replacement_fund, " +
+                                      "fi.social_contribution, fi.tire_service, fi.vehicle_fix_service, fi.non_contractual_secure_service, " +
+                                      "fi.constact_insurance_service, fi.social_protection, fi.extraordinary_protection, " +
+                                      "fi.administration, fi.others, fi.total FROM transport_forms tf " +
+                                      "JOIN finalcial_information fi ON tf.transport_form_number = fi.transport_form_number " +
+                                      "WHERE tf.transport_form_number = @transport_form_number";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        transportForms.Add(Map(dbDataReader));
+                }
+            }
+
+            return transportForms;
         }
 
         class FinalcialInformationRepository : Repository, IUpdate

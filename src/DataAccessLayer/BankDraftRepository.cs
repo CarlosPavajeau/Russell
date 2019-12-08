@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using Entity;
 
 namespace DataAccessLayer
 {
-    public class BankDraftRepository : DeliveryRepository, ISave<BankDraft>, ISearch<BankDraft>, IMap<BankDraft>
+    public class BankDraftRepository : DeliveryRepository, ISave<BankDraft>, ISearch<BankDraft>, IMap<BankDraft>, IGetAllData<BankDraft>
     {
         static readonly string[] BANKDRAFT_FIELDS = { "@delivery_number", "@value_to_send", "@cost" };
         public BankDraftRepository(DbConnection connection) : base(connection)
@@ -48,15 +49,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public BankDraft Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             Person sender, receiver;
             PersonRepository personRepository = new PersonRepository(dbConnection);
 
@@ -67,7 +65,7 @@ namespace DataAccessLayer
                 return null;
 
             AdministrativeEmployeeRepository administrativeEmployeeRepository = new AdministrativeEmployeeRepository(dbConnection);
-            AdministrativeEmployee dispatcher = administrativeEmployeeRepository.Search(dbDataReader.GetString(6));
+            AdministrativeEmployee dispatcher = administrativeEmployeeRepository.Search(dbDataReader.GetString(6), true);
 
             if (dispatcher is null)
                 return null;
@@ -90,5 +88,25 @@ namespace DataAccessLayer
             return new BankDraft(delivery_number, delivery_date, sender, receiver, dispatcher, destination, valueToSend, cost, state);
         }
 
+        public IList<BankDraft> GetAllData()
+        {
+            IList<BankDraft> bankDrafts = new List<BankDraft>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
+                                      "dl.dispatcher, bd.value_to_send, bd.cost " +
+                                      "FROM bankdrafts bd " +
+                                      "JOIN deliveries dl ON bd.delivery_number = dl.delivery_number";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        bankDrafts.Add(Map(dbDataReader));
+                }
+            }
+
+            return bankDrafts;
+        }
     }
 }

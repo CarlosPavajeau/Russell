@@ -1,9 +1,10 @@
 ﻿using Entity;
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace DataAccessLayer
 {
-    public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete, IMap<Person>
+    public class PersonRepository : Repository, ISave<Person>, ISearch<Person>, IUpdate, IDelete, IMap<Person>, IGetAllData<Person>
     {
         static readonly string[] PERSON_FIELDS = { "@person_id", "@first_name", "@second_name", "@last_name", "@second_last_name" };
 
@@ -42,15 +43,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public Person Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             string person_id, first_name, second_name, last_name, second_last_name;
 
             person_id = dbDataReader.GetString(0);
@@ -85,6 +83,25 @@ namespace DataAccessLayer
 
                 return command.ExecuteNonQuery() > 0;
             }
+        }
+
+        public IList<Person> GetAllData()
+        {
+            IList<Person> people = new List<Person>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
+                                      "FROM people";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        people.Add(Map(dbDataReader));
+                }
+            }
+
+            return people;
         }
     }
 }

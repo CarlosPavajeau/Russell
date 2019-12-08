@@ -1,9 +1,10 @@
-﻿using System.Data.Common;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using Entity;
 
 namespace DataAccessLayer
 {
-    public class EmployeeRepository : PersonRepository, ISave<Employee>, ISearch<Employee>, IMap<Employee>
+    public class EmployeeRepository : PersonRepository, ISave<Employee>, ISearch<Employee>, IMap<Employee>, IGetAllData<Employee>
     {
         static readonly string[] EMPLOYEE_FIELDS = { "@person_id", "@cellphone", "@email", "@address" };
 
@@ -48,15 +49,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public new Employee Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             string person_id, first_name, second_name, last_name, second_last_name,
                    cellphone, email, address;
 
@@ -70,6 +68,26 @@ namespace DataAccessLayer
             address = dbDataReader.GetString(7);
 
             return new Employee(person_id, first_name, second_name, last_name, second_last_name, cellphone, email, address);
+        }
+
+        public new IList<Employee> GetAllData()
+        {
+            IList<Employee> employees = new List<Employee>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
+                                      "em.email, em.address FROM employees em " +
+                                      "JOIN people p ON em.person_id = p.person_id";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        employees.Add(Map(dbDataReader));
+                }
+            }
+
+            return employees;
         }
     }
 }

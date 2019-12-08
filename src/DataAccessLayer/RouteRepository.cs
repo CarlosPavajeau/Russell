@@ -1,9 +1,10 @@
-﻿using System.Data.Common;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using Entity;
 
 namespace DataAccessLayer
 {
-    public class RouteRepository : Repository, ISave<Route>, ISearch<Route>, IUpdate, IDelete, IMap<Route>
+    public class RouteRepository : Repository, ISave<Route>, ISearch<Route>, IUpdate, IDelete, IMap<Route>, IGetAllData<Route>
     {
         static readonly string[] ROUTE_FIELDS = { "@route_code", "@origin_city", "@destination_city", "@cost" };
 
@@ -43,15 +44,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@route_code", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public Route Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             string route_code, origin_city, destination_city;
             decimal cost;
 
@@ -86,6 +84,25 @@ namespace DataAccessLayer
 
                 return command.ExecuteNonQuery() > 0;
             }
+        }
+
+        public IList<Route> GetAllData()
+        {
+            IList<Route> routes = new List<Route>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT route_code, origin_city, destination_city, cost " +
+                                      "FROM routes";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        routes.Add(Map(dbDataReader));
+                }
+            }
+
+            return routes;
         }
     }
 }

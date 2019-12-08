@@ -47,15 +47,33 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@username", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return (dbDataReader.Read()) ? Map(dbDataReader) : null;
             }
+        }
+
+        public AdministrativeEmployee Search(string primaryKey, bool searchByID)
+        {
+            if (searchByID)
+            {
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
+                        "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
+                        "JOIN employees em ON em.person_id = ad.person_id JOIN people pe ON pe.person_id = ad.person_id " +
+                        "WHERE ad.person_id = @person_id";
+
+                    command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
+
+                    using (var dbDataReader = command.ExecuteReader())
+                        return (dbDataReader.Read()) ? Map(dbDataReader) : null;
+                }
+            }
+            else
+                return Search(primaryKey);
         }
 
         public new AdministrativeEmployee Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             string id, firstName, secondName, lastName, secondLastName,
                    cellphone, email, address, username, passwordname;
 

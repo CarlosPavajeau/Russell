@@ -5,7 +5,7 @@ using Entity;
 
 namespace DataAccessLayer
 {
-    public class VehicleRepository : Repository, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete, IMap<Vehicle>
+    public class VehicleRepository : Repository, ISave<Vehicle>, ISearch<Vehicle>, IUpdate, IDelete, IMap<Vehicle>, IGetAllData<Vehicle>
     {
         static readonly string[] VEHICLE_FIELDS = { "@license_plate", "@internal_number", "@property_card_number", "@state",
                                                     "@owner", "@driver"};
@@ -63,15 +63,12 @@ namespace DataAccessLayer
                 command.Parameters.Add(CreateDbParameter(command, "@license_plate", primaryKey));
 
                 using (var dbDataReader = command.ExecuteReader())
-                    return Map(dbDataReader);
+                    return dbDataReader.Read() ? Map(dbDataReader) : null;
             }
         }
 
         public Vehicle Map(DbDataReader dbDataReader)
         {
-            if (!dbDataReader.Read())
-                return null;
-
             EmployeeRepository employeeRepository = new EmployeeRepository(dbConnection);
             Employee driver, owner;
             driver = employeeRepository.Search(dbDataReader.GetString(3));
@@ -156,6 +153,28 @@ namespace DataAccessLayer
             {
                 return true;
             }
+        }
+
+        public IList<Vehicle> GetAllData()
+        {
+            IList<Vehicle> vehicles = new List<Vehicle>();
+
+            using (var command = dbConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
+                                      "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number " +
+                                      "FROM vehicles vh " +
+                                      "JOIN vehicle_features vhf ON vh.license_plate = vhf.license_plate " +
+                                      "JOIN imprints im ON vh.license_plate = im.license_plate";
+
+                using (var dbDataReader = command.ExecuteReader())
+                {
+                    while (dbDataReader.Read())
+                        vehicles.Add(Map(dbDataReader));
+                }
+            }
+
+            return vehicles;
         }
 
         class VehicleFeatureRepository : Repository, ISave<Vehicle>, IUpdate
