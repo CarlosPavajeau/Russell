@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using Entity;
+using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace View
 {
@@ -23,6 +14,30 @@ namespace View
             InitializeComponent();
             DeliveryDate.Text += DateTime.Now.ToShortDateString();
             DeliveryDispatcher.Text += $"{MainWindow.AdministrativeEmployee.Name}";
+        }
+
+        private void SearchSenderButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SearchReceiver.Child = new PeopleViewUserControl(SetSender);
+            SearchReceiver.IsOpen = true;
+        }
+
+        private void SetSender(Person person)
+        {
+            SearchReceiver.IsOpen = false;
+            SenderField.Text = person.ID;
+        }
+
+        private void SearchReceiverButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SearchReceiver.Child = new PeopleViewUserControl(SetReceiver);
+            SearchReceiver.IsOpen = true;
+        }
+
+        private void SetReceiver(Person person)
+        {
+            SearchReceiver.IsOpen = false;
+            ReceiverField.Text = person.ID;
         }
     }
 }

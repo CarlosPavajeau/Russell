@@ -17,17 +17,30 @@
             <StackPanel Orientation="Horizontal" Margin="0,30">
                 <StackPanel>
                     <TextBlock Text="Remitente:" Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox x:Name="SenderField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="SenderField" Width="175" Style="{StaticResource TextBoxStyle}" Margin="0,0,5,0"></TextBox>
+                        <Button x:Name="SearchSenderButton" Style="{StaticResource PrimaryButton}" Margin="0" Width="35" Click="SearchSenderButton_Click">
+                            <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Margin="40,0">
                     <TextBlock Text="Destinario:" Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox x:Name="ReceiverField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="ReceiverField" Width="175" Style="{StaticResource TextBoxStyle}" Margin="0,0,5,0"></TextBox>
+                        <Button x:Name="SearchReceiverButton" Style="{StaticResource PrimaryButton}" Margin="0" Width="35" Click="SearchReceiverButton_Click">
+                            <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Destino:" Style="{StaticResource TextField}"></TextBlock>
                     <TextBox x:Name="DestinationField" Width="180" Style="{StaticResource TextBoxStyle}"></TextBox>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>  
+        </StackPanel>
+        <Popup x:Name="SearchReceiver" Placement="Center">
+            
+        </Popup>
     </Grid>
 </UserControl>
