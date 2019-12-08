@@ -27,7 +27,7 @@
                 <TextBox x:Name="SeatsField" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Width="175"></TextBox>
             </StackPanel>
             <TextBlock Text="Total: " Style="{StaticResource TextField}" Margin="0,30"></TextBlock>
-            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="120" Style="{StaticResource PrimaryButton}"></Button>
+            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="120" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
         </StackPanel>
         <Popup x:Name="SelectPerson" Placement="Center"></Popup>
     </Grid>

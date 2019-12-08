@@ -1,5 +1,8 @@
-﻿using Entity;
+﻿using BusinessLogicLayer;
+using Entity;
 using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace View
@@ -9,6 +12,8 @@ namespace View
     /// </summary>
     public partial class RegisterTicketUserControl : UserControl
     {
+        private Passenger _passenger;
+        readonly IAfterRegister _afterRegister;
         public RegisterTicketUserControl()
         {
             InitializeComponent();
@@ -16,7 +21,12 @@ namespace View
             TicketDispatcher.Text += MainWindow.AdministrativeEmployee.Name;
         }
 
-        private void SearhPassenger_Click(object sender, System.Windows.RoutedEventArgs e)
+        public RegisterTicketUserControl(IAfterRegister afterRegister) : this()
+        {
+            _afterRegister = afterRegister;
+        }
+
+        private void SearhPassenger_Click(object sender, RoutedEventArgs e)
         {
             SelectPerson.Child = new PeopleViewUserControl(SetPassenger);
             SelectPerson.IsOpen = true;
@@ -25,7 +35,28 @@ namespace View
         private void SetPassenger(Person person)
         {
             SelectPerson.IsOpen = false;
-            PassenderID.Text = person.ID;
+            _passenger = Person.ToPassenger(person);
+            PassenderID.Text = _passenger.ID;
+        }
+
+        private void AddNewPassenger_Click(object sender, RoutedEventArgs e)
+        {
+            if (_passenger is null)
+            {
+                PersonService personService = new PersonService();
+                _passenger = Person.ToPassenger(personService.Search(PassenderID.Text));
+
+                if (_passenger is null)
+                    return;
+            }
+
+            CurrentTransportFormUserControl.CurrentTransportForm?.AddTicket(_passenger, int.Parse(SeatsField.Text));
+
+            TransportFormService transportFormService = new TransportFormService();
+            if (transportFormService.Save(CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last()))
+                _afterRegister?.AfterRegister();
+            else
+                MessageBox.Show("Error");
         }
     }
 }
