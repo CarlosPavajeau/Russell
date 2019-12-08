@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="View.CommendsViewUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel>
+            <TextBlock Text="Encomiendas" Style="{StaticResource TitleText}"></TextBlock>
+            <DataGrid x:Name="Commends" Height="100" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Número" Binding="{Binding Number}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Date}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Destino" Binding="{Binding Destination}" Width="75"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripcion" Binding="{Binding Description}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Remitente" Binding="{Binding Sender.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Destinario" Binding="{Binding Receiver.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Despachador" Binding="{Binding Dispatcher.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Valor flete" Binding="{Binding FreightValue}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Convenio encomienda" Binding="{Binding Agreement}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vehículo" Binding="{Binding Vehicle.LicensePlate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Conductor" Binding="{Binding Vehicle.Driver.Name}"></DataGridTextColumn>
+                    <!---<DataGridTextColumn Header="Total" Binding="{Binding Total}"></DataGridTextColumn>-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>
