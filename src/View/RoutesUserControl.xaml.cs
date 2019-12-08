@@ -28,5 +28,11 @@ namespace View
             MainPanel.Children.Clear();
             MainPanel.Children.Add(new RegisterRouteUserControl());
         }
+
+        private void ListRoutesButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new RoutesViewUserControl());
+        }
     }
 }
