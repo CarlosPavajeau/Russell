@@ -9,15 +9,53 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Información Financiera" Style="{StaticResource TitleText}"></TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="0,10">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
                 <StackPanel>
                     <TextBlock Text="Fondo reposición:" Style="{StaticResource TextField}"></TextBlock>
                     <TextBox x:Name="ReplacementFundField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
                 </StackPanel>
-                <StackPanel Margin="30,0">
+                <StackPanel Margin="20,0">
                     <TextBlock Text="Aporte social:" Style="{StaticResource TextField}"></TextBlock>
                     <TextBox x:Name="SocialContributionField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
                 </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Servicio llantas:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="TireServiceField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Serv. Arreglo Vehiculo:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="VehicleFixServiceField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Serv. Seg. Extra Contractual:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="NonConSecServiceField" Width="230" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                <StackPanel>
+                    <TextBlock Text="Serv. Seg. Contractual:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="ConstInsuServiceField" Width="185" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Protección social:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="SocialProtectionField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Proteccion ext.:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="ExtraordinaryProtectionField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Administracion:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="AdministrationField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="20,0">
+                    <TextBlock Text="Otros:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="OthersField" Width="150" Style="{StaticResource TextBoxStyle}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="SubTotal:" Style="{StaticResource TextField}"></TextBlock>
+                <TextBox x:Name="SubTotal" Width="100" HorizontalAlignment="Left" Style="{StaticResource TextBoxStyle}"></TextBox>
             </StackPanel>
         </StackPanel>
     </Grid>
