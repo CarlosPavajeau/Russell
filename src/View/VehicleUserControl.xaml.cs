@@ -34,5 +34,11 @@ namespace View
             MainPanel.Children.Clear();
             MainPanel.Children.Add(new SearchVehicleUserControl());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new VehiclesViewUserControl());
+        }
     }
 }

@@ -26,7 +26,13 @@ namespace View
         private void RegisterTransportForm_Click(object sender, RoutedEventArgs e)
         {
             MainPanel.Children.Clear();
-            MainPanel.Children.Add(new RegisterTransportFormUserControl());
+            MainPanel.Children.Add(new RegisterTransportFormUserControl(AfterRegisterTransportForm));
+        }
+
+        private void AfterRegisterTransportForm()
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new CurrentTransportFormUserControl());
         }
 
         private void SeeCurrentTransportFrom_Click(object sender, RoutedEventArgs e)
