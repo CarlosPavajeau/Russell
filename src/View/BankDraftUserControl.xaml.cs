@@ -23,5 +23,11 @@ namespace View
             MainPanel.Children.Clear();
             MainPanel.Children.Add(new SearchBankDraftUserControl());
         }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(new BankDraftsViewUserControl());
+        }
     }
 }

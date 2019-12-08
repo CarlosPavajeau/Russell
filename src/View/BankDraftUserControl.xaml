@@ -12,7 +12,7 @@
             <Button x:Name="RegisterBankDraftButton" Content="Agregar un giro" Style="{StaticResource ControlButton}" Margin="0,30,0,0" Click="RegisterBankDraftButton_Click"></Button>
             <Button x:Name="SearchBankDraftButton" Content="Buscar un giro" Style="{StaticResource ControlButton}" Click="SearchBankDraftButton_Click"></Button>
             <Button Content="Cancelar un giro" Style="{StaticResource ControlButton}" Margin="0,0"></Button>
-            <Button Content="Listar giros" Style="{StaticResource ControlButton}"></Button>
+            <Button Content="Listar giros" Style="{StaticResource ControlButton}" Click="Button_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

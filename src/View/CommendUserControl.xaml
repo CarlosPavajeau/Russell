@@ -12,7 +12,7 @@
             <Button x:Name="RegisterCommendButton" Content="Agregar una encomienda" Width="300" Style="{StaticResource ControlButton}" Margin="0,30,0,0" Click="RegisterCommendButton_Click"></Button>
             <Button x:Name="SearchCommendButton" Content="Buscar una encomienda" Width="300" Style="{StaticResource ControlButton}" Click="SearchCommendButton_Click"></Button>
             <Button Content="Cancelar una encomienda" Width="300" Style="{StaticResource ControlButton}" Margin="0,0"></Button>
-            <Button Content="Listar encomiendas" Width="300" Style="{StaticResource ControlButton}"></Button>
+            <Button Content="Listar encomiendas" Width="300" Style="{StaticResource ControlButton}" Click="Button_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
