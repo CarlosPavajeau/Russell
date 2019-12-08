@@ -18,18 +18,32 @@
                 <StackPanel Orientation="Horizontal" Margin="0,20">
                     <StackPanel>
                         <TextBlock Text="Ruta" Style="{StaticResource TextField}"></TextBlock>
-                        <ComboBox x:Name="RuteComboBox" Template="{DynamicResource ComboBoxStyle}" Width="250" Height="25">
-                            <ComboBoxItem>
-                                <TextBlock Text="Pueblo Bello a Valleduar, Valor 13000$"></TextBlock>
-                            </ComboBoxItem>
+                        <ComboBox x:Name="RouteComboBox" Template="{DynamicResource ComboBoxStyle}" Width="250" Height="25">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="Route">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Code}"></TextBlock>
+                                        <TextBlock Text=" / "></TextBlock>
+                                        <TextBlock Text="{Binding OriginCity}"></TextBlock>
+                                        <TextBlock Text=" a "></TextBlock>
+                                        <TextBlock Text="{Binding DestinationCity}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Margin="40,0">
                         <TextBlock Text="Vehiculo" Style="{StaticResource TextField}"></TextBlock>
                         <ComboBox Template="{DynamicResource ComboBoxStyle}" x:Name="VehicleComboBox" Width="200" Height="25">
-                            <ComboBoxItem>
-                                <TextBlock Text="EJL-555 / Carlos Pavajeau"></TextBlock>
-                            </ComboBoxItem>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="Vehicle">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding LicensePlate}"></TextBlock>
+                                        <TextBlock Text=" / "></TextBlock>
+                                        <TextBlock Text="{Binding Driver.Name}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
