@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="View.RegisterTicketUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="TicketCode" Text="Código del ticket: " Style="{StaticResource TextField}" Margin="0,0,100,0"></TextBlock>
+                <TextBlock x:Name="TicketDate" Text="Fecha: " Style="{StaticResource TextField}" Margin="0,0,50,0"></TextBlock>
+                <TextBlock x:Name="TicketDispatcher" Text="Despachador: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <StackPanel Margin="0,30">
+                <TextBlock Text="Pasajero:" Style="{StaticResource TextField}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="PassenderID" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0,0,5,0"></TextBox>
+                    <Button x:Name="SearhPassenger" Style="{StaticResource PrimaryButton}" Margin="0" Width="35" Click="SearhPassenger_Click">
+                        <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Puestos:" Style="{StaticResource TextField}"></TextBlock>
+                <TextBox x:Name="SeatsField" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Width="175"></TextBox>
+            </StackPanel>
+            <TextBlock Text="Total: " Style="{StaticResource TextField}" Margin="0,30"></TextBlock>
+            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="120" Style="{StaticResource PrimaryButton}"></Button>
+        </StackPanel>
+        <Popup x:Name="SelectPerson" Placement="Center"></Popup>
+    </Grid>
+</UserControl>
