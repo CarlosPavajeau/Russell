@@ -9,7 +9,7 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Encomiendas" Style="{StaticResource TitleText}"></TextBlock>
-            <DataGrid x:Name="Commends" Height="100" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid x:Name="Commends" Height="Auto" ItemsSource="{Binding}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Número" Binding="{Binding Number}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Fecha" Binding="{Binding Date}"></DataGridTextColumn>
