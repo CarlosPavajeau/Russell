@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using static Entity.FinalcialInformationType;
+
 namespace Entity
 {
     public class TransportForm
@@ -18,17 +20,26 @@ namespace Entity
             DepartureTime = depatureTime;
             Tickets = new List<Ticket>();
             FinalcialInformation = new FinalcialInformation();
+            SetFinalcialInformation();
         }
 
-        public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher)
+        private void SetFinalcialInformation()
         {
-            Number = (++transportFormsCount).ToString("0000");
-            Route = route;
-            Vehicle = vehicle;
-            Dispatcher = dispatcher;
-            Date = DateTime.Now;
-            Tickets = new List<Ticket>();
-            FinalcialInformation = new FinalcialInformation();
+            FinalcialInformation[REPLACEMENT_FUND] = 0;
+            FinalcialInformation[SOCIAL_CONTRIBUTION] = 0;
+            FinalcialInformation[TIRE_SERVICE] = 0;
+            FinalcialInformation[VEHICLE_FIX_SERVICE] = 0;
+            FinalcialInformation[NON_CONTRACTUAL_SERCURE_SERVICE] = 0;
+            FinalcialInformation[CONSTACT_INSURANCE_SERVICE] = 0;
+            FinalcialInformation[SOCIAL_PROTECTION] = 0;
+            FinalcialInformation[EXTRAORDINARY_PROTECTION] = 0;
+            FinalcialInformation[ADMINISTRATION] = 0;
+            FinalcialInformation[OTHERS] = 0;
+        }
+
+        public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher) : this((++transportFormsCount).ToString("0000"), route, vehicle, dispatcher, DateTime.Now, DateTime.Now)
+        {
+
         }
 
         public string Number { get; }
@@ -71,7 +82,7 @@ namespace Entity
 
         public void UpdateTotalValue()
         {
-            TotalValue = ValueOfTickets + FinalcialInformation.CalculateTotal();
+            TotalValue = ValueOfTickets + FinalcialInformation.Total;
         }
     }
 }

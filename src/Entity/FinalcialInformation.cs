@@ -9,7 +9,7 @@ namespace Entity
         SOCIAL_CONTRIBUTION,
         TIRE_SERVICE,
         VEHICLE_FIX_SERVICE,
-        NON_CONTRACTIAL_SERCURE_SERVICE,
+        NON_CONTRACTUAL_SERCURE_SERVICE,
         CONSTACT_INSURANCE_SERVICE,
         SOCIAL_PROTECTION,
         EXTRAORDINARY_PROTECTION,
@@ -31,9 +31,9 @@ namespace Entity
             set => _financialInformation[type] = value;
         }
 
-        public decimal CalculateTotal()
+        public decimal Total
         {
-            return _financialInformation.Sum(fi => fi.Value);
+            get => _financialInformation.Sum(fi => fi.Value);
         }
     }
 }

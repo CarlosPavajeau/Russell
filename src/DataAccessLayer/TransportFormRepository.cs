@@ -98,13 +98,13 @@ namespace DataAccessLayer
             transportForm.AddFinalcialInformation(SOCIAL_CONTRIBUTION, dbDataReader.GetDecimal(9));
             transportForm.AddFinalcialInformation(TIRE_SERVICE, dbDataReader.GetDecimal(10));
             transportForm.AddFinalcialInformation(VEHICLE_FIX_SERVICE, dbDataReader.GetDecimal(11));
-            transportForm.AddFinalcialInformation(NON_CONTRACTIAL_SERCURE_SERVICE, dbDataReader.GetDecimal(12));
+            transportForm.AddFinalcialInformation(NON_CONTRACTUAL_SERCURE_SERVICE, dbDataReader.GetDecimal(12));
             transportForm.AddFinalcialInformation(CONSTACT_INSURANCE_SERVICE, dbDataReader.GetDecimal(13));
             transportForm.AddFinalcialInformation(SOCIAL_PROTECTION, dbDataReader.GetDecimal(14));
             transportForm.AddFinalcialInformation(EXTRAORDINARY_PROTECTION, dbDataReader.GetDecimal(15));
             transportForm.AddFinalcialInformation(ADMINISTRATION, dbDataReader.GetDecimal(16));
             transportForm.AddFinalcialInformation(OTHERS, dbDataReader.GetDecimal(17));
-            transportForm.FinalcialInformation.CalculateTotal();
+            transportForm.UpdateTotalValue();
 
             using (var ticketCommand = dbConnection.CreateCommand())
             {
