@@ -25,6 +25,9 @@
     <Compile Update="FinalcialInformationViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="LittleVehiclesViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LoginUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -79,6 +82,9 @@
     <Compile Update="RoutesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="RoutesViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="SearchBankDraftUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +101,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TransportFormUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VehiclesViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="VehicleUserControl.xaml.cs">
@@ -124,6 +133,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="FinalcialInformationViewUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LittleVehiclesViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="LoginUserControl.xaml">
@@ -183,6 +195,9 @@
     <Page Update="RoutesUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="RoutesViewUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="SearchBankDraftUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -205,6 +220,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TransportFormUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VehiclesViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="VehicleUserControl.xaml">
