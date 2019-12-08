@@ -22,5 +22,10 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void AddNewPassenger_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewTicket.IsOpen = true;
+        }
     }
 }

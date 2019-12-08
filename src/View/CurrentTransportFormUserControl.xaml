@@ -19,6 +19,7 @@
                 <TextBlock x:Name="Route" Text="Ruta: " Margin="150,0,0,0" Style="{StaticResource TextField}"></TextBlock>
             </StackPanel>
             <local:PassegersViewUserControl x:Name="PassengersView"></local:PassegersViewUserControl>
+            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
             <local:FinalcialInformationViewUserControl></local:FinalcialInformationViewUserControl>
             <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
                 <Button x:Name="SaveTransportForm" Content="Guardar" Style="{StaticResource PrimaryButton}"></Button>
@@ -27,5 +28,8 @@
                 <Button x:Name="GenerateLeads" Content="Generar Conduce" Margin="20,0,0,20" Width="115" Style="{StaticResource PrimaryButton}"></Button>
             </StackPanel>
         </StackPanel>
+        <Popup x:Name="AddNewTicket" Placement="Center">
+            <local:RegisterTicketUserControl></local:RegisterTicketUserControl>
+        </Popup>
     </Grid>
 </UserControl>

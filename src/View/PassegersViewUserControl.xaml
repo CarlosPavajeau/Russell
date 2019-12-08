@@ -10,7 +10,6 @@
         <StackPanel>
             <TextBlock Text="Pasajeros" Style="{StaticResource TitleText}"></TextBlock>
             <DataGrid Height="150"></DataGrid>
-            <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Style="{StaticResource PrimaryButton}"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
