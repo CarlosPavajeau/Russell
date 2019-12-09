@@ -59,8 +59,13 @@ namespace View
 
         private void AddNewPassenger_Click(object sender, RoutedEventArgs e)
         {
-            AddNewTicket.Child = new RegisterTicketUserControl(this);
+            AddNewTicket.Child = new RegisterTicketUserControl(this, CloseAddNewTicket);
             AddNewTicket.IsOpen = true;
+        }
+
+        private void CloseAddNewTicket()
+        {
+            AddNewTicket.IsOpen = false;
         }
 
         private void SaveTransportForm_Click(object sender, RoutedEventArgs e)

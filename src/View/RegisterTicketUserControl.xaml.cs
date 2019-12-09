@@ -14,6 +14,7 @@ namespace View
     {
         private Passenger _passenger;
         readonly IAfterRegister _afterRegister;
+        readonly CloseAction _closeAction;
         public RegisterTicketUserControl()
         {
             InitializeComponent();
@@ -21,9 +22,10 @@ namespace View
             TicketDispatcher.Text += MainWindow.AdministrativeEmployee.Name;
         }
 
-        public RegisterTicketUserControl(IAfterRegister afterRegister) : this()
+        public RegisterTicketUserControl(IAfterRegister afterRegister, CloseAction closeAction) : this()
         {
             _afterRegister = afterRegister;
+            _closeAction = closeAction;
         }
 
         private void SearhPassenger_Click(object sender, RoutedEventArgs e)
@@ -57,6 +59,11 @@ namespace View
                 _afterRegister?.AfterRegister();
             else
                 MessageBox.Show("Error");
+        }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            _closeAction?.Invoke();
         }
     }
 }
