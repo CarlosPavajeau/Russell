@@ -16,13 +16,13 @@ namespace Infrastructure
             Client = new SmtpClient();
         }
 
-        public async Task<bool> SendEmail(Employee employee)
+        public bool SendEmail(Employee employee)
         {
             try
             {
                 ConfigSMTP();
                 ConfigEmail(employee);
-                await Client.SendMailAsync(MailMessage);
+                Client.SendMailAsync(MailMessage);
                 return true;
             }
             catch (Exception)
@@ -47,7 +47,8 @@ namespace Infrastructure
             MailMessage.To.Add(employee.Email);
             MailMessage.From = new MailAddress("feres223ger@gmail.com");
 
-            MailMessage.Subject = $"Bienvenido a la empresa. Señor {employee.Name} usted acaba de ser registrado como uno de nustros empleados el dia {DateTime.Now.ToShortDateString()}";
+            MailMessage.Subject = $"Bienvenido a la empresa. Señor {employee.Name}.";
+            MailMessage.Body = $"Usted acaba de ser registrado como uno de nuestros empleados el dia {DateTime.Now.ToShortDateString()}";
             MailMessage.IsBodyHtml = false;
             MailMessage.Priority = MailPriority.High;
         }

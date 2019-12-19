@@ -3,8 +3,6 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Infrastructure
@@ -21,7 +19,8 @@ namespace Infrastructure
             title.SetFontSize(30);
             title.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             document.Add(new Paragraph(title));
-
+            Text sender = new Text($"Remitente: {commend.Sender.Name}");
+            document.Add(new Paragraph(sender));
             document.Close();
         }
     }
