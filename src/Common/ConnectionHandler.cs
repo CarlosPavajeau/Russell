@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace Entity.Common
+namespace Common
 {
     public static class ConnectionHandler
     {

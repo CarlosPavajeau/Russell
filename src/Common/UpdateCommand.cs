@@ -1,4 +1,4 @@
-﻿namespace Entity.Common
+﻿namespace Common
 {
     [System.Serializable]
     public class UpdateCommand : Command

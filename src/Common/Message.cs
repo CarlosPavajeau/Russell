@@ -1,4 +1,4 @@
-﻿namespace Entity.Common
+﻿namespace Common
 {
     public sealed class Message
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entity.Common
+namespace Common
 {
     [Serializable]
     public sealed class DataPacket

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.IO;
 
-namespace Entity.Common
+namespace Common
 {
     public static class ConnectionSettings
     {

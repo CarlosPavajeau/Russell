@@ -2,7 +2,7 @@
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-namespace Entity.Common
+namespace Common
 {
     public static class Map
     {
