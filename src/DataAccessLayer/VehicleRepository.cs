@@ -257,7 +257,7 @@ namespace DataAccessLayer
             {
                 using (var command = dbConnection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
+                    command.CommandText = $"UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
 
                     command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
                     command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
