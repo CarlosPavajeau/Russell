@@ -10,8 +10,6 @@ namespace Entity
     }
     public abstract class Delivery
     {
-        private static int deliveryCount = 0;
-
         public Delivery(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state)
         {
             Number = number;
@@ -21,18 +19,12 @@ namespace Entity
             Dispatcher = dispatcher;
             Destination = destination;
             State = state;
-
         }
 
-        public Delivery(Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state = State.ACTIVE)
+        public Delivery(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state = State.ACTIVE) :
+                        this(number, DateTime.Now, sender, receiver, dispatcher, destination, state)
         {
-            Number = (++deliveryCount).ToString("00000");
-            Date = DateTime.Now;
-            Sender = sender;
-            Receiver = receiver;
-            Dispatcher = dispatcher;
-            Destination = destination;
-            State = state;
+
         }
 
         public string Number { get; }
@@ -48,6 +40,8 @@ namespace Entity
         public State State { get; set; }
 
         public string Destination { get; set; }
+
+        public decimal Total { get; protected set; }
 
         public bool IsActived()
         {
