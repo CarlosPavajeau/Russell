@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using Entity;
+using Infrastructure;
 
 namespace BusinessLogicLayer
 {
@@ -16,6 +17,8 @@ namespace BusinessLogicLayer
         {
             try
             {
+                Email email = new Email();
+                email.SendEmail(data);
                 dbConnection.Open();
                 return _administrativeEmployeeRepository.Save(data);
             }
