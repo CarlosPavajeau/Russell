@@ -3,7 +3,7 @@ using Entity;
 
 namespace DataAccessLayer
 {
-    public abstract class DeliveryRepository : Repository, ISave<Delivery>, IUpdate
+    public abstract class DeliveryRepository : Repository, ISave<Delivery>, IUpdate, ICount
     {
         static readonly string[] DELIVERY_FIELDS = { "@delivery_number", "@destination", "@delivery_date", "@state", 
                                                      "@dispatcher", "@sender", "@receiver" };
@@ -11,6 +11,18 @@ namespace DataAccessLayer
         public DeliveryRepository(DbConnection connection) : base(connection)
         {
 
+        }
+
+        public int Count
+        {
+            get
+            {
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "SELECT COUNT(*) FROM deliveries";
+                    return (int)command.ExecuteScalar();
+                }
+            }
         }
 
         public bool Save(Delivery data)
