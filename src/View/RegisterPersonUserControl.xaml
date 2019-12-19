@@ -10,6 +10,7 @@
         <StackPanel>
             <local:RegisterPersonFields x:Name="PersonFields"></local:RegisterPersonFields>
             <Button x:Name="RegisterPerson" Content="Registrar persona" Width="120" Style="{StaticResource PrimaryButton}" Click="RegisterPerson_Click"></Button>
+            <Button x:Name="CloseButton" Content="Cerrar" Width="80" Click="CloseButton_Click" Style="{StaticResource PrimaryButton}"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
