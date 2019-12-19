@@ -15,26 +15,30 @@ namespace DataAccessLayer
 
         public bool Save(Employee data)
         {
-            if (!base.Save(data))
-                return false;
-
-            using (var command = dbConnection.CreateCommand())
+            try
             {
-                command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
-                                      "VALUES(@person_id, @cellphone, @email, @address)";
+                base.Save(data);
+            }
+            finally
+            {
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
+                                          "VALUES(@person_id, @cellphone, @email, @address)";
 
-                MapCommandParameters(command, EMPLOYEE_FIELDS,
-                    new object[]
-                    {
+                    MapCommandParameters(command, EMPLOYEE_FIELDS,
+                        new object[]
+                        {
                         data.ID,
                         data.Cellphone,
                         data.Email,
                         data.Address
-                    });
+                        });
 
-                command.ExecuteNonQuery();
-                return true;
+                    command.ExecuteNonQuery();
+                }
             }
+            return true;
         }
 
         public new Employee Search(string primaryKey)

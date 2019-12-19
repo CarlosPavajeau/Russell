@@ -13,26 +13,30 @@ namespace DataAccessLayer
 
         public bool Save(AdministrativeEmployee data)
         {
-            if (!base.Save(data))
-                return false;
-
-            using (var command = dbConnection.CreateCommand())
+            try
             {
-                command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
-                                      "VALUES(@person_id, @username, @passwordname, @type_user)";
+                base.Save(data);
+            }
+            finally
+            {
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
+                                          "VALUES(@person_id, @username, @passwordname, @type_user)";
 
-                MapCommandParameters(command, ADMINISTRATIVE_EMPLOYEE_FIELDS,
-                    new object[]
-                    {
+                    MapCommandParameters(command, ADMINISTRATIVE_EMPLOYEE_FIELDS,
+                        new object[]
+                        {
                         data.ID,
                         data.User.AccessData.User,
                         data.User.AccessData.Password,
                         data.User.TypeUser.ToString()[0]
-                    });
+                        });
 
-                command.ExecuteNonQuery();
-                return true;
+                    command.ExecuteNonQuery();
+                }
             }
+            return true;
         }
 
         public new AdministrativeEmployee Search(string primaryKey)
