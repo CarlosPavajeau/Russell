@@ -1,5 +1,5 @@
 ﻿using BusinessLogicLayer;
-using Entity.Common;
+using Common;
 
 namespace Server
 {

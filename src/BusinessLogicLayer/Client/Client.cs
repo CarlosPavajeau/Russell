@@ -1,4 +1,4 @@
-﻿using Entity.Common;
+﻿using Common;
 using System;
 using System.Net.Sockets;
 using System.Threading;

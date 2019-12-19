@@ -1,4 +1,4 @@
-﻿using Entity.Common;
+﻿using Common;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -22,6 +22,8 @@ namespace Server
         {
             try
             {
+                Log.PrintMsg($"Server starting....{DateTime.Now}");
+
                 while (true)
                 {
                     _connected.Reset();
