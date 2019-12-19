@@ -8,19 +8,18 @@ namespace Entity
         private decimal cost;
 
         public BankDraft(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
-                         decimal valueToSend, decimal cost, State state = State.ACTIVE) : base(number, date, sender,
+                         decimal valueToSend, decimal cost, State state) : base(number, date, sender,
                                                                                                receiver, dispatcher, destination, state)
         {
             ValueToSend = valueToSend;
             Cost = cost;
-            Destination = destination;
+            Total = ValueToSend + Cost;
         }
 
-        public BankDraft(Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
-                         decimal valueToSend, decimal cost) : base(sender, receiver, dispatcher, destination)
+        public BankDraft(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
+                         decimal valueToSend, decimal cost, State state = State.ACTIVE) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, valueToSend, cost, state)
         {
-            ValueToSend = valueToSend;
-            Cost = cost;
+
         }
 
         public decimal ValueToSend

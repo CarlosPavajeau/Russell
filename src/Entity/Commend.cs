@@ -8,22 +8,20 @@ namespace Entity
         private decimal agreement;
 
         public Commend(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, string description,
-                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : base(number, date, sender,
+                       decimal freightValue, decimal agreement, Vehicle vehicle, State state) : base(number, date, sender,
                                                                                                                     receiver, dispatcher, destination, state)
         {
             Description = description;
             FreightValue = freightValue;
             Agreement = agreement;
             Vehicle = vehicle;
+            Total = FreightValue + Agreement;
         }
 
-        public Commend(Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, string desciption,
-                       decimal freightValue, decimal agreement, Vehicle vehicle) : base(sender, receiver, dispatcher, destination)
+        public Commend(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, string desciption,
+                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, desciption, freightValue, agreement, vehicle, state)
         {
-            Description = desciption;
-            FreightValue = freightValue;
-            Agreement = agreement;
-            Vehicle = vehicle;
+
         }
 
         public string Description { get; set; }
@@ -31,13 +29,13 @@ namespace Entity
         public decimal FreightValue
         {
             get => freightValue;
-            set => freightValue = (value > 0) ? value : throw new ArgumentException("The freight value is invalid.");
+            set => freightValue = (value >= 0) ? value : throw new ArgumentException("The freight value is invalid.");
         }
 
         public decimal Agreement
         {
             get => agreement;
-            set => agreement = (value > 0) ? value : throw new ArgumentException("The agreement is invalid.");
+            set => agreement = (value >= 0) ? value : throw new ArgumentException("The agreement is invalid.");
         }
 
         public Vehicle Vehicle
