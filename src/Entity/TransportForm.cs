@@ -7,12 +7,16 @@ namespace Entity
 {
     public class TransportForm
     {
-        private static int transportFormsCount = 0;
+        public TransportForm(string number, Route route, Vehicle vehicle, AdministrativeEmployee dispatcher) : this(number, route, vehicle, dispatcher, DateTime.Now, DateTime.Now)
+        {
+
+        }
 
         public TransportForm(string number, Route route, Vehicle vehicle, AdministrativeEmployee dispatcher, DateTime startDate,
-                             DateTime depatureTime)
+                             DateTime depatureTime, bool state = true)
         {
             Number = number;
+            State = state;
             Route = route;
             Vehicle = vehicle;
             Dispatcher = dispatcher;
@@ -37,12 +41,9 @@ namespace Entity
             FinalcialInformation[OTHERS] = 0;
         }
 
-        public TransportForm(Route route, Vehicle vehicle, AdministrativeEmployee dispatcher) : this((++transportFormsCount).ToString("0000"), route, vehicle, dispatcher, DateTime.Now, DateTime.Now)
-        {
-
-        }
-
         public string Number { get; }
+
+        public bool State { get; set; }
 
         public Route Route { get; set; }
         public decimal ValueOfTickets { get; private set; }
