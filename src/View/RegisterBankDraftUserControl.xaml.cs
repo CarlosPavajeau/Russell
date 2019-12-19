@@ -24,19 +24,58 @@ namespace View
             receiver = personService.Search(DeliveryFields.ReceiverField.Text);
 
             if (psender is null)
+            {
+                MessageBoxResult result = MessageBox.Show("Remitente no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeliveryFields.ShowRegisterPerson(DeliveryFields.SenderField.Text, this);
+                }
+
                 return;
+            }
             if (receiver is null)
+            {
+                MessageBoxResult result = MessageBox.Show("Destinario no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeliveryFields.ShowRegisterPerson(DeliveryFields.ReceiverField.Text, this);
+                }
+
                 return;
+            }
 
-            int.TryParse(ValueToSendField.Text, out int valueToSend);
-            int.TryParse(CostField.Text, out int cost);
+            if (!int.TryParse(ValueToSendField.Text, out int valueToSend))
+            {
+                MessageBox.Show("Valor a enviar invalido.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            BankDraft bankDraft = new BankDraft(psender, receiver, MainWindow.AdministrativeEmployee, DeliveryFields.DestinationField.Text, valueToSend, cost);
+            if (!int.TryParse(CostField.Text, out int cost))
+            {
+                MessageBox.Show("Costo invalido.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
+            
 
             BankDraftService bankDraftService = new BankDraftService();
 
+            string deliveryNumber = bankDraftService.Count.ToString();
+
+            BankDraft bankDraft = new BankDraft(deliveryNumber, psender, receiver, MainWindow.AdministrativeEmployee, 
+                                                DeliveryFields.DestinationComboBox.SelectedItem as string, valueToSend, cost);
+
+            
+
             if (bankDraftService.Save(bankDraft))
+            {
                 MessageBox.Show("Datos guardadados");
+                TotalBankDraft.Text += bankDraft.Total;
+                DeliveryFields.DeliveryNumber.Text += bankDraft.Number;
+                
+            }
             else
                 MessageBox.Show("Error al guardar los datos");
         }

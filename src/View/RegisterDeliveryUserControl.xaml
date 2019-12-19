@@ -35,12 +35,11 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Destino:" Style="{StaticResource TextField}"></TextBlock>
-                    <TextBox x:Name="DestinationField" Width="180" Style="{StaticResource TextBoxStyle}"></TextBox>
+                    <ComboBox x:Name="DestinationComboBox" Width="190" Height="35" Template="{StaticResource ComboBoxStyle}"></ComboBox>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <Popup x:Name="SearchReceiver" Placement="Center">
-            
-        </Popup>
+        <Popup x:Name="SearchReceiverOrReceiver" Placement="Center"></Popup>
+        <Popup x:Name="RegisterPerson" Placement="{Binding}" PlacementTarget="{Binding}"></Popup>
     </Grid>
 </UserControl>

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BusinessLogicLayer;
+using Entity;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Entity;
-using BusinessLogicLayer;
 
 namespace View
 {
@@ -27,7 +17,7 @@ namespace View
 
         public void Receive(Vehicle data)
         {
-            SearchVehicle.IsOpen = false;
+            CloseSearchVehicle();
             VehiclePlateField.Text = data.LicensePlate;
         }
 
@@ -43,29 +33,72 @@ namespace View
             vehicle = vehicleService.Search(VehiclePlateField.Text);
 
             if (psender is null)
+            {
+                MessageBoxResult result = MessageBox.Show("Remitente no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeliveryFields.ShowRegisterPerson(DeliveryFields.SenderField.Text, this);
+                }
+
                 return;
+            }
             if (receiver is null)
+            {
+                MessageBoxResult result = MessageBox.Show("Destinario no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeliveryFields.ShowRegisterPerson(DeliveryFields.ReceiverField.Text, this);
+                }
+
                 return;
+            }
             if (vehicle is null)
+            {
+                MessageBox.Show("Vehículo no registrado.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
+            }
 
-            int.TryParse(FreightValueField.Text, out int freightValue);
-            int.TryParse(AgreementField.Text, out int agreement);
-
-            Commend commend = new Commend(psender, receiver, MainWindow.AdministrativeEmployee, DeliveryFields.DestinationField.Text, CommendDescriptionField.Text,
-                                          freightValue, agreement, vehicle);
+            if (!int.TryParse(FreightValueField.Text, out int freightValue))
+            {
+                MessageBox.Show("Valor del flete invalido", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+           
+            if (!int.TryParse(AgreementField.Text, out int agreement))
+            {
+                MessageBox.Show("Convenio de encomienda invalido", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            
             CommendService commendService = new CommendService();
 
+            string deliveryNumber = commendService.Count.ToString();
+
+            Commend commend = new Commend(deliveryNumber, psender, receiver, MainWindow.AdministrativeEmployee, 
+                                          DeliveryFields.DestinationComboBox.SelectedItem as string, CommendDescriptionField.Text,
+                                          freightValue, agreement, vehicle);
+            
+
             if (commendService.Save(commend))
+            {
                 MessageBox.Show("Datos guardados");
+                TotalCommend.Text += commend.Total;
+                DeliveryFields.DeliveryNumber.Text += commend.Number;
+            }
             else
                 MessageBox.Show("Error al guardar los datos");
         }
 
         private void SearchVehicleButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchVehicle.Child = new LittleVehiclesViewUserControl(this);
+            SearchVehicle.Child = new LittleVehiclesViewUserControl(this, CloseSearchVehicle);
             SearchVehicle.IsOpen = true;
+        }
+
+        private void CloseSearchVehicle()
+        {
+            SearchVehicle.IsOpen = false;
         }
     }
 }
