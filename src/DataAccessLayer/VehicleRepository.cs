@@ -212,7 +212,15 @@ namespace DataAccessLayer
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                return false;
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = $"UPDATE vehicle_features SET { columToModify } = @newValue WHERE license_plate = @license_plate";
+
+                    command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
+
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
         }
 
@@ -247,7 +255,15 @@ namespace DataAccessLayer
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                return false;
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
+
+                    command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
+
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
         }
 
