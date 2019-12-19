@@ -4,9 +4,29 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class CommendService : Service, ISave<Commend>, ISearch<Commend>, IUpdate, IGetAllData<Commend>
+    public class CommendService : Service, ISave<Commend>, ISearch<Commend>, IUpdate, IGetAllData<Commend>, ICount
     {
         private readonly CommendRepository _commendRepository;
+
+        public int Count
+        {
+            get
+            {
+                try
+                {
+                    dbConnection.Open();
+                    return _commendRepository.Count;
+                }
+                catch (System.Exception)
+                {
+                    return 0;
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
 
         public CommendService()
         {

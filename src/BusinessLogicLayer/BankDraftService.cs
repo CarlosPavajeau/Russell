@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class BankDraftService : Service, ISave<BankDraft>, ISearch<BankDraft>, IUpdate, IGetAllData<BankDraft>
+    public class BankDraftService : Service, ISave<BankDraft>, ISearch<BankDraft>, IUpdate, IGetAllData<BankDraft>, ICount
     {
         private readonly BankDraftRepository _bankDraftRepository;
 
@@ -12,6 +12,27 @@ namespace BusinessLogicLayer
         {
             _bankDraftRepository = new BankDraftRepository(dbConnection);
         }
+
+        public int Count
+        {
+            get
+            {
+                try
+                {
+                    dbConnection.Open();
+                    return _bankDraftRepository.Count;
+                }
+                catch (System.Exception)
+                {
+                    return 0;
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
 
         public bool Save(BankDraft data)
         {
