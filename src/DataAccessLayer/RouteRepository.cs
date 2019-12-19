@@ -104,5 +104,25 @@ namespace DataAccessLayer
 
             return routes;
         }
+
+        public IList<string> Destinations
+        {
+            get
+            {
+                IList<string> destinations = new List<string>();
+
+                using (var command = dbConnection.CreateCommand())
+                {
+                    command.CommandText = "SELECT DISTINCT * FROM (SELECT origin_city FROM routes UNION ALL SELECT destination_city FROM routes) AS Destinations";
+
+                    DbDataReader dbDataReader = command.ExecuteReader();
+
+                    while (dbDataReader.Read())
+                        destinations.Add(dbDataReader.GetString(0));
+                }
+
+                return destinations;
+            }
+        }
     }
 }

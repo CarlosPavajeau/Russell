@@ -97,5 +97,25 @@ namespace BusinessLogicLayer
                 dbConnection.Close();
             }
         }
+
+        public IList<string> Destinations
+        {
+            get
+            {
+                try
+                {
+                    dbConnection.Open();
+                    return _routeRepository.Destinations;
+                }
+                catch (System.Exception)
+                {
+                    return null;
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
     }
 }
