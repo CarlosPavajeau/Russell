@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="730" d:DesignWidth="1080">
-    <Grid Background="White">
-        <StackPanel>
+    <Grid Background="#FF3232" Width="520" Height="230">
+        <StackPanel Margin="3" Background="White">
             <TextBlock Text="Personas registradas" Style="{StaticResource TitleText}"></TextBlock>
-            <DataGrid x:Name="People" Height="100" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid x:Name="People" Height="100" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" Margin="5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Identificación" Binding="{Binding ID}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Identificación" Binding="{Binding ID}" Width="250"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="250"></DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow">
@@ -20,6 +20,7 @@
                     </Style>
                 </DataGrid.Resources>
             </DataGrid>
+            <Button x:Name="CloseButton" Content="Cerrar" Click="CloseButton_Click" Style="{StaticResource PrimaryButton}"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

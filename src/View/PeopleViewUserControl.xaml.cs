@@ -9,20 +9,19 @@ namespace View
     /// </summary>
     public partial class PeopleViewUserControl : UserControl
     {
-        public delegate void SelectPerson(Person person);
 
         private readonly SelectPerson _selectPerson;
+        private readonly CloseAction _closeAction;
         public PeopleViewUserControl()
         {
             InitializeComponent();
             LoadData();
         }
 
-        public PeopleViewUserControl(SelectPerson selectPerson)
+        public PeopleViewUserControl(SelectPerson selectPerson, CloseAction closeAction) : this()
         {
-            InitializeComponent();
-            LoadData();
             _selectPerson = selectPerson;
+            _closeAction = closeAction;
         }
 
         private void LoadData()
@@ -34,6 +33,11 @@ namespace View
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _selectPerson?.Invoke(People.SelectedItem as Person);
+        }
+
+        private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _closeAction?.Invoke();
         }
     }
 }

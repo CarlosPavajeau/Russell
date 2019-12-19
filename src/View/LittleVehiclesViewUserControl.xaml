@@ -21,6 +21,7 @@
                     </Style>
                 </DataGrid.Resources>
             </DataGrid>
+            <Button x:Name="ReturnButton" Content="Cerrar" Click="ReturnButton_Click" Style="{StaticResource PrimaryButton}"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
