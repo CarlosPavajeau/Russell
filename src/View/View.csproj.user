@@ -22,6 +22,9 @@
     <Compile Update="CurrentTransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="EmployeesViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="FinalcialInformationViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -100,6 +103,9 @@
     <Compile Update="SearchVehicleUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SettingsUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -130,6 +136,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CurrentTransportFormUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EmployeesViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="FinalcialInformationViewUserControl.xaml">
@@ -211,6 +220,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SearchVehicleUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingsUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextBoxStyles.xaml">

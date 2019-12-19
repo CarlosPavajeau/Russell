@@ -73,11 +73,21 @@
                 <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Propietario:" Style="{StaticResource TextField}"></TextBlock>
-                        <TextBox x:Name="OwnerField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="OwnerField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                            <Button x:Name="SearchOwner" Width="35" Style="{StaticResource PrimaryButton}" Margin="5,0,0,0" Click="SearchOwner_Click">
+                                <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="35,0">
                         <TextBlock Text="Conductor:" Style="{StaticResource TextField}"></TextBlock>
-                        <TextBox x:Name="DriverField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="DriverField" Width="175" Style="{StaticResource TextBoxStyle}"></TextBox>
+                            <Button x:Name="SearchDriver" Width="35" Click="SearchDriver_Click" Style="{StaticResource PrimaryButton}" Margin="5,0,0,0">
+                                <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -147,5 +157,6 @@
             </StackPanel>
             <Button x:Name="SaveVehileButton" Content="Guardar" HorizontalAlignment="Right" Margin="30,0,100,0" Style="{StaticResource PrimaryButton}" Click="SaveVehileButton_Click"></Button>
         </StackPanel>
+        <Popup x:Name="SearchDriveOrOwner" Placement="Center"></Popup>
     </Grid>
 </UserControl>

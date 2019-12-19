@@ -11,7 +11,7 @@ namespace View
     /// </summary>
     public partial class RegisterTransportFormUserControl : UserControl
     {
-        readonly AfterRegister _afterRegister;
+        event AfterRegister AfterRegister;
         public RegisterTransportFormUserControl(AfterRegister afterRegister)
         {
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace View
             LoadRoutes();
             LoadVehicles();
 
-            _afterRegister = afterRegister;
+            AfterRegister = afterRegister;
         }
 
         private void LoadRoutes()
@@ -43,19 +43,22 @@ namespace View
         {
             if (!(CurrentTransportFormUserControl.CurrentTransportForm is null))
             {
-                MessageBox.Show("Ya tiene registrada una planilla");
-                _afterRegister?.Invoke();
+                MessageBoxResult result = MessageBox.Show("Ya tiene registrada una planilla. ¿Desea verla?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                    AfterRegister?.Invoke();
             }
             else
             {
-                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm(RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
-
                 TransportFormService transportFormService = new TransportFormService();
+                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm((transportFormService.Count + 1).ToString(),RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
+
+                
 
                 if (transportFormService.Save(CurrentTransportFormUserControl.CurrentTransportForm))
                 {
                     MessageBox.Show("Planilla registrada");
-                    _afterRegister?.Invoke();
+                    AfterRegister?.Invoke();
                 }
                 else
                 {

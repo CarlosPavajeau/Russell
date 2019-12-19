@@ -39,6 +39,13 @@ namespace View
             WindowState = WindowState.Maximized;
             AdministrativeEmployee = administrativeEmployee;
             SetMainPanel(new MainPanel(LogOutAction));
+            LoadCurrentTransportForm();
+        }
+
+        private void LoadCurrentTransportForm()
+        {
+            TransportFormService transportFormService = new TransportFormService();
+            CurrentTransportFormUserControl.CurrentTransportForm = transportFormService.CurrentTransportFrom(AdministrativeEmployee.ID);
         }
 
         private void LogOutAction()

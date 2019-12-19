@@ -52,5 +52,34 @@ namespace View
             else
                 MessageBox.Show("Vehiculo ya registrado");
         }
+
+        private void SearchOwner_Click(object sender, RoutedEventArgs e)
+        {
+            SearchDriveOrOwner.Child = new EmployeesViewUserControl(SetOwner, CloseSearchDriverOrOwner);
+            SearchDriveOrOwner.IsOpen = true;
+        }
+
+        private void SetOwner(Person person)
+        {
+            OwnerField.Text = person.ID;
+            CloseSearchDriverOrOwner();
+        }
+
+        private void SearchDriver_Click(object sender, RoutedEventArgs e)
+        {
+            SearchDriveOrOwner.Child = new EmployeesViewUserControl(SetDriver, CloseSearchDriverOrOwner);
+            SearchDriveOrOwner.IsOpen = true;
+        }
+
+        private void SetDriver(Person person)
+        {
+            DriverField.Text = person.ID;
+            CloseSearchDriverOrOwner();
+        }
+
+        private void CloseSearchDriverOrOwner()
+        {
+            SearchDriveOrOwner.IsOpen = false;
+        }
     }
 }

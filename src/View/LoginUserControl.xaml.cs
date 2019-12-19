@@ -26,13 +26,13 @@ namespace View
             AdministrativeEmployee administrativeEmployee = administrativeEmployeeService.Search(UserField.Text);
 
             if (administrativeEmployee is null)
-                MessageBox.Show("Usuario no registrado");
+                MessageBox.Show("Usuario no registrado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
                 if (administrativeEmployee.User.AccessData.Password == PasswordField.Password)
                     Action?.Invoke(administrativeEmployee);
                 else
-                    MessageBox.Show("Contraseña incorrecta");
+                    MessageBox.Show("Contraseña incorrecta", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

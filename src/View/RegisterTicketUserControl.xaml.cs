@@ -30,8 +30,13 @@ namespace View
 
         private void SearhPassenger_Click(object sender, RoutedEventArgs e)
         {
-            SelectPerson.Child = new PeopleViewUserControl(SetPassenger);
+            SelectPerson.Child = new PeopleViewUserControl(SetPassenger, CloseSelectPerson);
             SelectPerson.IsOpen = true;
+        }
+
+        private void CloseSelectPerson()
+        {
+            SelectPerson.IsOpen = false;
         }
 
         private void SetPassenger(Person person)

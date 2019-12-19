@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using BusinessLogicLayer;
 using Entity;
-using Entity.Common;
+using Common;
 
 namespace View
 {
