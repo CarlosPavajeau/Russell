@@ -1,5 +1,5 @@
-﻿using BusinessLogicLayer;
-using Entity;
+﻿using Entity;
+using System.Collections;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -18,10 +18,10 @@ namespace View
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            VehicleService vehicleService = new VehicleService();
-            Vehicles.ItemsSource = vehicleService.GetAllData();
+            if (await MainWindow.Client.Send(Common.ClientRequest.GET_ALL_VEHICLES))
+                Vehicles.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
         }
 
         public LittleVehiclesViewUserControl(IReception<Vehicle> reception, CloseAction closeAction) : this()
