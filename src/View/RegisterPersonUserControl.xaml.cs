@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +10,7 @@ namespace View
     /// </summary>
     public partial class RegisterPersonUserControl : UserControl
     {
-        CloseAction _closeAction;
+        readonly CloseAction _closeAction;
 
         public RegisterPersonUserControl()
         {
@@ -24,16 +24,24 @@ namespace View
             PersonFields.IDField.IsEnabled = false;
         }
 
-        private void RegisterPerson_Click(object sender, RoutedEventArgs e)
+        private async void RegisterPerson_Click(object sender, RoutedEventArgs e)
         {
             Person person = new Person(PersonFields.IDField.Text, PersonFields.FirstNameField.Text, PersonFields.SecondNameField.Text,
                                        PersonFields.LastNameField.Text, PersonFields.SecondNameField.Text);
-            PersonService personService = new PersonService();
 
-            Close();
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.PERSON, person))
+                HandleServerAnswer();
+        }
 
-            if (personService.Save(person))
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            {
                 MessageBox.Show("Registro exitoso");
+                Close();
+            }
             else
                 MessageBox.Show("Datos ya registrados");
         }

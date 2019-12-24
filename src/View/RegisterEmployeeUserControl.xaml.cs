@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +15,7 @@ namespace View
             InitializeComponent();
         }
 
-        private void RegisterEmployee_Click(object sender, RoutedEventArgs e)
+        private async void RegisterEmployee_Click(object sender, RoutedEventArgs e)
         {
             string id, firstName, secondName, lastName, secondLastName, cellphone, email, address;
 
@@ -29,9 +29,16 @@ namespace View
             address = RegisterEmployeesField.AddressField.Text;
 
             Employee employee = new Employee(id, firstName, secondName, lastName, secondLastName, cellphone, email, address);
-            EmployeeService employeeService = new EmployeeService();
 
-            if (employeeService.Save(employee))
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.EMPLOYEE, employee))
+                HandleServerAnswer();               
+        }
+
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
                 MessageBox.Show("Registro exitoso");
             else
                 MessageBox.Show("Datos ya registrados");

@@ -1,6 +1,9 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,27 +22,23 @@ namespace View
             TransportFormDate.Text += DateTime.Now.ToShortDateString();
             TransportFormDispatcher.Text += MainWindow.AdministrativeEmployee.Name;
 
-            LoadRoutes();
-            LoadVehicles();
+            LoadData();
 
             AfterRegister = afterRegister;
         }
 
-        private void LoadRoutes()
+        private async void LoadData()
         {
-            RouteService routeService = new RouteService();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES_AND_VEHICLES))
+            {
+                List<IEnumerable> routesAndVehicles = await MainWindow.Client.RecieveObject() as List<IEnumerable>;
 
-            RouteComboBox.ItemsSource = routeService.GetAllData();
+                RouteComboBox.ItemsSource = routesAndVehicles[0];
+                VehicleComboBox.ItemsSource = routesAndVehicles[1];
+            }
         }
 
-        private void LoadVehicles()
-        {
-            VehicleService vehicleService = new VehicleService();
-
-            VehicleComboBox.ItemsSource = vehicleService.GetAllData();
-        }
-
-        private void GenerateTransportFormButton_Click(object sender, RoutedEventArgs e)
+        private async void GenerateTransportFormButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(CurrentTransportFormUserControl.CurrentTransportForm is null))
             {
@@ -50,21 +49,26 @@ namespace View
             }
             else
             {
-                TransportFormService transportFormService = new TransportFormService();
-                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm((transportFormService.Count + 1).ToString(),RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
+                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm("000", RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
 
-                
+                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TRANSPORT_FORM, CurrentTransportFormUserControl.CurrentTransportForm))
+                    HandleServerAnswer();
+            }
+        }
 
-                if (transportFormService.Save(CurrentTransportFormUserControl.CurrentTransportForm))
-                {
-                    MessageBox.Show("Planilla registrada");
-                    AfterRegister?.Invoke();
-                }
-                else
-                {
-                    MessageBox.Show("Error");
-                    CurrentTransportFormUserControl.CurrentTransportForm = null;
-                }
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            {
+                MessageBox.Show("Planilla registrada");
+                AfterRegister?.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Error");
+                CurrentTransportFormUserControl.CurrentTransportForm = null;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,23 +10,29 @@ namespace View
     /// </summary>
     public partial class RegisterVehicleUserControl : UserControl
     {
+        Employee _driver, _owner;
         public RegisterVehicleUserControl()
         {
             InitializeComponent();
+            _driver = _owner = null;
         }
 
-        private void SaveVehileButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveVehileButton_Click(object sender, RoutedEventArgs e)
         {
-            Employee driver, owner;
-            EmployeeService employeeService = new EmployeeService();
+            if (_driver is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, DriverField.Text))
+                    _driver = await MainWindow.Client.RecieveObject() as Employee;
+            }
 
-            driver = employeeService.Search(DriverField.Text);
-            owner = employeeService.Search(OwnerField.Text);
+            if (_owner is null)
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, OwnerField.Text))
+                    _owner = await MainWindow.Client.RecieveObject() as Employee;
 
-            if (driver is null || owner is null)
+            if (_driver is null || _owner is null)
                 return;
 
-            Vehicle vehicle = new Vehicle(PlateField.Text, InternalNumberField.Text, PropertyCardNumberField.Text, owner, driver);
+            Vehicle vehicle = new Vehicle(PlateField.Text, InternalNumberField.Text, PropertyCardNumberField.Text, _owner, _driver);
 
             vehicle.Imprint.ChassisNumber = ChassisNumberField.Text;
             vehicle.Imprint.EngineNumber = EngineNumberField.Text;
@@ -45,9 +51,15 @@ namespace View
             vehicle.AddLegalInformation(LegalInformationType.TECHNOMECHANICALREVIEW,
                                         TechnreviewDueDate.SelectedDate.Value, TechnreviewDateOfRenovation.SelectedDate.Value);
 
-            VehicleService vehicleService = new VehicleService();
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.VEHICLE, vehicle))
+                HandleServerAnswer();   
+        }
 
-            if (vehicleService.Save(vehicle))
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
                 MessageBox.Show("Datos guardados con exito");
             else
                 MessageBox.Show("Vehiculo ya registrado");
@@ -62,6 +74,7 @@ namespace View
         private void SetOwner(Person person)
         {
             OwnerField.Text = person.ID;
+            _owner = person as Employee;
             CloseSearchDriverOrOwner();
         }
 
@@ -74,6 +87,7 @@ namespace View
         private void SetDriver(Person person)
         {
             DriverField.Text = person.ID;
+            _driver = person as Employee;
             CloseSearchDriverOrOwner();
         }
 

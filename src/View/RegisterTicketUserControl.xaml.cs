@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System;
 using System.Linq;
@@ -42,16 +42,16 @@ namespace View
         private void SetPassenger(Person person)
         {
             SelectPerson.IsOpen = false;
-            _passenger = Person.ToPassenger(person);
+            _passenger = person.ToPassenger();
             PassenderID.Text = _passenger.ID;
         }
 
-        private void AddNewPassenger_Click(object sender, RoutedEventArgs e)
+        private async void AddNewPassenger_Click(object sender, RoutedEventArgs e)
         {
             if (_passenger is null)
             {
-                PersonService personService = new PersonService();
-                _passenger = Person.ToPassenger(personService.Search(PassenderID.Text));
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, PassenderID.Text))
+                    _passenger = (await MainWindow.Client.RecieveObject() as Person).ToPassenger();
 
                 if (_passenger is null)
                     return;
@@ -59,11 +59,19 @@ namespace View
 
             CurrentTransportFormUserControl.CurrentTransportForm?.AddTicket(_passenger, int.Parse(SeatsField.Text));
 
-            TransportFormService transportFormService = new TransportFormService();
-            if (transportFormService.Save(CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last()))
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TICKET, CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last()))
+                HandleServerAnswer();
+        }
+
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
                 _afterRegister?.AfterRegister();
             else
                 MessageBox.Show("Error");
+
         }
 
         private void ReturnButton_Click(object sender, RoutedEventArgs e)

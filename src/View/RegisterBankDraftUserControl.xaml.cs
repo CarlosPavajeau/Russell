@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,33 +16,36 @@ namespace View
             InitializeComponent();
         }
 
-        private void RegisterBankDraftButton_Click(object sender, RoutedEventArgs e)
+        private async void RegisterBankDraftButton_Click(object sender, RoutedEventArgs e)
         {
-            Person psender, receiver;
-            PersonService personService = new PersonService();
+            if (DeliveryFields.Sender is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField.Text))
+                    DeliveryFields.Sender = await MainWindow.Client.RecieveObject() as Person;
+            }
+            
+            if (DeliveryFields.Receiver is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField.Text))
+                    DeliveryFields.Receiver = await MainWindow.Client.RecieveObject() as Person;
+            }
 
-            psender = personService.Search(DeliveryFields.SenderField.Text);
-            receiver = personService.Search(DeliveryFields.ReceiverField.Text);
-
-            if (psender is null)
+            if (DeliveryFields.Sender is null)
             {
                 MessageBoxResult result = MessageBox.Show("Remitente no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.Yes)
-                {
                     DeliveryFields.ShowRegisterPerson(DeliveryFields.SenderField.Text, this);
-                }
 
                 return;
             }
-            if (receiver is null)
+
+            if (DeliveryFields.Receiver is null)
             {
                 MessageBoxResult result = MessageBox.Show("Destinario no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.Yes)
-                {
                     DeliveryFields.ShowRegisterPerson(DeliveryFields.ReceiverField.Text, this);
-                }
 
                 return;
             }
@@ -57,27 +61,28 @@ namespace View
                 MessageBox.Show("Costo invalido.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
-            
 
-            BankDraftService bankDraftService = new BankDraftService();
+            string deliveryNumber = "0000";
 
-            string deliveryNumber = bankDraftService.Count.ToString();
-
-            BankDraft bankDraft = new BankDraft(deliveryNumber, psender, receiver, MainWindow.AdministrativeEmployee, 
+            BankDraft bankDraft = new BankDraft(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee, 
                                                 DeliveryFields.DestinationComboBox.SelectedItem as string, valueToSend, cost);
 
-            
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.BANKDRAFT, bankDraft))
+                HandleServerAnswer();
+        }
 
-            if (bankDraftService.Save(bankDraft))
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
             {
-                MessageBox.Show("Datos guardadados");
-                TotalBankDraft.Text += bankDraft.Total;
-                DeliveryFields.DeliveryNumber.Text += bankDraft.Number;
-                
+                MessageBox.Show("Datos guardadados", "Resultado", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
-                MessageBox.Show("Error al guardar los datos");
+            else if (answer == ServerAnswer.DATA_ALREADY_REGISTERED)
+            {
+                MessageBox.Show("Error al guardar los datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

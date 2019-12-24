@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +25,7 @@ namespace View
             TypeUserText.Text += " Superusuario.";
         }
 
-        private void RegisterEmployeeButton_Click(object sender, RoutedEventArgs e)
+        private async void RegisterEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
             string id, firstName, secondName, lastName, secondLastName, cellphone, email, address, user, password;
             TypeUser typeUser;
@@ -50,15 +51,23 @@ namespace View
             AdministrativeEmployee administrativeEmployee = new AdministrativeEmployee(id, firstName, secondName, lastName,
                                                                                        secondLastName, cellphone, email, address, new User(user, password, typeUser));
 
-            AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
+            await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.ADMINISTRATIVE_EMPLOYEE, administrativeEmployee);
+            HandleServerAnswer();
+        }
 
-            if (administrativeEmployeeService.Save(administrativeEmployee))
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
             {
-                MessageBox.Show("Empleado registrado con exito");
-                _afterRegister.AfterRegister();
+                Dispatcher.Invoke(() => MessageBox.Show("Empleado registrado con exito"));
+                Dispatcher.Invoke(() => _afterRegister.AfterRegister());
             }
-            else
-                MessageBox.Show("Usuario ya registrado");
+            else if (answer == ServerAnswer.DATA_ALREADY_REGISTERED)
+            {
+                Dispatcher.Invoke(() => MessageBox.Show("Usuario ya registrado"));
+            }
         }
     }
 }

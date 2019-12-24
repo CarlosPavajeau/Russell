@@ -2,6 +2,7 @@
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
+using Common;
 
 namespace View
 {
@@ -10,29 +11,41 @@ namespace View
     /// </summary>
     public partial class RegisterCommendUserControl : UserControl, IReception<Vehicle>
     {
+        Vehicle Vehicle;
         public RegisterCommendUserControl()
         {
             InitializeComponent();
+            Vehicle = null;
         }
 
         public void Receive(Vehicle data)
         {
             CloseSearchVehicle();
+            Vehicle = data;
             VehiclePlateField.Text = data.LicensePlate;
         }
 
-        private void RegisterCommendButton_Click(object sender, RoutedEventArgs e)
+        private async void RegisterCommendButton_Click(object sender, RoutedEventArgs e)
         {
-            Person psender, receiver;
-            Vehicle vehicle;
-            PersonService personService = new PersonService();
-            VehicleService vehicleService = new VehicleService();
+            if (DeliveryFields.Sender is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField))
+                    DeliveryFields.Sender = await MainWindow.Client.RecieveObject() as Person;
+            }
 
-            psender = personService.Search(DeliveryFields.SenderField.Text);
-            receiver = personService.Search(DeliveryFields.ReceiverField.Text);
-            vehicle = vehicleService.Search(VehiclePlateField.Text);
+            if (DeliveryFields.Receiver is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField))
+                    DeliveryFields.Receiver = await MainWindow.Client.RecieveObject() as Person;
+            }
 
-            if (psender is null)
+            if (Vehicle is null)
+            {
+                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.VEHICLE, VehiclePlateField.Text))
+                    Vehicle = await MainWindow.Client.RecieveObject() as Vehicle;
+            }
+
+            if (DeliveryFields.Sender is null)
             {
                 MessageBoxResult result = MessageBox.Show("Remitente no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -43,7 +56,7 @@ namespace View
 
                 return;
             }
-            if (receiver is null)
+            if (DeliveryFields.Receiver is null)
             {
                 MessageBoxResult result = MessageBox.Show("Destinario no registrado. ¿Desea registrarlo?", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -54,7 +67,7 @@ namespace View
 
                 return;
             }
-            if (vehicle is null)
+            if (Vehicle is null)
             {
                 MessageBox.Show("Vehículo no registrado.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -70,24 +83,26 @@ namespace View
             {
                 MessageBox.Show("Convenio de encomienda invalido", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
-            CommendService commendService = new CommendService();
 
-            string deliveryNumber = commendService.Count.ToString();
+            string deliveryNumber = "0000";
 
-            Commend commend = new Commend(deliveryNumber, psender, receiver, MainWindow.AdministrativeEmployee, 
+            Commend commend = new Commend(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee, 
                                           DeliveryFields.DestinationComboBox.SelectedItem as string, CommendDescriptionField.Text,
-                                          freightValue, agreement, vehicle);
-            
+                                          freightValue, agreement, Vehicle);
 
-            if (commendService.Save(commend))
-            {
+            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.COMMEND, commend))
+                HandleServerAnswer();  
+        }
+
+        private async void HandleServerAnswer()
+        {
+            ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
                 MessageBox.Show("Datos guardados");
-                TotalCommend.Text += commend.Total;
-                DeliveryFields.DeliveryNumber.Text += commend.Number;
-            }
             else
                 MessageBox.Show("Error al guardar los datos");
+
         }
 
         private void SearchVehicleButton_Click(object sender, RoutedEventArgs e)

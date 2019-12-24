@@ -11,10 +11,13 @@ namespace View
     /// </summary>
     public partial class RegisterDeliveryUserControl : UserControl
     {
+        internal Person Sender, Receiver;
+
         public RegisterDeliveryUserControl()
         {
             InitializeComponent();
             LoadData();
+            Sender = Receiver = null;
         }
 
         private void LoadData()
@@ -43,6 +46,7 @@ namespace View
         private void SetSender(Person person)
         {
             ClosePeopleView();
+            Sender = person;
             SenderField.Text = person.ID;
         }
 
@@ -55,6 +59,7 @@ namespace View
         private void SetReceiver(Person person)
         {
             ClosePeopleView();
+            Receiver = person;
             ReceiverField.Text = person.ID;
         }
 

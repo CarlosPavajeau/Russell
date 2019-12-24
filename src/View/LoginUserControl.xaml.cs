@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System;
 using System.Windows;
@@ -19,20 +19,27 @@ namespace View
 
         private void ExitButton_Click(object sender, RoutedEventArgs e) => Environment.Exit(0);
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
+            if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.ADMINISTRATIVE_EMPLOYEE, UserField.Text))
+                HandleRecieveObject();
+        }
 
-            AdministrativeEmployee administrativeEmployee = administrativeEmployeeService.Search(UserField.Text);
+        private async void HandleRecieveObject()
+        {
+            object obj = await MainWindow.Client.RecieveObject();
 
-            if (administrativeEmployee is null)
-                MessageBox.Show("Usuario no registrado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
-            else
+            if (obj is AdministrativeEmployee administrativeEmployee)
             {
                 if (administrativeEmployee.User.AccessData.Password == PasswordField.Password)
-                    Action?.Invoke(administrativeEmployee);
+                    Dispatcher.Invoke(() => Action?.Invoke(administrativeEmployee));
                 else
                     MessageBox.Show("Contraseña incorrecta", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (obj is ServerAnswer answer)
+            {
+                if (answer == ServerAnswer.NOT_FOUND_DATA)
+                    MessageBox.Show("Usuario no registrado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
