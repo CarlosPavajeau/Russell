@@ -1,104 +1,109 @@
 ﻿using Common;
 using System;
 using System.Net.Sockets;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Client
 {
     public class Client
     {
-        public delegate void ProcessReceiveData(object data);
-        public delegate void ProcessServerAnswer(ServerAnswer answer);
-
-        public ProcessReceiveData ReceiveData;
-        public ProcessServerAnswer ServerAnswer;
-        
         public Client()
         {
-
+            ConnectedObject = new ConnectedObject(ConnectionHandler.CreateSocket());
         }
 
-        public ConnectedObject client;
+        public ConnectedObject ConnectedObject;
 
-        public void Connect()
+        public async Task<bool> Connect()
         {
-            client = new ConnectedObject(ConnectionHandler.CreateSocket());
-
-            while (!client.Socket.Connected)
-            {
-                try
-                {
-                    client.Socket.Connect(ConnectionSettings.IPEndPoint);
-                }
-                catch (SocketException)
-                {
-
-                }
-            }
-
-            Thread receiveThread = new Thread(() => Receive());
-            receiveThread.Start();
+            return await Task.Run(() => TryConnect());
         }
 
-        private void Receive()
+        private bool TryConnect()
         {
-            while (true)
-            {
-                try
-                {
-                    Message message = new Message();
-                    int bytesRead = client.Socket.Receive(message.ByteBuffer, SocketFlags.None);
-                    if (bytesRead > 0)
-                    {
-                        object receiveData = Map.Deserialize(message);
-
-                        if (receiveData is ServerAnswer answer)
-                            ServerAnswer?.Invoke(answer);
-                        else
-                            ReceiveData?.Invoke(receiveData);
-                    }
-                }
-                catch (SocketException)
-                {
-                    client.Close();
-                    Connect();
-                }
-                catch (Exception)
-                {
-
-                }
-
-
-            }
-        }
-
-        public void Send(Command command, object data)
-        {
-            DataPacket dataPacket = new DataPacket(command, data);
-            SendObject(dataPacket);
-        }
-
-        public void Send(ClientRequest clientRequest)
-        {
-            SendObject(clientRequest);
-        }
-        private void SendObject(object objectToSend)
-        {
-            Thread thread = new Thread(() => StartSend(objectToSend));
-            thread.Start();
-        }
-
-        private void StartSend(object objectToSend)
-        {
-            client.Message = Map.Serialize(objectToSend);
-
             try
             {
-                client.Socket.BeginSend(client.Message.ByteBuffer, 0, client.Message.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), client);
-            }
-            catch (SocketException)
-            {
+                ConnectedObject.Socket.Connect(ConnectionSettings.IPEndPoint);
 
+                while (!ConnectedObject.Socket.Connected)
+                    ConnectedObject.Socket.Connect(ConnectionSettings.IPEndPoint);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<ServerAnswer> RecieveServerAnswer()
+        {
+            return (await RecieveObject()) is ServerAnswer serverAnswer ? serverAnswer : Common.ServerAnswer.INVALID_COMMAND;
+        }
+
+
+        public async Task<object> RecieveObject()
+        {
+            return await Task.Run(() => TryRecieveObject());
+        }
+
+        private object TryRecieveObject()
+        {
+            try
+            {
+                Message message = new Message();
+
+                int bytesRead = ConnectedObject.Socket.Receive(message.ByteBuffer, SocketFlags.None);
+
+                return (bytesRead > 0) ? Map.Deserialize(message) : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> Send(TypeCommand typeCommand, TypeData typeData, object data)
+        {
+            Command command = GetCommand(typeCommand, typeData);
+
+            DataPacket dataPacket = new DataPacket(command, data);
+
+            return await Task.Run(() => TrySendObject(dataPacket));
+        }
+
+        private Command GetCommand(TypeCommand typeCommand, TypeData typeData)
+        {
+            switch (typeCommand)
+            {
+                case TypeCommand.SAVE:
+                    return new SaveCommand(typeData);
+                case TypeCommand.SEARCH:
+                    return new SearchCommand(typeData);
+                case TypeCommand.UPDATE:
+                    return new UpdateCommand(typeData);
+                case TypeCommand.DELETE:
+                    return new DeleteCommand(typeData);
+                default:
+                    return null;
+            }
+        }
+
+        public async Task<bool> Send(ClientRequest clientRequest)
+        {
+            return await Task.Run(() => TrySendObject(clientRequest));
+        }
+        private bool TrySendObject(object objectToSend)
+        {
+            try
+            {
+                ConnectedObject.Message = Map.Serialize(objectToSend);
+                ConnectedObject.Socket.BeginSend(ConnectedObject.Message.ByteBuffer, 0, ConnectedObject.Message.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), ConnectedObject);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
