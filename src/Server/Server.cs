@@ -43,28 +43,57 @@ namespace Server
         {
             _connected.Set();
 
-            ConnectedObject client = new ConnectedObject(_serverSocket.EndAccept(result));
-            Log.PrintMsg($"New client connect from {client.Socket.LocalEndPoint.ToString()}");
-            _clients.Add(client);
-            BeginReceive(client);
+            ConnectedObject ConnectedObject = new ConnectedObject(_serverSocket.EndAccept(result));
+            Log.PrintMsg($"New ConnectedObject connect from {ConnectedObject.Socket.LocalEndPoint.ToString()}");
+            _clients.Add(ConnectedObject);
+            BeginReceive(ConnectedObject);
+        }
+
+        private void BeginReceive(ConnectedObject ConnectedObject)
+        {
+            try
+            {
+                ConnectedObject.Socket.BeginReceive(ConnectedObject.Message.ByteBuffer, 0, ConnectionSettings.ByteBufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallBack), ConnectedObject);
+            }
+            catch (SocketException)
+            {
+                CloseClient(ConnectedObject);
+            }
         }
 
         private void ReceiveCallBack(IAsyncResult result)
         {
-            if (!CheckState(result, out string error, out ConnectedObject client))
+            if (!CheckState(result, out string error, out ConnectedObject ConnectedObject))
             {
                 Log.PrintMsg(error);
                 return;
             }
 
-            int bytesRead;
             try
             {
-                bytesRead = client.Socket.EndReceive(result);
+                if (ConnectedObject.Socket.EndReceive(result) > 0)
+                {
+                    object receiveData = Map.Deserialize(ConnectedObject.Message);
+
+                    if (receiveData is DataPacket data)
+                    {
+                        object datapacketProcesed = DataPacketHandler.HandleDataPacket(data);
+                        SendReply(ConnectedObject, datapacketProcesed);
+                    }
+                    else if (receiveData is ClientRequest request)
+                    {
+                        object clientrequestProcesed = ClientRequestHanlder.ProccessClientRequest(request);
+                        SendReply(ConnectedObject, clientrequestProcesed);
+                    }
+
+                    ConnectedObject.Message.Clear();
+
+                    BeginReceive(ConnectedObject);
+                }
             }
             catch (SocketException)
             {
-                CloseClient(client);
+                CloseClient(ConnectedObject);
                 return;
             }
             catch (Exception exception)
@@ -72,44 +101,12 @@ namespace Server
                 Log.PrintMsg(exception.Message);
                 return;
             }
-
-            if (bytesRead > 0)
-            {
-                object receiveData = Map.Deserialize(client.Message);
-
-                if (receiveData is DataPacket data)
-                {
-                    object datapacketProcesed = DataPacketHandler.HandleDataPacket(data);
-                    SendReply(client, datapacketProcesed);
-                }
-                else if (receiveData is ClientRequest request)
-                {
-                    object clientrequestProcesed = ClientRequestHanlder.ProccessClientRequest(request);
-                    SendReply(client, clientrequestProcesed);
-                }
-
-                client.Message.Clear();
-            }
-
-            BeginReceive(client);
         }
 
-        private void BeginReceive(ConnectedObject client)
-        {
-            try
-            {
-                client.Socket.BeginReceive(client.Message.ByteBuffer, 0, ConnectionSettings.ByteBufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallBack), client);
-            }
-            catch (SocketException)
-            {
-                CloseClient(client);
-            }
-        }
-
-        private bool CheckState(IAsyncResult result, out string error, out ConnectedObject client)
+        private bool CheckState(IAsyncResult result, out string error, out ConnectedObject ConnectedObject)
         {
             error = string.Empty;
-            client = null;
+            ConnectedObject = null;
 
             if (result is null)
             {
@@ -117,9 +114,9 @@ namespace Server
                 return false;
             }
 
-            client = result.AsyncState as ConnectedObject;
+            ConnectedObject = result.AsyncState as ConnectedObject;
 
-            if (client is null)
+            if (ConnectedObject is null)
             {
                 error = "Client null";
                 return false;
@@ -128,11 +125,11 @@ namespace Server
             return true;
         }
 
-        public void SendReply(ConnectedObject client, object data)
+        public void SendReply(ConnectedObject ConnectedObject, object data)
         {
-            if (client is null)
+            if (ConnectedObject is null)
             {
-                Log.PrintMsg("Unable to send reply: client null");
+                Log.PrintMsg("Unable to send reply: ConnectedObject null");
                 return;
             }
 
@@ -140,12 +137,12 @@ namespace Server
             {
                 Message messageReply = Map.Serialize(data);
 
-                client.Socket.BeginSend(messageReply.ByteBuffer, 0, messageReply.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendReplyCallBack), client);
+                ConnectedObject.Socket.BeginSend(messageReply.ByteBuffer, 0, messageReply.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendReplyCallBack), ConnectedObject);
 
             }
             catch (SocketException)
             {
-                CloseClient(client);
+                CloseClient(ConnectedObject);
             }
         }
 
@@ -154,11 +151,11 @@ namespace Server
 
         }
 
-        private void CloseClient(ConnectedObject client)
+        private void CloseClient(ConnectedObject ConnectedObject)
         {
-            client.Close();
-            _clients.Remove(client);
-            Log.PrintMsg("Client disconnect");
+            Log.PrintMsg($"Client {ConnectedObject.Socket.LocalEndPoint} disconect.");
+            ConnectedObject.Close();
+            _clients.Remove(ConnectedObject);
         }
     }
 }
