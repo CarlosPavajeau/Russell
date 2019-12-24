@@ -29,12 +29,12 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES_AND_VEHICLES))
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES))
             {
-                List<IEnumerable> routesAndVehicles = await MainWindow.Client.ReceiveObject() as List<IEnumerable>;
+                RouteComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
 
-                RouteComboBox.ItemsSource = routesAndVehicles[0];
-                VehicleComboBox.ItemsSource = routesAndVehicles[1];
+                if (await MainWindow.Client.Send(ClientRequest.GET_ALL_VEHICLES))
+                    VehicleComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
             }
         }
 
