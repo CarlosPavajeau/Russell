@@ -1,5 +1,6 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace View
@@ -24,10 +25,10 @@ namespace View
             _selectPerson = selectPerson;
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            EmployeeService employeeService = new EmployeeService();
-            Employees.ItemsSource = employeeService.GetAllData();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_EMPLOYEES))
+                Employees.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
         }
 
         private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)

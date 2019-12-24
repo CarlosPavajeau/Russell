@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace View
@@ -14,10 +15,12 @@ namespace View
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            BankDraftService bankDraftService = new BankDraftService();
-            BankDrafts.ItemsSource = bankDraftService.GetAllData();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_BANKDRAFTS))
+            {
+                BankDrafts.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+            }
         }
     }
 }

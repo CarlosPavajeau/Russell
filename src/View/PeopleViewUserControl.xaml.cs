@@ -1,5 +1,6 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace View
@@ -24,10 +25,10 @@ namespace View
             _closeAction = closeAction;
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            PersonService personService = new PersonService();
-            People.ItemsSource = personService.GetAllData();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_PEOPLE))
+                People.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
         }
 
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

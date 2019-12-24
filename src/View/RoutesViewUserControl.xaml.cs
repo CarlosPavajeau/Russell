@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace View
@@ -14,10 +15,10 @@ namespace View
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            RouteService routeService = new RouteService();
-            Routes.ItemsSource = routeService.GetAllData();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES))
+                Routes.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
         }
     }
 }
