@@ -13,6 +13,14 @@
         TICKET
     }
 
+    public enum TypeCommand
+    {
+        SAVE,
+        SEARCH,
+        UPDATE,
+        DELETE
+    }
+
     [System.Serializable]
     public abstract class Command
     {
