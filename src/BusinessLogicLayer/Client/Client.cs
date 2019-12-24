@@ -52,9 +52,7 @@ namespace BusinessLogicLayer.Client
             try
             {
                 Message message = new Message();
-
                 int bytesRead = ConnectedObject.Socket.Receive(message.ByteBuffer, SocketFlags.None);
-
                 return (bytesRead > 0) ? Map.Deserialize(message) : null;
             }
             catch (Exception)
