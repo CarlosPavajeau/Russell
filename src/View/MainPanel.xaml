@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid Width="250" Background="#FF0000" Grid.ColumnSpan="1" HorizontalAlignment="Left">
             <StackPanel VerticalAlignment="Center">
-                <Button Style="{StaticResource MenuButton}" Click="ShowVehiclesOptions">
+                <Button x:Name="VehicleButton" Style="{StaticResource MenuButton}" Click="VehicleButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Pictures/Vehicle.png"></Image>
                         <TextBlock Text="Vehiculos"></TextBlock>
@@ -53,7 +53,7 @@
                         <TextBlock Text="Reportes"></TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource MenuButton}">
+                <Button x:Name="Settings" Style="{StaticResource MenuButton}" Click="Settings_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Pictures/Settings48x48.png"></Image>
                         <TextBlock Text="Configuración"></TextBlock>

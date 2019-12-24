@@ -20,17 +20,6 @@ namespace View
             Environment.Exit(0);
         }
 
-        private void ShowVehiclesOptions(object sender, RoutedEventArgs e)
-        {
-            SetMainPanel(new VehicleUserControl());
-        }
-
-        private void SetMainPanel(UserControl userControl)
-        {
-            MainGrid.Children.Clear();
-            MainGrid.Children.Add(userControl);
-        }
-
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             LogOut?.Invoke();
@@ -58,6 +47,22 @@ namespace View
         private void RoutesButton_Click(object sender, RoutedEventArgs e)
         {
             SetMainPanel(new RoutesUserControl());
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SetMainPanel(new SettingsUserControl());
+        }
+
+        private void VehicleButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetMainPanel(new VehicleUserControl());
+        }
+
+        private void SetMainPanel(UserControl userControl)
+        {
+            MainGrid.Children.Clear();
+            MainGrid.Children.Add(userControl);
         }
     }
 }
