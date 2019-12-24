@@ -155,7 +155,7 @@ namespace DataAccessLayer
                     if (!(personRepository.Search(ticketDataReader.GetString(2)) is Person passenger))
                         continue;
 
-                    transportForm.AddTicket(Person.ToPassenger(passenger), ticketDataReader.GetInt16(0), ticketDataReader.GetDateTime(1));
+                    transportForm.AddTicket(passenger.ToPassenger(), ticketDataReader.GetInt16(0), ticketDataReader.GetDateTime(1));
                 }
             }
 
