@@ -35,7 +35,7 @@ namespace Server
             }
             catch (Exception exeption)
             {
-                Log.PrintMsg(exeption.Message);
+                Log.PrintMsg(exeption);
             }
         }
 
@@ -44,8 +44,9 @@ namespace Server
             _connected.Set();
 
             ConnectedObject ConnectedObject = new ConnectedObject(_serverSocket.EndAccept(result));
-            Log.PrintMsg($"New ConnectedObject connect from {ConnectedObject.Socket.LocalEndPoint.ToString()}");
+            Log.PrintMsg($"New ConnectedObject connect from {ConnectedObject.Socket.RemoteEndPoint}");
             _clients.Add(ConnectedObject);
+            Log.PrintMsg($"Total clients: {_clients.Count}");
             BeginReceive(ConnectedObject);
         }
 
@@ -82,6 +83,7 @@ namespace Server
                     }
                     else if (receiveData is ClientRequest request)
                     {
+                        Log.PrintMsg($"Receive client request: {request}, from {ConnectedObject.Socket.RemoteEndPoint}");
                         object clientrequestProcesed = ClientRequestHanlder.ProccessClientRequest(request);
                         SendReply(ConnectedObject, clientrequestProcesed);
                     }
@@ -91,14 +93,15 @@ namespace Server
                     BeginReceive(ConnectedObject);
                 }
             }
-            catch (SocketException)
+            catch (SocketException exception)
             {
+                Log.PrintMsg(exception);
                 CloseClient(ConnectedObject);
                 return;
             }
             catch (Exception exception)
             {
-                Log.PrintMsg(exception.Message);
+                Log.PrintMsg(exception);
                 return;
             }
         }
@@ -140,8 +143,9 @@ namespace Server
                 ConnectedObject.Socket.BeginSend(messageReply.ByteBuffer, 0, messageReply.ByteBuffer.Length, SocketFlags.None, new AsyncCallback(SendReplyCallBack), ConnectedObject);
 
             }
-            catch (SocketException)
+            catch (SocketException exception)
             {
+                Log.PrintMsg(exception);
                 CloseClient(ConnectedObject);
             }
         }
@@ -153,7 +157,7 @@ namespace Server
 
         private void CloseClient(ConnectedObject ConnectedObject)
         {
-            Log.PrintMsg($"Client {ConnectedObject.Socket.LocalEndPoint} disconect.");
+            Log.PrintMsg($"Client {ConnectedObject.Socket.RemoteEndPoint} disconect.");
             ConnectedObject.Close();
             _clients.Remove(ConnectedObject);
         }
