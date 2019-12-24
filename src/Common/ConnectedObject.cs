@@ -11,10 +11,9 @@ namespace Common
             Message = message;
         }
 
-        public ConnectedObject(Socket socket)
+        public ConnectedObject(Socket socket) : this(socket, new Message())
         {
-            Socket = socket;
-            Message = new Message();
+
         }
 
         public Socket Socket { get; set; }
