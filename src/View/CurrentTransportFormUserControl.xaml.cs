@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer;
-using Entity;
+﻿using Entity;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -70,7 +69,7 @@ namespace View
 
         private void SaveTransportForm_Click(object sender, RoutedEventArgs e)
         {
-            TransportFormService transportFormService = new TransportFormService();
+
         }
     }
 }
