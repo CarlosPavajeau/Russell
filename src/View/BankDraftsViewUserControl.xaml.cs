@@ -19,7 +19,7 @@ namespace View
         {
             if (await MainWindow.Client.Send(ClientRequest.GET_ALL_BANKDRAFTS))
             {
-                BankDrafts.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+                BankDrafts.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
             }
         }
     }

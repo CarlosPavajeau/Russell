@@ -28,7 +28,7 @@ namespace View
         private async void LoadData()
         {
             if (await MainWindow.Client.Send(ClientRequest.GET_ALL_PEOPLE))
-                People.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+                People.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

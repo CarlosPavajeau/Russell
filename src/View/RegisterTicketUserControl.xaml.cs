@@ -51,7 +51,7 @@ namespace View
             if (_passenger is null)
             {
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, PassenderID.Text))
-                    _passenger = (await MainWindow.Client.RecieveObject() as Person).ToPassenger();
+                    _passenger = (await MainWindow.Client.ReceiveObject() as Person).ToPassenger();
 
                 if (_passenger is null)
                     return;

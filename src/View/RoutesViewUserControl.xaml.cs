@@ -18,7 +18,7 @@ namespace View
         private async void LoadData()
         {
             if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES))
-                Routes.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+                Routes.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
     }
 }

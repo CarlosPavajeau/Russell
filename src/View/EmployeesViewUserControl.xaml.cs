@@ -28,7 +28,7 @@ namespace View
         private async void LoadData()
         {
             if (await MainWindow.Client.Send(ClientRequest.GET_ALL_EMPLOYEES))
-                Employees.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+                Employees.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 
         private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)

@@ -22,12 +22,12 @@ namespace View
             if (_driver is null)
             {
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, DriverField.Text))
-                    _driver = await MainWindow.Client.RecieveObject() as Employee;
+                    _driver = await MainWindow.Client.ReceiveObject() as Employee;
             }
 
             if (_owner is null)
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, OwnerField.Text))
-                    _owner = await MainWindow.Client.RecieveObject() as Employee;
+                    _owner = await MainWindow.Client.ReceiveObject() as Employee;
 
             if (_driver is null || _owner is null)
                 return;

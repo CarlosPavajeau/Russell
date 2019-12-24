@@ -21,13 +21,13 @@ namespace View
             if (DeliveryFields.Sender is null)
             {
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField.Text))
-                    DeliveryFields.Sender = await MainWindow.Client.RecieveObject() as Person;
+                    DeliveryFields.Sender = await MainWindow.Client.ReceiveObject() as Person;
             }
             
             if (DeliveryFields.Receiver is null)
             {
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField.Text))
-                    DeliveryFields.Receiver = await MainWindow.Client.RecieveObject() as Person;
+                    DeliveryFields.Receiver = await MainWindow.Client.ReceiveObject() as Person;
             }
 
             if (DeliveryFields.Sender is null)

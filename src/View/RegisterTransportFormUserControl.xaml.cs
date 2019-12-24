@@ -31,7 +31,7 @@ namespace View
         {
             if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES_AND_VEHICLES))
             {
-                List<IEnumerable> routesAndVehicles = await MainWindow.Client.RecieveObject() as List<IEnumerable>;
+                List<IEnumerable> routesAndVehicles = await MainWindow.Client.ReceiveObject() as List<IEnumerable>;
 
                 RouteComboBox.ItemsSource = routesAndVehicles[0];
                 VehicleComboBox.ItemsSource = routesAndVehicles[1];

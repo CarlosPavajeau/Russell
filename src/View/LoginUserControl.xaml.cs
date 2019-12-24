@@ -27,7 +27,7 @@ namespace View
 
         private async void HandleRecieveObject()
         {
-            object obj = await MainWindow.Client.RecieveObject();
+            object obj = await MainWindow.Client.ReceiveObject();
 
             if (obj is AdministrativeEmployee administrativeEmployee)
             {

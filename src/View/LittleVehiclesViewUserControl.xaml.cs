@@ -21,7 +21,7 @@ namespace View
         private async void LoadData()
         {
             if (await MainWindow.Client.Send(Common.ClientRequest.GET_ALL_VEHICLES))
-                Vehicles.ItemsSource = await MainWindow.Client.RecieveObject() as IEnumerable;
+                Vehicles.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 
         public LittleVehiclesViewUserControl(IReception<Vehicle> reception, CloseAction closeAction) : this()

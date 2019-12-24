@@ -38,16 +38,16 @@ namespace BusinessLogicLayer.Client
 
         public async Task<ServerAnswer> RecieveServerAnswer()
         {
-            return (await RecieveObject()) is ServerAnswer serverAnswer ? serverAnswer : Common.ServerAnswer.INVALID_COMMAND;
+            return (await ReceiveObject()) is ServerAnswer serverAnswer ? serverAnswer : Common.ServerAnswer.INVALID_COMMAND;
         }
 
 
-        public async Task<object> RecieveObject()
+        public async Task<object> ReceiveObject()
         {
-            return await Task.Run(() => TryRecieveObject());
+            return await Task.Run(() => TryReceiveObject());
         }
 
-        private object TryRecieveObject()
+        private object TryReceiveObject()
         {
             try
             {
