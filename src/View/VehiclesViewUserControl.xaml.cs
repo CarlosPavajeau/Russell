@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace View
@@ -14,10 +15,10 @@ namespace View
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            VehicleService vehicleService = new VehicleService();
-            Vehicles.ItemsSource = vehicleService.GetAllData();
+            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_VEHICLES))
+                Vehicles.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
     }
 }
