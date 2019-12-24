@@ -22,5 +22,21 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void UserSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AccessDataSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetMainPanel(UserControl userControl)
+        {
+            MainPanel.Children.Clear();
+            MainPanel.Children.Add(userControl);
+        }
     }
 }

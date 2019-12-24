@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel x:Name="MainPanel">
+            <TextBlock Text="Panel de configuración" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Margin="0,20">
+                <Button x:Name="UserSettingsButton" Content="Gestión de usuarios" Width="250" Style="{StaticResource ControlButton}" Click="UserSettingsButton_Click"></Button>
+                <Button x:Name="AccessDataSettingsButton" Content="Gestion de datos de acceso" Width="350" Style="{StaticResource ControlButton}" Click="AccessDataSettingsButton_Click"></Button>
+            </StackPanel>
+        </StackPanel> 
     </Grid>
 </UserControl>
