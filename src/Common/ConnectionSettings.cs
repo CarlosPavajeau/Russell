@@ -13,7 +13,7 @@ namespace Common
 
         const char DELIMITER = '=';
 
-        public const int ByteBufferSize = 2048;
+        public const int ByteBufferSize = 8192;
 
         public static IPAddress IPAddress { get => _connectionSettings.IPAddress; }
 
