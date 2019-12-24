@@ -22,10 +22,5 @@
 
         public string SecondLastName { get; set; }
         public string Name => $"{FirstName} {SecondName} {LastName} {SecondLastName}";
-
-        public static Passenger ToPassenger(Person person)
-        {
-            return new Passenger(person.ID, person.FirstName, person.SecondName, person.LastName, person.SecondLastName);
-        }
     }
 }

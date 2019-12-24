@@ -2,6 +2,7 @@
 
 namespace Entity
 {
+    [Serializable]
     public class Ticket
     {
         private int seats;

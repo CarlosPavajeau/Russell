@@ -1,6 +1,7 @@
 ﻿
 namespace Entity
 {
+    [System.Serializable]
     public class Imprint
     {
         public Imprint(string engineNumber, string chassisNumber)

@@ -1,6 +1,7 @@
 ﻿
 namespace Entity
 {
+    [System.Serializable]
     public class VehicleFeature
     {
         private int _chairs;

@@ -16,6 +16,8 @@ namespace Entity
         ADMINISTRATION,
         OTHERS
     }
+
+    [System.Serializable]
     public class FinalcialInformation
     {
         private readonly Dictionary<FinalcialInformationType, decimal> _financialInformation;

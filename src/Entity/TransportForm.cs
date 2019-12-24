@@ -5,6 +5,7 @@ using static Entity.FinalcialInformationType;
 
 namespace Entity
 {
+    [System.Serializable]
     public class TransportForm
     {
         public TransportForm(string number, Route route, Vehicle vehicle, AdministrativeEmployee dispatcher) : this(number, route, vehicle, dispatcher, DateTime.Now, DateTime.Now)

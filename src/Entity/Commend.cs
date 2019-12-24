@@ -2,6 +2,7 @@
 
 namespace Entity
 {
+    [Serializable]
     public class Commend : Delivery
     {
         private decimal freightValue;

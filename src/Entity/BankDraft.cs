@@ -2,6 +2,7 @@
 
 namespace Entity
 {
+    [Serializable]
     public class BankDraft : Delivery
     {
         private decimal valueToSend;

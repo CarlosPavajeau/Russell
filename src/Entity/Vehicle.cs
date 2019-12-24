@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Entity
 {
+    [System.Serializable]
     public class Vehicle
     {
         public Vehicle(string licensePlate, string internalNumber, string propertyCardNumber, Employee owner, Employee driver)

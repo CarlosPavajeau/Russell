@@ -11,6 +11,8 @@ namespace Entity
         TECHNOMECHANICALREVIEW,
         BIMONTHLYREVIEW
     }
+
+    [Serializable]
     public class LegalInformation
     {
         private readonly Dictionary<LegalInformationType, Dates> _information;
@@ -36,6 +38,7 @@ namespace Entity
         }
     }
 
+    [Serializable]
     public class Dates
     {
         public Dates(DateTime dueDate, DateTime dateOfRenovation)

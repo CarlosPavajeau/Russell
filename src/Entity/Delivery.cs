@@ -8,6 +8,8 @@ namespace Entity
         DELIVERED,
         CANCEL
     }
+
+    [Serializable]
     public abstract class Delivery
     {
         public Delivery(string number, DateTime date, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state)
