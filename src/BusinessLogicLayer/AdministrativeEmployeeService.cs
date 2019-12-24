@@ -17,8 +17,6 @@ namespace BusinessLogicLayer
         {
             try
             {
-                Email email = new Email();
-                email.SendEmail(data);
                 dbConnection.Open();
                 return _administrativeEmployeeRepository.Save(data);
             }
