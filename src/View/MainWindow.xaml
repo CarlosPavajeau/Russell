@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowState="Maximized" d:DesignWidth="1280" d:DesignHeight="720">
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        d:DesignWidth="1280" d:DesignHeight="720">
     <Grid x:Name="GridMain">
         
     </Grid>

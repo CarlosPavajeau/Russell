@@ -1,4 +1,6 @@
 ﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Client;
+using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +12,11 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window, IAfterRegister
     {
+        const int LOGIN_PANEL_WIDTH = 400;
+        const int LOGIN_PANEL_HEIGHT = 550;
+
         public static AdministrativeEmployee AdministrativeEmployee;
+        public static Client Client = new Client();
 
         public MainWindow()
         {
@@ -18,20 +24,23 @@ namespace View
             StartApp();
         }
 
-        private void StartApp()
+        private async void StartApp()
         {
-            AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
-
-            if (administrativeEmployeeService.IsEmpty())
-                SetMainPanel(new RegisterAdministrativeEmployeeUserControl(this));
-            else
-                ShowLoginPanel();
+            if (await Client.Connect())
+            {
+                if (await Client.Send(ClientRequest.IS_IT_THE_FIRST_APPLICATION_START))
+                    IsFirstApplicationStart();
+            }
         }
 
-        public void SetMainPanel(UserControl userControl)
+        private async void IsFirstApplicationStart()
         {
-            GridMain.Children.Clear();
-            GridMain.Children.Add(userControl);
+            ServerAnswer answer = await Client.RecieveServerAnswer();
+
+            if (answer == ServerAnswer.IS_THE_FIRST_APPLICATION_START)
+                Dispatcher.Invoke(() => SetMainPanel(new RegisterAdministrativeEmployeeUserControl(this)));
+            else
+                Dispatcher.Invoke(() => ShowLoginPanel());
         }
 
         private void LoginSucces(AdministrativeEmployee administrativeEmployee)
@@ -56,9 +65,15 @@ namespace View
         private void ShowLoginPanel()
         {
             WindowState = WindowState.Normal;
-            Width = 400;
-            Height = 550;
+            Width = LOGIN_PANEL_WIDTH;
+            Height = LOGIN_PANEL_HEIGHT;
             SetMainPanel(new LoginUserControl(LoginSucces));
+        }
+
+        private void SetMainPanel(UserControl userControl)
+        {
+            GridMain.Children.Clear();
+            GridMain.Children.Add(userControl);
         }
 
         public void AfterRegister()
