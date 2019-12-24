@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using Entity;
 
@@ -18,6 +19,10 @@ namespace DataAccessLayer
             try
             {
                 base.Save(data);
+            }
+            catch (Exception)
+            {
+
             }
             finally
             {
