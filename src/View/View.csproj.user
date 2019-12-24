@@ -61,9 +61,6 @@
     <Compile Update="RegisterEmployeeUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="RegisterFinalcialInformationFields.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="RegisterPersonFields.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -178,9 +175,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterEmployeeUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="RegisterFinalcialInformationFields.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegisterPersonFields.xaml">
