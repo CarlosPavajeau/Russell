@@ -9,6 +9,7 @@
         COMMEND,
         ROUTE,
         TRANSPORT_FORM,
+        CURRENT_TRANSPORT_FORM,
         VEHICLE,
         TICKET
     }
