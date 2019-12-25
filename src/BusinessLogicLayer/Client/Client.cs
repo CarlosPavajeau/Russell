@@ -32,13 +32,13 @@ namespace BusinessLogicLayer.Client
             }
             catch (Exception)
             {
-                return false;
+                return TryConnect();
             }
         }
 
         public async Task<ServerAnswer> RecieveServerAnswer()
         {
-            return (await ReceiveObject()) is ServerAnswer serverAnswer ? serverAnswer : Common.ServerAnswer.INVALID_COMMAND;
+            return (await ReceiveObject()) is ServerAnswer serverAnswer ? serverAnswer : ServerAnswer.INVALID_COMMAND;
         }
 
 
