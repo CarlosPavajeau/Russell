@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer;
-using Common;
+﻿using Common;
 using Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +22,7 @@ namespace View
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField.Text))
                     DeliveryFields.Sender = await MainWindow.Client.ReceiveObject() as Person;
             }
-            
+
             if (DeliveryFields.Receiver is null)
             {
                 if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField.Text))
@@ -62,13 +61,16 @@ namespace View
                 return;
             }
 
-            string deliveryNumber = "0000";
+            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            {
+                string deliveryNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
-            BankDraft bankDraft = new BankDraft(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee, 
-                                                DeliveryFields.DestinationComboBox.SelectedItem as string, valueToSend, cost);
+                BankDraft bankDraft = new BankDraft(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee,
+                                                    DeliveryFields.DestinationComboBox.SelectedItem as string, valueToSend, cost);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.BANKDRAFT, bankDraft))
-                HandleServerAnswer();
+                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.BANKDRAFT, bankDraft))
+                    HandleServerAnswer();
+            }
         }
 
         private async void HandleServerAnswer()

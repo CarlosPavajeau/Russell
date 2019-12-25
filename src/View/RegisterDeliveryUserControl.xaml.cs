@@ -1,6 +1,7 @@
-﻿using BusinessLogicLayer;
+﻿using Common;
 using Entity;
 using System;
+using System.Collections;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -20,13 +21,19 @@ namespace View
             Sender = Receiver = null;
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            DeliveryDate.Text += DateTime.Now.ToShortDateString();
-            DeliveryDispatcher.Text += $"{MainWindow.AdministrativeEmployee.Name}";
+            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            {
+                DeliveryNumber.Text += ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
-            RouteService routeService = new RouteService();
-            DestinationComboBox.ItemsSource = routeService.Destinations;
+                if (await MainWindow.Client.Send(ClientRequest.GET_ALL_DESTINATIONS))
+                {
+                    DestinationComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
+                    DeliveryDate.Text += DateTime.Now.ToShortDateString();
+                    DeliveryDispatcher.Text += $"{MainWindow.AdministrativeEmployee.Name}";
+                }
+            }
         }
 
         public void ShowRegisterPerson(string personId, UserControl owner)

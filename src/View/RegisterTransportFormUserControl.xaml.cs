@@ -2,8 +2,6 @@
 using Entity;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -35,6 +33,9 @@ namespace View
 
                 if (await MainWindow.Client.Send(ClientRequest.GET_ALL_VEHICLES))
                     VehicleComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
+
+                if (await MainWindow.Client.Send(ClientRequest.GET_TRANSPORT_FORM_COUNT))
+                    TransportFormID.Text += ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
             }
         }
 
@@ -49,10 +50,15 @@ namespace View
             }
             else
             {
-                CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm("000", RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
+                if (await MainWindow.Client.Send(ClientRequest.GET_TRANSPORT_FORM_COUNT))
+                {
+                    string transportFormNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
-                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TRANSPORT_FORM, CurrentTransportFormUserControl.CurrentTransportForm))
-                    HandleServerAnswer();
+                    CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm(transportFormNumber, RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
+
+                    if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TRANSPORT_FORM, CurrentTransportFormUserControl.CurrentTransportForm))
+                        HandleServerAnswer();
+                }
             }
         }
 

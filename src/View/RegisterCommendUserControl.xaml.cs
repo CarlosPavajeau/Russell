@@ -84,14 +84,17 @@ namespace View
                 MessageBox.Show("Convenio de encomienda invalido", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            string deliveryNumber = "0000";
+            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            {
+                string deliveryNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
-            Commend commend = new Commend(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee, 
-                                          DeliveryFields.DestinationComboBox.SelectedItem as string, CommendDescriptionField.Text,
-                                          freightValue, agreement, Vehicle);
+                Commend commend = new Commend(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee,
+                                              DeliveryFields.DestinationComboBox.SelectedItem as string, CommendDescriptionField.Text,
+                                              freightValue, agreement, Vehicle);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.COMMEND, commend))
-                HandleServerAnswer();  
+                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.COMMEND, commend))
+                    HandleServerAnswer();
+            }
         }
 
         private async void HandleServerAnswer()
