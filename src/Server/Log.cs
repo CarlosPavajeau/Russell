@@ -17,7 +17,6 @@ namespace Server
         {
             PrintMsg($"Exception message: {exception.Message}");
             PrintMsg($"StackTrace: {exception.StackTrace}");
-            PrintMsg($"Data: {exception.Data}");
         }
 
         private static void SaveLog(string msg)
