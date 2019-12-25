@@ -12,6 +12,8 @@
         WindowStartupLocation="CenterScreen"
         d:DesignWidth="1280" d:DesignHeight="720">
     <Grid x:Name="GridMain">
-        
+        <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Conectando con el servidor..." Style="{StaticResource TitleText}"></TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

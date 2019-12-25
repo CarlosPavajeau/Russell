@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer;
-using BusinessLogicLayer.Client;
+﻿using BusinessLogicLayer.Client;
 using Common;
 using Entity;
 using System.Windows;
@@ -51,10 +50,10 @@ namespace View
             LoadCurrentTransportForm();
         }
 
-        private void LoadCurrentTransportForm()
+        private async void LoadCurrentTransportForm()
         {
-            TransportFormService transportFormService = new TransportFormService();
-            CurrentTransportFormUserControl.CurrentTransportForm = transportFormService.CurrentTransportFrom(AdministrativeEmployee.ID);
+            if (await Client.Send(TypeCommand.SEARCH, TypeData.CURRENT_TRANSPORT_FORM, AdministrativeEmployee.ID))
+                CurrentTransportFormUserControl.CurrentTransportForm = await Client.ReceiveObject() as TransportForm;
         }
 
         private void LogOutAction()
