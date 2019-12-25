@@ -19,11 +19,11 @@ namespace Server
             PrintMsg($"StackTrace: {exception.StackTrace}");
         }
 
-        private static void SaveLog(string msg)
+        private static async void SaveLog(string msg)
         {
             using FileStream fileStream = new FileStream(@LOG_FILE, FileMode.Append, FileAccess.Write);
             using StreamWriter streamWriter = new StreamWriter(fileStream);
-            streamWriter.WriteLineAsync(msg);
+            await streamWriter.WriteLineAsync(msg);
         }
     }
 }
