@@ -1,7 +1,5 @@
 ﻿using BusinessLogicLayer;
 using Common;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Server
 {
@@ -48,13 +46,17 @@ namespace Server
                     else
                         data = ServerAnswer.IS_NOT_THE_FIRST_APPLICATION_START;
                     break;
-                case ClientRequest.GET_ALL_ROUTES_AND_VEHICLES:
-                    List<IEnumerable> routesAndVehicles = new List<IEnumerable>
-                    {
-                        new RouteService().GetAllData(),
-                        new VehicleService().GetAllData()
-                    };
-                    data = routesAndVehicles;
+                case ClientRequest.GET_DELIVERIES_COUNT:
+                    commendService = new CommendService();
+                    data = commendService.Count;
+                    break;
+                case ClientRequest.GET_TRANSPORT_FORM_COUNT:
+                    transportFormService = new TransportFormService();
+                    data = transportFormService.Count;
+                    break;
+                case ClientRequest.GET_ALL_DESTINATIONS:
+                    routeService = new RouteService();
+                    data = routeService.Destinations;
                     break;
             }
 

@@ -48,6 +48,10 @@ namespace Server.Handlers
                     VehicleService vehicleService = new VehicleService();
                     data = vehicleService.Search(DataPacket.Data as string);
                     break;
+                case TypeData.CURRENT_TRANSPORT_FORM:
+                    transportFormService = new TransportFormService();
+                    data = transportFormService.CurrentTransportFrom(DataPacket.Data as string);
+                    break;
             }
 
             if (data is null)
