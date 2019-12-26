@@ -14,7 +14,7 @@ namespace DataAccessLayer
 
         public bool Save(Person data)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO people(person_id, first_name, second_name, last_name, second_last_name) " +
                                       "VALUES(@person_id, @first_name, @second_name, @last_name, @second_last_name)";
@@ -35,7 +35,7 @@ namespace DataAccessLayer
 
         public Person Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
                                       "FROM people WHERE person_id = @person_id";
@@ -62,7 +62,7 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = $"UPDATE people SET { columToModify } = @newValue WHERE person_id = @primaryKey";
 
@@ -75,7 +75,7 @@ namespace DataAccessLayer
 
         public bool Delete(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "DELETE people WHERE person_id = @primaryKey";
 
@@ -89,7 +89,7 @@ namespace DataAccessLayer
         {
             IList<Person> people = new List<Person>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
                                       "FROM people";

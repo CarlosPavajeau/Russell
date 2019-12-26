@@ -17,7 +17,7 @@ namespace DataAccessLayer
         {
             get
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "SELECT COUNT(*) FROM deliveries";
                     return (int)command.ExecuteScalar();
@@ -27,7 +27,7 @@ namespace DataAccessLayer
 
         public bool Save(Delivery data)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispatcher, sender, receiver)" +
                                       "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispatcher, @sender, @receiver)";
@@ -51,7 +51,7 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = $"UPDATE deliveries SET {columToModify} = @newValue WHERE delivery_number = @primaryKey";
 

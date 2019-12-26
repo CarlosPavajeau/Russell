@@ -13,6 +13,10 @@ namespace DataAccessLayer
                                                            "@value_of_tickets", "@total_value", "@license_plate", "@route_code", 
                                                            "@dispatcher"};
 
+        static readonly string[] FINANCIAL_INFORMATION_COLUMS = { "replacement_fund", "social_contribution", "tire_service", "vehicle_fix_service",
+                                                      "non_contractual_secure_service", "constact_insurance_service", "social_protection",
+                                                      "extraordinary_protection", "administration", "others" };
+
         private readonly FinalcialInformationRepository _finalcialInformationRepository;
         private readonly TicketRepository _ticketRepository;
 
@@ -20,7 +24,7 @@ namespace DataAccessLayer
         {
             get
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "SELECT COUNT(*) FROM transport_forms";
                     return (int)command.ExecuteScalar();
@@ -30,7 +34,7 @@ namespace DataAccessLayer
 
         public TransportForm CurrentTransportForm(string dispatcherID)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT tf.transport_form_number, tf.state, tf.start_date, tf.depature_time, tf.value_of_tickets, " +
                                       "tf.total_value, tf.license_plate, tf.route_code, tf.dispatcher, fi.replacement_fund, " +
@@ -55,7 +59,7 @@ namespace DataAccessLayer
 
         public bool Save(TransportForm data)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO transport_forms(transport_form_number, state, start_date, depature_time, " +
                                       "value_of_tickets, total_value, license_plate, route_code, dispatcher) " +
@@ -88,7 +92,7 @@ namespace DataAccessLayer
 
         public TransportForm Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT tf.transport_form_number, tf.state, tf.start_date, tf.depature_time, tf.value_of_tickets, " +
                                       "tf.total_value, tf.license_plate, tf.route_code, tf.dispatcher, fi.replacement_fund, " +
@@ -128,19 +132,19 @@ namespace DataAccessLayer
             TransportForm transportForm = new TransportForm(transport_form_number, route, vehicle, dispatcher, startDate, depatureTime, state);
 
             
-            transportForm.AddFinalcialInformation(REPLACEMENT_FUND, dbDataReader.GetDecimal(9));
-            transportForm.AddFinalcialInformation(SOCIAL_CONTRIBUTION, dbDataReader.GetDecimal(10));
-            transportForm.AddFinalcialInformation(TIRE_SERVICE, dbDataReader.GetDecimal(11));
-            transportForm.AddFinalcialInformation(VEHICLE_FIX_SERVICE, dbDataReader.GetDecimal(12));
-            transportForm.AddFinalcialInformation(NON_CONTRACTUAL_SERCURE_SERVICE, dbDataReader.GetDecimal(13));
-            transportForm.AddFinalcialInformation(CONSTACT_INSURANCE_SERVICE, dbDataReader.GetDecimal(14));
-            transportForm.AddFinalcialInformation(SOCIAL_PROTECTION, dbDataReader.GetDecimal(15));
-            transportForm.AddFinalcialInformation(EXTRAORDINARY_PROTECTION, dbDataReader.GetDecimal(16));
-            transportForm.AddFinalcialInformation(ADMINISTRATION, dbDataReader.GetDecimal(17));
-            transportForm.AddFinalcialInformation(OTHERS, dbDataReader.GetDecimal(18));
+            transportForm.AddFinalcialInformation(ReplacementFund, dbDataReader.GetDecimal(9));
+            transportForm.AddFinalcialInformation(SocialContribution, dbDataReader.GetDecimal(10));
+            transportForm.AddFinalcialInformation(TireService, dbDataReader.GetDecimal(11));
+            transportForm.AddFinalcialInformation(VehicleFixService, dbDataReader.GetDecimal(12));
+            transportForm.AddFinalcialInformation(NonContractualSecureService, dbDataReader.GetDecimal(13));
+            transportForm.AddFinalcialInformation(ConstactInsuranceService, dbDataReader.GetDecimal(14));
+            transportForm.AddFinalcialInformation(SocialProtection, dbDataReader.GetDecimal(15));
+            transportForm.AddFinalcialInformation(ExtraordinaryProtection, dbDataReader.GetDecimal(16));
+            transportForm.AddFinalcialInformation(Administration, dbDataReader.GetDecimal(17));
+            transportForm.AddFinalcialInformation(Others, dbDataReader.GetDecimal(18));
             transportForm.UpdateTotalValue();
 
-            using (var ticketCommand = dbConnection.CreateCommand())
+            using (var ticketCommand = CreateCommand())
             {
                 ticketCommand.CommandText = "SELECT seats, ticket_date, passenger FROM tickets WHERE transport_form_number = @transport_form_number";
 
@@ -162,12 +166,17 @@ namespace DataAccessLayer
             return transportForm;
         }
 
+        public bool UpdateFinalcialInformation(string primaryKey, FinalcialInformationType informationType, decimal newValue)
+        {
+            return Update(primaryKey, FINANCIAL_INFORMATION_COLUMS[(int)informationType], newValue);
+        }
+
         public bool Update(string primarykey, string columToModify, object newValue)
         {
             if (IsFinalcialInformationColum(columToModify))
                 return _finalcialInformationRepository.Update(primarykey, columToModify, newValue);
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = $"UPDATE transport_forms SET { columToModify } = @newValue WHERE transport_form_number = @transport_form_number";
 
@@ -180,10 +189,6 @@ namespace DataAccessLayer
 
         private bool IsFinalcialInformationColum(string colum)
         {
-            string[] FINANCIAL_INFORMATION_COLUMS = { "replacement_fund", "social_contribution", "tire_service", "vehicle_fix_service",
-                                                      "non_contractual_secure_service", "constact_insurance_service", "social_protection",
-                                                      "extraordinary_protection", "administration", "others" };
-
             return Array.Exists(FINANCIAL_INFORMATION_COLUMS, cl => cl == colum);
         }
 
@@ -191,7 +196,7 @@ namespace DataAccessLayer
         {
             IList<TransportForm> transportForms = new List<TransportForm>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT tf.transport_form_number, tf.state, tf.start_date, tf.depature_time, tf.value_of_tickets, " +
                                       "tf.total_value, tf.license_plate, tf.route_code, tf.dispatcher, fi.replacement_fund, " +
@@ -220,7 +225,7 @@ namespace DataAccessLayer
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = $"UPDATE finalcial_information SET { columToModify } = @newValue WHERE transport_form_number = @transport_form_number";
 
@@ -243,7 +248,7 @@ namespace DataAccessLayer
 
             public bool Save(Ticket data)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "INSERT INTO tickets(ticket_number, seats, ticket_date, total, transport_form_number, passenger) " +
                                           "VALUES(@ticket_number, @seats, @ticket_date, @total, @transport_form_number, @passenger)";

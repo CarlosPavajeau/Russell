@@ -15,7 +15,7 @@ namespace DataAccessLayer
 
         public bool Save(Route data)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO routes(route_code, origin_city, destination_city, cost)" +
                                       "VALUES(@route_code, @origin_city, @destination_city, @cost)";
@@ -36,7 +36,7 @@ namespace DataAccessLayer
 
         public Route Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT route_code, origin_city, destination_city, cost " +
                                       "FROM routes WHERE route_code = @route_code";
@@ -63,7 +63,7 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = $"UPDATE routes SET {columToModify} = @newValue WHERE route_code = @primaryKey";
 
@@ -76,7 +76,7 @@ namespace DataAccessLayer
 
         public bool Delete(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "DELETE routes WHERE route_code = @primaryKey";
 
@@ -90,7 +90,7 @@ namespace DataAccessLayer
         {
             IList<Route> routes = new List<Route>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT route_code, origin_city, destination_city, cost " +
                                       "FROM routes";
@@ -111,7 +111,7 @@ namespace DataAccessLayer
             {
                 IList<string> destinations = new List<string>();
 
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "SELECT DISTINCT * FROM (SELECT origin_city FROM routes UNION ALL SELECT destination_city FROM routes) AS Destinations";
 

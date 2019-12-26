@@ -24,7 +24,7 @@ namespace DataAccessLayer
             }
             finally
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
                                           "VALUES(@person_id, @username, @passwordname, @type_user)";
@@ -46,7 +46,7 @@ namespace DataAccessLayer
 
         public new AdministrativeEmployee Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
                     "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
@@ -64,7 +64,7 @@ namespace DataAccessLayer
         {
             if (searchByID)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
                         "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
@@ -98,7 +98,7 @@ namespace DataAccessLayer
             passwordname = dbDataReader.GetString(9);
 
             string typeUserStr = dbDataReader.GetString(10);
-            TypeUser typeUser = (typeUserStr == "S") ? TypeUser.SUPERUSER : ((typeUserStr == "D") ? TypeUser.DISPATCHER : TypeUser.ADMIN);
+            TypeUser typeUser = (typeUserStr == "S") ? TypeUser.SuperUser : ((typeUserStr == "D") ? TypeUser.Dispatcher : TypeUser.Administrator);
 
             return new AdministrativeEmployee(id, firstName, secondName, lastName, secondLastName, cellphone,
                                               email, address, new User(username, passwordname, typeUser));
@@ -106,7 +106,7 @@ namespace DataAccessLayer
 
         public bool IsEmpty()
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT COUNT(*) FROM administrative_employees";
 

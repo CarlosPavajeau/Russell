@@ -19,7 +19,7 @@ namespace DataAccessLayer
             if (!base.Save(data))
                 return false;
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO commends(delivery_number, freight_value, agreement, description, license_plate)" +
                                       "VALUES(@delivery_number, @freight_value, @agreement, @description, @license_plate)";
@@ -41,7 +41,7 @@ namespace DataAccessLayer
 
         public Commend Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
                                       "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +
@@ -89,7 +89,7 @@ namespace DataAccessLayer
             agreement = dbDataReader.GetDecimal(9);
 
             string stateStr = dbDataReader.GetString(3);
-            state = (stateStr == "D") ? State.DELIVERED : (stateStr == "C") ? State.CANCEL : State.ACTIVE;
+            state = (stateStr == "D") ? State.Delivered : (stateStr == "C") ? State.Cancel : State.Active;
 
             return new Commend(delivery_number, delivery_date, sender, receiver, dispatcher, destination, description, freightValue, agreement, vehicle, state);
         }
@@ -98,7 +98,7 @@ namespace DataAccessLayer
         {
             IList<Commend> commends = new List<Commend>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
                                       "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +

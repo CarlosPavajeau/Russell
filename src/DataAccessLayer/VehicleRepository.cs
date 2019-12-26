@@ -23,7 +23,7 @@ namespace DataAccessLayer
 
         public bool Save(Vehicle data)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO vehicles(license_plate, internal_number, property_card_number, state, owner, driver)" +
                                       "VALUES(@license_plate, @internal_number, @property_card_number, @state, @owner, @driver)";
@@ -51,7 +51,7 @@ namespace DataAccessLayer
 
         public Vehicle Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
                                       "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number "+
@@ -96,7 +96,7 @@ namespace DataAccessLayer
             vehicle.Imprint.EngineNumber = dbDataReader.GetString(12);
             vehicle.Imprint.ChassisNumber = dbDataReader.GetString(13);
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT legal_information_type, due_date, renovation_date " +
                                       "FROM legal_information WHERE license_plate = @license_plate ORDER BY legal_information_type";
@@ -112,27 +112,27 @@ namespace DataAccessLayer
                     dueDate = legalInformationDR.GetDateTime(1);
                     renovationDate = legalInformationDR.GetDateTime(2);
 
-                    vehicle.AddLegalInformation(LegalInformationType.BIMONTHLYREVIEW, dueDate, renovationDate);
+                    vehicle.AddLegalInformation(LegalInformationType.BiMonthlyReview, dueDate, renovationDate);
                     legalInformationDR.Read();
 
                     dueDate = legalInformationDR.GetDateTime(1);
                     renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.LICENSE, dueDate, renovationDate);
+                    vehicle.AddLegalInformation(LegalInformationType.License, dueDate, renovationDate);
                     legalInformationDR.Read();
 
                     dueDate = legalInformationDR.GetDateTime(1);
                     renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.OPERATIONCARD, dueDate, renovationDate);
+                    vehicle.AddLegalInformation(LegalInformationType.OperationCard, dueDate, renovationDate);
                     legalInformationDR.Read();
 
                     dueDate = legalInformationDR.GetDateTime(1);
                     renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.SOAT, dueDate, renovationDate);
+                    vehicle.AddLegalInformation(LegalInformationType.Soat, dueDate, renovationDate);
                     legalInformationDR.Read();
 
                     dueDate = legalInformationDR.GetDateTime(1);
                     renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.TECHNOMECHANICALREVIEW, dueDate, renovationDate);
+                    vehicle.AddLegalInformation(LegalInformationType.TechnomechanicalReview, dueDate, renovationDate);
                 }
             }
 
@@ -141,7 +141,7 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 return true;
             }
@@ -149,7 +149,7 @@ namespace DataAccessLayer
 
         public bool Delete(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 return true;
             }
@@ -159,7 +159,7 @@ namespace DataAccessLayer
         {
             IList<Vehicle> vehicles = new List<Vehicle>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
                                       "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number " +
@@ -188,7 +188,7 @@ namespace DataAccessLayer
 
             public bool Save(Vehicle data)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "INSERT INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
                                           "VALUES(@license_plate, @type, @mark, @model, @model_number, @color, @chairs)";
@@ -212,7 +212,7 @@ namespace DataAccessLayer
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = $"UPDATE vehicle_features SET { columToModify } = @newValue WHERE license_plate = @license_plate";
 
@@ -235,7 +235,7 @@ namespace DataAccessLayer
 
             public bool Save(Vehicle data)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "INSERT INTO imprints(license_plate, engine_number, chassis_number)" +
                                           "VALUES(@license_plate, @engine_number, @chassis_number)";
@@ -255,7 +255,7 @@ namespace DataAccessLayer
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = $"UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
 
@@ -280,7 +280,7 @@ namespace DataAccessLayer
             {
                 foreach (var legalInformation in data.LegalInformation.GetLegalInformation())
                 {
-                    using (var command = dbConnection.CreateCommand())
+                    using (var command = CreateCommand())
                     {
                         command.CommandText = "INSERT INTO legal_information(license_plate, legal_information_type, due_date, renovation_date)" +
                                               "VALUES(@license_plate, @legal_information_type, @due_date, @renovation_date)";

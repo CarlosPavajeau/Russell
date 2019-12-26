@@ -12,13 +12,9 @@ namespace DataAccessLayer
             dbConnection = connection;
         }
 
-        protected DbParameter CreateDbParameter(DbCommand command, string parameterName, object value)
+        protected DbCommand CreateCommand()
         {
-            DbParameter dbParameter = command.CreateParameter();
-            dbParameter.ParameterName = parameterName;
-            dbParameter.Value = value;
-
-            return dbParameter;
+            return dbConnection.CreateCommand();
         }
 
         protected void MapCommandParameters(DbCommand command, string[] parametersNames, object[] values)
@@ -27,6 +23,15 @@ namespace DataAccessLayer
 
             for (int i = 0; i < parametersNames.Length; ++i)
                 command.Parameters.Add(CreateDbParameter(command, parametersNames[i], values[i]));
+        }
+
+        protected DbParameter CreateDbParameter(DbCommand command, string parameterName, object value)
+        {
+            DbParameter dbParameter = command.CreateParameter();
+            dbParameter.ParameterName = parameterName;
+            dbParameter.Value = value;
+
+            return dbParameter;
         }
     }
 }

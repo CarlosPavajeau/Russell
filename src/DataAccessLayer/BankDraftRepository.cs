@@ -18,7 +18,7 @@ namespace DataAccessLayer
             if (!base.Save(data))
                 return false;
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "INSERT INTO bankdrafts(delivery_number, value_to_send, cost)" +
                                       "VALUES(@delivery_number, @value_to_send, @cost)";
@@ -38,7 +38,7 @@ namespace DataAccessLayer
 
         public BankDraft Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
                                       "dl.dispatcher, bd.value_to_send, bd.cost " +
@@ -83,7 +83,7 @@ namespace DataAccessLayer
             cost = dbDataReader.GetDecimal(8);
 
             string stateStr = dbDataReader.GetString(3);
-            state = (stateStr == "D") ? State.DELIVERED : (stateStr == "C") ? State.CANCEL : State.ACTIVE;
+            state = (stateStr == "D") ? State.Delivered : (stateStr == "C") ? State.Cancel : State.Active;
 
             return new BankDraft(delivery_number, delivery_date, sender, receiver, dispatcher, destination, valueToSend, cost, state);
         }
@@ -92,7 +92,7 @@ namespace DataAccessLayer
         {
             IList<BankDraft> bankDrafts = new List<BankDraft>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
                                       "dl.dispatcher, bd.value_to_send, bd.cost " +

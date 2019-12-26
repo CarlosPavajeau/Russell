@@ -26,7 +26,7 @@ namespace DataAccessLayer
             }
             finally
             {
-                using (var command = dbConnection.CreateCommand())
+                using (var command = CreateCommand())
                 {
                     command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
                                           "VALUES(@person_id, @cellphone, @email, @address)";
@@ -48,7 +48,7 @@ namespace DataAccessLayer
 
         public new Employee Search(string primaryKey)
         {
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
                                       "em.email, em.address FROM employees em " +
@@ -83,7 +83,7 @@ namespace DataAccessLayer
         {
             IList<Employee> employees = new List<Employee>();
 
-            using (var command = dbConnection.CreateCommand())
+            using (var command = CreateCommand())
             {
                 command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
                                       "em.email, em.address FROM employees em " +
