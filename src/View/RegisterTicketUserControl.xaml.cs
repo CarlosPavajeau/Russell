@@ -50,7 +50,7 @@ namespace View
         {
             if (_passenger is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, PassenderID.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Person, PassenderID.Text))
                     _passenger = (await MainWindow.Client.ReceiveObject() as Person).ToPassenger();
 
                 if (_passenger is null)
@@ -59,7 +59,7 @@ namespace View
 
             CurrentTransportFormUserControl.CurrentTransportForm?.AddTicket(_passenger, int.Parse(SeatsField.Text));
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TICKET, CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last()))
+            if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Ticket, CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last()))
                 HandleServerAnswer();
         }
 
@@ -67,7 +67,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
                 _afterRegister?.AfterRegister();
             else
                 MessageBox.Show("Error");

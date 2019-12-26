@@ -23,11 +23,11 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            if (await MainWindow.Client.Send(ClientRequest.GetDeliveriesCount))
             {
                 DeliveryNumber.Text += ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
-                if (await MainWindow.Client.Send(ClientRequest.GET_ALL_DESTINATIONS))
+                if (await MainWindow.Client.Send(ClientRequest.GetDestinations))
                 {
                     DestinationComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
                     DeliveryDate.Text += DateTime.Now.ToShortDateString();

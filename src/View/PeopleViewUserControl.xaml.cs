@@ -11,7 +11,7 @@ namespace View
     public partial class PeopleViewUserControl : UserControl
     {
 
-        private readonly SelectPerson _selectPerson;
+        private readonly Recieve<Person> _selectPerson;
         private readonly CloseAction _closeAction;
         public PeopleViewUserControl()
         {
@@ -19,7 +19,7 @@ namespace View
             LoadData();
         }
 
-        public PeopleViewUserControl(SelectPerson selectPerson, CloseAction closeAction) : this()
+        public PeopleViewUserControl(Recieve<Person> selectPerson, CloseAction closeAction) : this()
         {
             _selectPerson = selectPerson;
             _closeAction = closeAction;
@@ -27,7 +27,7 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_PEOPLE))
+            if (await MainWindow.Client.Send(ClientRequest.GetPeople))
                 People.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 

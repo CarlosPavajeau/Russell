@@ -17,7 +17,7 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_COMMENDS))
+            if (await MainWindow.Client.Send(ClientRequest.GetCommends))
                 Commends.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
     }

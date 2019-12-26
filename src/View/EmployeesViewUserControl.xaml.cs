@@ -11,7 +11,7 @@ namespace View
     public partial class EmployeesViewUserControl : UserControl
     {
         readonly CloseAction _closeAction;
-        readonly SelectPerson _selectPerson;
+        readonly Recieve<Employee> _selectEmployee;
 
         public EmployeesViewUserControl()
         {
@@ -19,15 +19,15 @@ namespace View
             LoadData();
         }
 
-        public EmployeesViewUserControl(SelectPerson selectPerson, CloseAction closeAction) : this()
+        public EmployeesViewUserControl(Recieve<Employee> selectEmployee, CloseAction closeAction) : this()
         {
             _closeAction = closeAction;
-            _selectPerson = selectPerson;
+            _selectEmployee = selectEmployee;
         }
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_EMPLOYEES))
+            if (await MainWindow.Client.Send(ClientRequest.GetEmployees))
                 Employees.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 
@@ -38,7 +38,7 @@ namespace View
 
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _selectPerson?.Invoke(Employees.SelectedItem as Employee);
+            _selectEmployee?.Invoke(Employees.SelectedItem as Employee);
         }
     }
 }

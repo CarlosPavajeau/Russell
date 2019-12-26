@@ -29,7 +29,7 @@ namespace View
             Person person = new Person(PersonFields.IDField.Text, PersonFields.FirstNameField.Text, PersonFields.SecondNameField.Text,
                                        PersonFields.LastNameField.Text, PersonFields.SecondNameField.Text);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.PERSON, person))
+            if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Person, person))
                 HandleServerAnswer();
         }
 
@@ -37,7 +37,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
             {
                 MessageBox.Show("Registro exitoso");
                 Close();

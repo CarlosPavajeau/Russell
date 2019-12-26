@@ -17,7 +17,7 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_BANKDRAFTS))
+            if (await MainWindow.Client.Send(ClientRequest.GetBankDrafts))
             {
                 BankDrafts.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
             }

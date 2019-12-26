@@ -27,14 +27,14 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(ClientRequest.GET_ALL_ROUTES))
+            if (await MainWindow.Client.Send(ClientRequest.GetRoutes))
             {
                 RouteComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
 
-                if (await MainWindow.Client.Send(ClientRequest.GET_ALL_VEHICLES))
+                if (await MainWindow.Client.Send(ClientRequest.GetVehicles))
                     VehicleComboBox.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
 
-                if (await MainWindow.Client.Send(ClientRequest.GET_TRANSPORT_FORM_COUNT))
+                if (await MainWindow.Client.Send(ClientRequest.GetTransportFormCount))
                     TransportFormID.Text += ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
             }
         }
@@ -50,13 +50,13 @@ namespace View
             }
             else
             {
-                if (await MainWindow.Client.Send(ClientRequest.GET_TRANSPORT_FORM_COUNT))
+                if (await MainWindow.Client.Send(ClientRequest.GetTransportFormCount))
                 {
                     string transportFormNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
                     CurrentTransportFormUserControl.CurrentTransportForm = new TransportForm(transportFormNumber, RouteComboBox.SelectedItem as Route, VehicleComboBox.SelectedItem as Vehicle, MainWindow.AdministrativeEmployee);
 
-                    if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.TRANSPORT_FORM, CurrentTransportFormUserControl.CurrentTransportForm))
+                    if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.TransportForm, CurrentTransportFormUserControl.CurrentTransportForm))
                         HandleServerAnswer();
                 }
             }
@@ -66,7 +66,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
             {
                 MessageBox.Show("Planilla registrada");
                 AfterRegister?.Invoke();

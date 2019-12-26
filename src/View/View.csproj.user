@@ -22,6 +22,9 @@
     <Compile Update="CurrentTransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DispatcherMainPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="EmployeesViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +109,9 @@
     <Compile Update="TransportFormUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserSettingsUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="VehiclesViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,6 +139,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CurrentTransportFormUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DispatcherMainPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="EmployeesViewUserControl.xaml">
@@ -226,6 +235,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TransportFormUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserSettingsUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="VehiclesViewUserControl.xaml">

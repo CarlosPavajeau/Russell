@@ -30,7 +30,7 @@ namespace View
 
             Employee employee = new Employee(id, firstName, secondName, lastName, secondLastName, cellphone, email, address);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.EMPLOYEE, employee))
+            if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Employee, employee))
                 HandleServerAnswer();               
         }
 
@@ -38,7 +38,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
                 MessageBox.Show("Registro exitoso");
             else
                 MessageBox.Show("Datos ya registrados");

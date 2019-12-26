@@ -25,7 +25,7 @@ namespace View
 
         private void UserSettingsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SetMainPanel(new UserSettingsUserControl());
         }
 
         private void AccessDataSettingsButton_Click(object sender, RoutedEventArgs e)

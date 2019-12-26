@@ -31,17 +31,17 @@ namespace View
             Route.Text += $"{CurrentTransportForm.Route.OriginCity} a {CurrentTransportForm.Route.DestinationCity} con costo de {CurrentTransportForm.Route.Cost}";
             PassengersView.Passengers.ItemsSource = CurrentTransportForm.Tickets;
 
-            FinancialInformationFields.ReplacementFundField.Text = CurrentTransportForm.FinalcialInformation[REPLACEMENT_FUND].ToString();
-            FinancialInformationFields.SocialContributionField.Text = CurrentTransportForm.FinalcialInformation[SOCIAL_CONTRIBUTION].ToString();
-            FinancialInformationFields.TireServiceField.Text = CurrentTransportForm.FinalcialInformation[TIRE_SERVICE].ToString();
-            FinancialInformationFields.VehicleFixServiceField.Text = CurrentTransportForm.FinalcialInformation[VEHICLE_FIX_SERVICE].ToString();
-            FinancialInformationFields.NonConSecServiceField.Text = CurrentTransportForm.FinalcialInformation[NON_CONTRACTUAL_SERCURE_SERVICE].ToString();
-            FinancialInformationFields.ConstInsuServiceField.Text = CurrentTransportForm.FinalcialInformation[CONSTACT_INSURANCE_SERVICE].ToString();
-            FinancialInformationFields.SocialProtectionField.Text = CurrentTransportForm.FinalcialInformation[SOCIAL_PROTECTION].ToString();
-            FinancialInformationFields.SocialContributionField.Text = CurrentTransportForm.FinalcialInformation[SOCIAL_CONTRIBUTION].ToString();
-            FinancialInformationFields.ExtraordinaryProtectionField.Text = CurrentTransportForm.FinalcialInformation[EXTRAORDINARY_PROTECTION].ToString();
-            FinancialInformationFields.AdministrationField.Text = CurrentTransportForm.FinalcialInformation[ADMINISTRATION].ToString();
-            FinancialInformationFields.OthersField.Text = CurrentTransportForm.FinalcialInformation[OTHERS].ToString();
+            FinancialInformationFields.ReplacementFundField.Text = CurrentTransportForm.FinalcialInformation[ReplacementFund].ToString();
+            FinancialInformationFields.SocialContributionField.Text = CurrentTransportForm.FinalcialInformation[SocialContribution].ToString();
+            FinancialInformationFields.TireServiceField.Text = CurrentTransportForm.FinalcialInformation[TireService].ToString();
+            FinancialInformationFields.VehicleFixServiceField.Text = CurrentTransportForm.FinalcialInformation[VehicleFixService].ToString();
+            FinancialInformationFields.NonConSecServiceField.Text = CurrentTransportForm.FinalcialInformation[NonContractualSecureService].ToString();
+            FinancialInformationFields.ConstInsuServiceField.Text = CurrentTransportForm.FinalcialInformation[ConstactInsuranceService].ToString();
+            FinancialInformationFields.SocialProtectionField.Text = CurrentTransportForm.FinalcialInformation[SocialProtection].ToString();
+            FinancialInformationFields.SocialContributionField.Text = CurrentTransportForm.FinalcialInformation[SocialContribution].ToString();
+            FinancialInformationFields.ExtraordinaryProtectionField.Text = CurrentTransportForm.FinalcialInformation[ExtraordinaryProtection].ToString();
+            FinancialInformationFields.AdministrationField.Text = CurrentTransportForm.FinalcialInformation[Administration].ToString();
+            FinancialInformationFields.OthersField.Text = CurrentTransportForm.FinalcialInformation[Others].ToString();
             FinancialInformationFields.SubTotal.Text = CurrentTransportForm.FinalcialInformation.Total.ToString();
 
             TotalTransportForm.Text = "Total planilla: " + CurrentTransportForm.TotalValue.ToString();

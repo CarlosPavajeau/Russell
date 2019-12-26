@@ -9,6 +9,8 @@ namespace View
     /// </summary>
     public partial class MainPanel : UserControl
     {
+        readonly LogOutAction LogOut;
+
         public MainPanel(LogOutAction logOut)
         {
             InitializeComponent();
@@ -17,17 +19,13 @@ namespace View
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(0);
+            MainWindow.Exit();
         }
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             LogOut?.Invoke();
         }
-
-        public delegate void LogOutAction();
-
-        private readonly LogOutAction LogOut;
 
         private void BankDraftButton_Click(object sender, RoutedEventArgs e)
         {

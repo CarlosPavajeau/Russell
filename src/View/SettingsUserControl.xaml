@@ -10,7 +10,7 @@
         <StackPanel x:Name="MainPanel">
             <TextBlock Text="Panel de configuración" Style="{StaticResource TitleText}"></TextBlock>
             <StackPanel Margin="0,20">
-                <Button x:Name="UserSettingsButton" Content="Gestión de usuarios" Width="250" Style="{StaticResource ControlButton}" Click="UserSettingsButton_Click"></Button>
+                <Button x:Name="UserSettingsButton" Content="Gestión de usuarios" Width="350" Style="{StaticResource ControlButton}" Click="UserSettingsButton_Click"></Button>
                 <Button x:Name="AccessDataSettingsButton" Content="Gestion de datos de acceso" Width="350" Style="{StaticResource ControlButton}" Click="AccessDataSettingsButton_Click"></Button>
             </StackPanel>
         </StackPanel> 

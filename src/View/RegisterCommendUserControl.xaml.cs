@@ -29,19 +29,19 @@ namespace View
         {
             if (DeliveryFields.Sender is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Person, DeliveryFields.SenderField))
                     DeliveryFields.Sender = await MainWindow.Client.ReceiveObject() as Person;
             }
 
             if (DeliveryFields.Receiver is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Person, DeliveryFields.ReceiverField))
                     DeliveryFields.Receiver = await MainWindow.Client.ReceiveObject() as Person;
             }
 
             if (Vehicle is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.VEHICLE, VehiclePlateField.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Vehicle, VehiclePlateField.Text))
                     Vehicle = await MainWindow.Client.ReceiveObject() as Vehicle;
             }
 
@@ -84,7 +84,7 @@ namespace View
                 MessageBox.Show("Convenio de encomienda invalido", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            if (await MainWindow.Client.Send(ClientRequest.GetDeliveriesCount))
             {
                 string deliveryNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
@@ -92,7 +92,7 @@ namespace View
                                               DeliveryFields.DestinationComboBox.SelectedItem as string, CommendDescriptionField.Text,
                                               freightValue, agreement, Vehicle);
 
-                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.COMMEND, commend))
+                if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Commend, commend))
                     HandleServerAnswer();
             }
         }
@@ -101,7 +101,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
                 MessageBox.Show("Datos guardados");
             else
                 MessageBox.Show("Error al guardar los datos");

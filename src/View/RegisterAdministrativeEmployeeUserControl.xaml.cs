@@ -11,7 +11,7 @@ namespace View
     /// </summary>
     public partial class RegisterAdministrativeEmployeeUserControl : UserControl
     {
-        private IAfterRegister _afterRegister;
+        private readonly IAfterRegister _afterRegister;
         public RegisterAdministrativeEmployeeUserControl()
         {
             InitializeComponent();
@@ -43,15 +43,15 @@ namespace View
             password = PasswordField.Text;
 
             if (!(_afterRegister is null))
-                typeUser = TypeUser.SUPERUSER;
+                typeUser = TypeUser.SuperUser;
             else
-                typeUser = (TypeOfUserComboBox.SelectedIndex == 0) ? TypeUser.SUPERUSER :
-                           (TypeOfUserComboBox.SelectedIndex == 1) ? TypeUser.ADMIN : TypeUser.DISPATCHER;
+                typeUser = (TypeOfUserComboBox.SelectedIndex == 0) ? TypeUser.SuperUser :
+                           (TypeOfUserComboBox.SelectedIndex == 1) ? TypeUser.Administrator : TypeUser.Dispatcher;
 
             AdministrativeEmployee administrativeEmployee = new AdministrativeEmployee(id, firstName, secondName, lastName,
                                                                                        secondLastName, cellphone, email, address, new User(user, password, typeUser));
 
-            await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.ADMINISTRATIVE_EMPLOYEE, administrativeEmployee);
+            await MainWindow.Client.Send(TypeCommand.Save, TypeData.AdministrativeEmployee, administrativeEmployee);
             HandleServerAnswer();
         }
 
@@ -59,12 +59,12 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
             {
                 Dispatcher.Invoke(() => MessageBox.Show("Empleado registrado con exito"));
-                Dispatcher.Invoke(() => _afterRegister.AfterRegister());
+                Dispatcher.Invoke(() => _afterRegister?.AfterRegister());
             }
-            else if (answer == ServerAnswer.DATA_ALREADY_REGISTERED)
+            else if (answer == ServerAnswer.DataAlreadyRegistered)
             {
                 Dispatcher.Invoke(() => MessageBox.Show("Usuario ya registrado"));
             }

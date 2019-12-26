@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Client;
 using Common;
 using Entity;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,7 +28,7 @@ namespace View
         {
             if (await Client.Connect())
             {
-                if (await Client.Send(ClientRequest.IS_IT_THE_FIRST_APPLICATION_START))
+                if (await Client.Send(ClientRequest.IsTheFirstApplicationStart))
                     IsFirstApplicationStart();
             }
         }
@@ -36,7 +37,7 @@ namespace View
         {
             ServerAnswer answer = await Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.IS_THE_FIRST_APPLICATION_START)
+            if (answer == ServerAnswer.IsTheFirstApplicationStart)
                 Dispatcher.Invoke(() => SetMainPanel(new RegisterAdministrativeEmployeeUserControl(this)));
             else
                 Dispatcher.Invoke(() => ShowLoginPanel());
@@ -46,13 +47,18 @@ namespace View
         {
             WindowState = WindowState.Maximized;
             AdministrativeEmployee = administrativeEmployee;
-            SetMainPanel(new MainPanel(LogOutAction));
+
+            if (AdministrativeEmployee.User.IsDispatcher())
+                SetMainPanel(new DispatcherMainPanel(LogOutAction));
+            else
+                SetMainPanel(new MainPanel(LogOutAction));
+
             LoadCurrentTransportForm();
         }
 
         private async void LoadCurrentTransportForm()
         {
-            if (await Client.Send(TypeCommand.SEARCH, TypeData.CURRENT_TRANSPORT_FORM, AdministrativeEmployee.ID))
+            if (await Client.Send(TypeCommand.Search, TypeData.CurrentTransportForm, AdministrativeEmployee.ID))
                 CurrentTransportFormUserControl.CurrentTransportForm = await Client.ReceiveObject() as TransportForm;
         }
 
@@ -78,6 +84,14 @@ namespace View
         public void AfterRegister()
         {
             ShowLoginPanel();
+        }
+
+        public static void Exit()
+        {
+            MessageBoxResult result = MessageBox.Show("¿Esta seguro?", "Informacion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+                Environment.Exit(0);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace View
 
         private async void LoadData()
         {
-            if (await MainWindow.Client.Send(Common.ClientRequest.GET_ALL_VEHICLES))
+            if (await MainWindow.Client.Send(Common.ClientRequest.GetVehicles))
                 Vehicles.ItemsSource = await MainWindow.Client.ReceiveObject() as IEnumerable;
         }
 

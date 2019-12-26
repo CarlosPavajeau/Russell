@@ -21,12 +21,12 @@ namespace View
         {
             if (_driver is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, DriverField.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Employee, DriverField.Text))
                     _driver = await MainWindow.Client.ReceiveObject() as Employee;
             }
 
             if (_owner is null)
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.EMPLOYEE, OwnerField.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Employee, OwnerField.Text))
                     _owner = await MainWindow.Client.ReceiveObject() as Employee;
 
             if (_driver is null || _owner is null)
@@ -44,22 +44,22 @@ namespace View
             vehicle.Feature.ModelNumber = ModelNumberField.Text;
             vehicle.Feature.Type = TypeField.Text;
 
-            vehicle.AddLegalInformation(LegalInformationType.SOAT, SoatDueDate.SelectedDate.Value, SoatDateOfRenovation.SelectedDate.Value);
-            vehicle.AddLegalInformation(LegalInformationType.LICENSE, LicenseDueDate.SelectedDate.Value, LicenseDateOfRenovation.SelectedDate.Value);
-            vehicle.AddLegalInformation(LegalInformationType.OPERATIONCARD, OperationCardDueDate.SelectedDate.Value, OperationCardDateOfRanovation.SelectedDate.Value);
-            vehicle.AddLegalInformation(LegalInformationType.BIMONTHLYREVIEW, BiMonthlyDueDate.SelectedDate.Value, BiMonthlyDateOfRenovation.SelectedDate.Value);
-            vehicle.AddLegalInformation(LegalInformationType.TECHNOMECHANICALREVIEW,
+            vehicle.AddLegalInformation(LegalInformationType.Soat, SoatDueDate.SelectedDate.Value, SoatDateOfRenovation.SelectedDate.Value);
+            vehicle.AddLegalInformation(LegalInformationType.License, LicenseDueDate.SelectedDate.Value, LicenseDateOfRenovation.SelectedDate.Value);
+            vehicle.AddLegalInformation(LegalInformationType.OperationCard, OperationCardDueDate.SelectedDate.Value, OperationCardDateOfRanovation.SelectedDate.Value);
+            vehicle.AddLegalInformation(LegalInformationType.BiMonthlyReview, BiMonthlyDueDate.SelectedDate.Value, BiMonthlyDateOfRenovation.SelectedDate.Value);
+            vehicle.AddLegalInformation(LegalInformationType.TechnomechanicalReview,
                                         TechnreviewDueDate.SelectedDate.Value, TechnreviewDateOfRenovation.SelectedDate.Value);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.VEHICLE, vehicle))
-                HandleServerAnswer();   
+            if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Vehicle, vehicle))
+                HandleServerAnswer();
         }
 
         private async void HandleServerAnswer()
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
                 MessageBox.Show("Datos guardados con exito");
             else
                 MessageBox.Show("Vehiculo ya registrado");
@@ -71,10 +71,10 @@ namespace View
             SearchDriveOrOwner.IsOpen = true;
         }
 
-        private void SetOwner(Person person)
+        private void SetOwner(Employee person)
         {
             OwnerField.Text = person.ID;
-            _owner = person as Employee;
+            _owner = person;
             CloseSearchDriverOrOwner();
         }
 
@@ -84,10 +84,10 @@ namespace View
             SearchDriveOrOwner.IsOpen = true;
         }
 
-        private void SetDriver(Person person)
+        private void SetDriver(Employee person)
         {
             DriverField.Text = person.ID;
-            _driver = person as Employee;
+            _driver = person;
             CloseSearchDriverOrOwner();
         }
 

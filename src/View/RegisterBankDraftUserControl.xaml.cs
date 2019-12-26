@@ -19,13 +19,13 @@ namespace View
         {
             if (DeliveryFields.Sender is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.SenderField.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Person, DeliveryFields.SenderField.Text))
                     DeliveryFields.Sender = await MainWindow.Client.ReceiveObject() as Person;
             }
 
             if (DeliveryFields.Receiver is null)
             {
-                if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.PERSON, DeliveryFields.ReceiverField.Text))
+                if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.Person, DeliveryFields.ReceiverField.Text))
                     DeliveryFields.Receiver = await MainWindow.Client.ReceiveObject() as Person;
             }
 
@@ -61,14 +61,14 @@ namespace View
                 return;
             }
 
-            if (await MainWindow.Client.Send(ClientRequest.GET_DELIVERIES_COUNT))
+            if (await MainWindow.Client.Send(ClientRequest.GetDeliveriesCount))
             {
                 string deliveryNumber = ((int)await MainWindow.Client.ReceiveObject() + 1).ToString("00000");
 
                 BankDraft bankDraft = new BankDraft(deliveryNumber, DeliveryFields.Sender, DeliveryFields.Receiver, MainWindow.AdministrativeEmployee,
                                                     DeliveryFields.DestinationComboBox.SelectedItem as string, valueToSend, cost);
 
-                if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.BANKDRAFT, bankDraft))
+                if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.BankDraft, bankDraft))
                     HandleServerAnswer();
             }
         }
@@ -77,11 +77,11 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
             {
                 MessageBox.Show("Datos guardadados", "Resultado", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (answer == ServerAnswer.DATA_ALREADY_REGISTERED)
+            else if (answer == ServerAnswer.DataAlreadyRegistered)
             {
                 MessageBox.Show("Error al guardar los datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

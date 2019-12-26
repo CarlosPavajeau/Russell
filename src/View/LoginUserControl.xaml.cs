@@ -17,11 +17,11 @@ namespace View
             Action = action;
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e) => Environment.Exit(0);
+        private void ExitButton_Click(object sender, RoutedEventArgs e) => MainWindow.Exit();
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await MainWindow.Client.Send(TypeCommand.SEARCH, TypeData.ADMINISTRATIVE_EMPLOYEE, UserField.Text))
+            if (await MainWindow.Client.Send(TypeCommand.Search, TypeData.AdministrativeEmployee, UserField.Text))
                 HandleRecieveObject();
         }
 
@@ -38,7 +38,7 @@ namespace View
             }
             else if (obj is ServerAnswer answer)
             {
-                if (answer == ServerAnswer.NOT_FOUND_DATA)
+                if (answer == ServerAnswer.NotFoundData)
                     MessageBox.Show("Usuario no registrado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

@@ -25,7 +25,7 @@ namespace View
 
             Route route = new Route(RouteCodeField.Text, OriginCityField.Text, DestinationCityField.Text, cost);
 
-            if (await MainWindow.Client.Send(TypeCommand.SAVE, TypeData.ROUTE, route))
+            if (await MainWindow.Client.Send(TypeCommand.Save, TypeData.Route, route))
                 HandleServerAnswer();
         }
 
@@ -33,7 +33,7 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SAVE_SUCCESSFUL)
+            if (answer == ServerAnswer.SaveSuccessful)
                 MessageBox.Show("Datos registrados con exito");
             else
                 MessageBox.Show("Datos ya registrados");
