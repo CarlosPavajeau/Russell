@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using Entity;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLogicLayer
@@ -22,7 +23,7 @@ namespace BusinessLogicLayer
                     dbConnection.Open();
                     return _transportFormRepository.Count;
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     return 0;
                 }
@@ -40,7 +41,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.CurrentTransportForm(dispatcherID);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -57,7 +58,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.Save(data);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -74,7 +75,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.Save(data);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -91,7 +92,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.Search(primaryKey);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -103,7 +104,19 @@ namespace BusinessLogicLayer
 
         public bool UpdateFinancialInformation(string transprotFormCode, FinalcialInformationType type, decimal newValue)
         {
-            return Update(transprotFormCode, type.ToString(), newValue);
+            try
+            {
+                dbConnection.Open();
+                return _transportFormRepository.UpdateFinalcialInformation(transprotFormCode, type, newValue);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)
@@ -113,7 +126,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.Update(primarykey, columToModify, newValue);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -130,7 +143,7 @@ namespace BusinessLogicLayer
                 dbConnection.Open();
                 return _transportFormRepository.GetAllData();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return null;
             }
