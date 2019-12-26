@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="View.DispatcherMainPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignWidth="1280" d:DesignHeight="720">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="275">
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Width="250" Background="#FF0000" Grid.ColumnSpan="1" HorizontalAlignment="Left">
+            <StackPanel VerticalAlignment="Center">
+                <Button x:Name="BankDraftButton" Style="{StaticResource MenuButton}" Click="BankDraftButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Cash48x48.png"></Image>
+                        <TextBlock Text="Giros"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="CommendButton" Style="{StaticResource MenuButton}" Click="CommendButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Delivery48x48.png"></Image>
+                        <TextBlock Text="Encomiendas"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TransportFormButton" Style="{StaticResource MenuButton}" Click="TransportFormButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Form48x48.png"></Image>
+                        <TextBlock Text="Planillas"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="Settings" Style="{StaticResource MenuButton}" Click="Settings_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Settings48x48.png"></Image>
+                        <TextBlock Text="Configuración"></TextBlock>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+                <Button x:Name="LogOutButton" Style="{StaticResource PrimaryButton}" Width="100" Click="LogOutButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Close32x32.png"></Image>
+                        <TextBlock Text="Cerrar sesión"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource PrimaryButton}" VerticalAlignment="Top" Click="Exit">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Pictures/Close32x32.png" Margin="0,0,5,0"></Image>
+                        <TextBlock Text="Salir"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="MainGrid" Width="Auto" Grid.Column="2" Margin="0,15,10,15">
+            <StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
