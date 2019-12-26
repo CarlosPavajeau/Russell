@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="View.UserSettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel x:Name="MainPanel">
+            <TextBlock Text="Panel de gestión de usuarios" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Margin="0,30">
+                <Button x:Name="AddNewEmployee" Content="Agregar un empleado" Width="420" Style="{StaticResource ControlButton}" Click="AddNewEmployee_Click"></Button>
+                <Button x:Name="AddNewAdministrativeEmployee" Content="Agregar un empleado administrativo" Width="420" Style="{StaticResource ControlButton}" Click="AddNewAdministrativeEmployee_Click"></Button>
+                <Button x:Name="ModifyAdministrativeEmployee" Content="Modidicar empleado administrativo" Width="420" Style="{StaticResource ControlButton}"></Button>
+                <Button x:Name="DeleteEmployee" Content="Eliminar un empleado" Width="420" Style="{StaticResource ControlButton}"></Button>
+                <Button x:Name="DeleteAdministrativeEmployee" Content="Eliminar un empleado administrativo" Width="420" Style="{StaticResource ControlButton}"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
