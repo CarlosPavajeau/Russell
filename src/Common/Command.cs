@@ -2,24 +2,24 @@
 {
     public enum TypeData
     {
-        PERSON, 
-        EMPLOYEE,
-        ADMINISTRATIVE_EMPLOYEE,
-        BANKDRAFT,
-        COMMEND,
-        ROUTE,
-        TRANSPORT_FORM,
-        CURRENT_TRANSPORT_FORM,
-        VEHICLE,
-        TICKET
+        Person, 
+        Employee,
+        AdministrativeEmployee,
+        BankDraft,
+        Commend,
+        Route,
+        TransportForm,
+        CurrentTransportForm,
+        Vehicle,
+        Ticket
     }
 
     public enum TypeCommand
     {
-        SAVE,
-        SEARCH,
-        UPDATE,
-        DELETE
+        Save,
+        Search,
+        Update,
+        Delete
     }
 
     [System.Serializable]

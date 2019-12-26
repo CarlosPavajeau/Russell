@@ -2,15 +2,15 @@
 {
     public enum ServerAnswer
     {
-        SAVE_SUCCESSFUL,
-        DATA_ALREADY_REGISTERED,
-        NOT_FOUND_DATA,
-        SUCCESSFULLY_MODIFIED,
-        FAILED_MODIFICATION,
-        SUCCESSFULLY_REMOVED,
-        DELETION_FAILED,
-        IS_THE_FIRST_APPLICATION_START,
-        IS_NOT_THE_FIRST_APPLICATION_START,
-        INVALID_COMMAND
+        SaveSuccessful,
+        DataAlreadyRegistered,
+        NotFoundData,
+        SuccessfullyModified,
+        FailedModification,
+        SuccessfullyRemoved,
+        DeletionFailed,
+        IsTheFirstApplicationStart,
+        IsNotTheFirstApplicationStart,
+        InvalidCommand
     }
 }

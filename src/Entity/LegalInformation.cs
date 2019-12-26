@@ -5,11 +5,11 @@ namespace Entity
 {
     public enum LegalInformationType
     {
-        LICENSE,
-        SOAT,
-        OPERATIONCARD,
-        TECHNOMECHANICALREVIEW,
-        BIMONTHLYREVIEW
+        License,
+        Soat,
+        OperationCard,
+        TechnomechanicalReview,
+        BiMonthlyReview
     }
 
     [Serializable]

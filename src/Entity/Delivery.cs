@@ -4,9 +4,9 @@ namespace Entity
 {
     public enum State
     {
-        ACTIVE,
-        DELIVERED,
-        CANCEL
+        Active,
+        Delivered,
+        Cancel
     }
 
     [Serializable]
@@ -23,7 +23,7 @@ namespace Entity
             State = state;
         }
 
-        public Delivery(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state = State.ACTIVE) :
+        public Delivery(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, State state = State.Active) :
                         this(number, DateTime.Now, sender, receiver, dispatcher, destination, state)
         {
 
@@ -47,12 +47,12 @@ namespace Entity
 
         public bool IsActived()
         {
-            return State == State.ACTIVE;
+            return State == State.Active;
         }
 
         public bool IsDelivered()
         {
-            return State == State.DELIVERED;
+            return State == State.Delivered;
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿
+﻿using System;
+
 namespace Entity
 {
     public enum TypeUser
     {
-        SUPERUSER,
-        ADMIN,
-        DISPATCHER
+        SuperUser,
+        Administrator,
+        Dispatcher
     }
 
-    [System.Serializable]
+    [Serializable]
     public class User
     {
         public User(string user, string password, TypeUser typeUser)
@@ -23,17 +24,17 @@ namespace Entity
 
         public bool IsSuperUser()
         {
-            return TypeUser == TypeUser.SUPERUSER;
+            return TypeUser == TypeUser.SuperUser;
         }
 
         public bool IsAdmin()
         {
-            return TypeUser == TypeUser.ADMIN;
+            return TypeUser == TypeUser.Administrator;
         }
 
         public bool IsDispatcher()
         {
-            return TypeUser == TypeUser.DISPATCHER;
+            return TypeUser == TypeUser.Dispatcher;
         }
     }
 }
