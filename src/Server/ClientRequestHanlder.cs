@@ -11,50 +11,50 @@ namespace Server
 
             switch (request)
             {
-                case ClientRequest.GET_ALL_BANKDRAFTS:
+                case ClientRequest.GetBankDrafts:
                     BankDraftService bankDraftService = new BankDraftService();
                     data = bankDraftService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_COMMENDS:
+                case ClientRequest.GetCommends:
                     CommendService commendService = new CommendService();
                     data = commendService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_ROUTES:
+                case ClientRequest.GetRoutes:
                     RouteService routeService = new RouteService();
                     data = routeService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_TRANSPORT_FORMS:
+                case ClientRequest.GetTransportsForms:
                     TransportFormService transportFormService = new TransportFormService();
                     data = transportFormService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_VEHICLES:
+                case ClientRequest.GetVehicles:
                     VehicleService vehicleService = new VehicleService();
                     data = vehicleService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_EMPLOYEES:
+                case ClientRequest.GetEmployees:
                     EmployeeService employeeService = new EmployeeService();
                     data = employeeService.GetAllData();
                     break;
-                case ClientRequest.GET_ALL_PEOPLE:
+                case ClientRequest.GetPeople:
                     PersonService personService = new PersonService();
                     data = personService.GetAllData();
                     break;
-                case ClientRequest.IS_IT_THE_FIRST_APPLICATION_START:
+                case ClientRequest.IsTheFirstApplicationStart:
                     AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
                     if (administrativeEmployeeService.IsEmpty())
-                        data = ServerAnswer.IS_THE_FIRST_APPLICATION_START;
+                        data = ServerAnswer.IsTheFirstApplicationStart;
                     else
-                        data = ServerAnswer.IS_NOT_THE_FIRST_APPLICATION_START;
+                        data = ServerAnswer.IsNotTheFirstApplicationStart;
                     break;
-                case ClientRequest.GET_DELIVERIES_COUNT:
+                case ClientRequest.GetDeliveriesCount:
                     commendService = new CommendService();
                     data = commendService.Count;
                     break;
-                case ClientRequest.GET_TRANSPORT_FORM_COUNT:
+                case ClientRequest.GetTransportFormCount:
                     transportFormService = new TransportFormService();
                     data = transportFormService.Count;
                     break;
-                case ClientRequest.GET_ALL_DESTINATIONS:
+                case ClientRequest.GetDestinations:
                     routeService = new RouteService();
                     data = routeService.Destinations;
                     break;

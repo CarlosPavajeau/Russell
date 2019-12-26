@@ -16,21 +16,21 @@ namespace Server.Handlers
 
             switch (DataPacket.Command.TypeData)
             {
-                case TypeData.EMPLOYEE:
+                case TypeData.Employee:
                     break;
-                case TypeData.ADMINISTRATIVE_EMPLOYEE:
+                case TypeData.AdministrativeEmployee:
                     break;
-                case TypeData.BANKDRAFT:
+                case TypeData.BankDraft:
                     break;
-                case TypeData.COMMEND:
+                case TypeData.Commend:
                     break;
-                case TypeData.ROUTE:
+                case TypeData.Route:
                     break;
-                case TypeData.TRANSPORT_FORM:
+                case TypeData.TransportForm:
                     break;
-                case TypeData.VEHICLE:
+                case TypeData.Vehicle:
                     break;
-                case TypeData.TICKET:
+                case TypeData.Ticket:
                     break;
                 default:
                     break;

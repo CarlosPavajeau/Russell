@@ -20,7 +20,7 @@ namespace Entity
         }
 
         public Commend(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination, string desciption,
-                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.ACTIVE) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, desciption, freightValue, agreement, vehicle, state)
+                       decimal freightValue, decimal agreement, Vehicle vehicle, State state = State.Active) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, desciption, freightValue, agreement, vehicle, state)
         {
 
         }

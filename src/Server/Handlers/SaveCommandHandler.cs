@@ -13,46 +13,46 @@ namespace Server.Handlers
 
         public override object HandleCommand()
         {
-            ServerAnswer answer = ServerAnswer.INVALID_COMMAND;
+            ServerAnswer answer = ServerAnswer.InvalidCommand;
 
             switch (DataPacket.Command.TypeData)
             {
-                case TypeData.PERSON:
+                case TypeData.Person:
                     PersonService personService = new PersonService();
-                    answer = (personService.Save(DataPacket.Data as Person)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (personService.Save(DataPacket.Data as Person)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.EMPLOYEE:
+                case TypeData.Employee:
                     EmployeeService employeeService = new EmployeeService();
-                    answer = (employeeService.Save(DataPacket.Data as Employee)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (employeeService.Save(DataPacket.Data as Employee)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.ADMINISTRATIVE_EMPLOYEE:
+                case TypeData.AdministrativeEmployee:
                     AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
-                    answer = (administrativeEmployeeService.Save(DataPacket.Data as AdministrativeEmployee)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (administrativeEmployeeService.Save(DataPacket.Data as AdministrativeEmployee)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.BANKDRAFT:
+                case TypeData.BankDraft:
                     BankDraftService bankDraftService = new BankDraftService();
-                    answer = (bankDraftService.Save(DataPacket.Data as BankDraft)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (bankDraftService.Save(DataPacket.Data as BankDraft)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.COMMEND:
+                case TypeData.Commend:
                     CommendService commendService = new CommendService();
-                    answer = (commendService.Save(DataPacket.Data as Commend)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (commendService.Save(DataPacket.Data as Commend)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.ROUTE:
+                case TypeData.Route:
                     RouteService routeService = new RouteService();
-                    answer = (routeService.Save(DataPacket.Data as Route)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (routeService.Save(DataPacket.Data as Route)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.VEHICLE:
+                case TypeData.Vehicle:
                     VehicleService vehicleService = new VehicleService();
-                    answer = (vehicleService.Save(DataPacket.Data as Vehicle)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    answer = (vehicleService.Save(DataPacket.Data as Vehicle)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
-                case TypeData.TRANSPORT_FORM:
-                case TypeData.TICKET:
+                case TypeData.TransportForm:
+                case TypeData.Ticket:
                     TransportFormService transportFormService = new TransportFormService();
 
-                    if (DataPacket.Command.TypeData == TypeData.TRANSPORT_FORM)
-                        answer = (transportFormService.Save(DataPacket.Data as TransportForm)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                    if (DataPacket.Command.TypeData == TypeData.TransportForm)
+                        answer = (transportFormService.Save(DataPacket.Data as TransportForm)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     else
-                        answer = (transportFormService.Save(DataPacket.Data as Ticket)) ? ServerAnswer.SAVE_SUCCESSFUL : ServerAnswer.DATA_ALREADY_REGISTERED;
+                        answer = (transportFormService.Save(DataPacket.Data as Ticket)) ? ServerAnswer.SaveSuccessful : ServerAnswer.DataAlreadyRegistered;
                     break;
             }
 

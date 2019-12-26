@@ -30,16 +30,16 @@ namespace Entity
 
         private void SetFinalcialInformation()
         {
-            FinalcialInformation[REPLACEMENT_FUND] = 0;
-            FinalcialInformation[SOCIAL_CONTRIBUTION] = 0;
-            FinalcialInformation[TIRE_SERVICE] = 0;
-            FinalcialInformation[VEHICLE_FIX_SERVICE] = 0;
-            FinalcialInformation[NON_CONTRACTUAL_SERCURE_SERVICE] = 0;
-            FinalcialInformation[CONSTACT_INSURANCE_SERVICE] = 0;
-            FinalcialInformation[SOCIAL_PROTECTION] = 0;
-            FinalcialInformation[EXTRAORDINARY_PROTECTION] = 0;
-            FinalcialInformation[ADMINISTRATION] = 0;
-            FinalcialInformation[OTHERS] = 0;
+            FinalcialInformation[ReplacementFund] = 0;
+            FinalcialInformation[SocialContribution] = 0;
+            FinalcialInformation[TireService] = 0;
+            FinalcialInformation[VehicleFixService] = 0;
+            FinalcialInformation[NonContractualSecureService] = 0;
+            FinalcialInformation[ConstactInsuranceService] = 0;
+            FinalcialInformation[SocialProtection] = 0;
+            FinalcialInformation[ExtraordinaryProtection] = 0;
+            FinalcialInformation[Administration] = 0;
+            FinalcialInformation[Others] = 0;
         }
 
         public string Number { get; }

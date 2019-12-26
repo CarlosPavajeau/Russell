@@ -16,23 +16,23 @@ namespace Server.Handlers
 
             switch (DataPacket.Command.TypeData)
             {
-                case TypeData.EMPLOYEE:
+                case TypeData.Employee:
                     EmployeeService employeeService = new EmployeeService();
                     result = employeeService.Delete(DataPacket.Data as string);
                     break;
-                case TypeData.ADMINISTRATIVE_EMPLOYEE:
+                case TypeData.AdministrativeEmployee:
                     AdministrativeEmployeeService administrativeEmployeeService = new AdministrativeEmployeeService();
                     result = administrativeEmployeeService.Delete(DataPacket.Data as string);
                     break;
-                case TypeData.ROUTE:
+                case TypeData.Route:
                     RouteService routeService = new RouteService();
                     result = routeService.Delete(DataPacket.Data as string);
                     break;
-                case TypeData.VEHICLE:
+                case TypeData.Vehicle:
                     VehicleService vehicleService = new VehicleService();
                     result = vehicleService.Delete(DataPacket.Data as string);
                     break;
-                case TypeData.TICKET:
+                case TypeData.Ticket:
                     //TransportFormService transportFormService = new TransportFormService();
                     result = false;
                     break;

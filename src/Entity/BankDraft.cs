@@ -18,7 +18,7 @@ namespace Entity
         }
 
         public BankDraft(string number, Person sender, Person receiver, AdministrativeEmployee dispatcher, string destination,
-                         decimal valueToSend, decimal cost, State state = State.ACTIVE) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, valueToSend, cost, state)
+                         decimal valueToSend, decimal cost, State state = State.Active) : this(number, DateTime.Now, sender, receiver, dispatcher, destination, valueToSend, cost, state)
         {
 
         }

@@ -38,7 +38,7 @@ namespace BusinessLogicLayer.Client
 
         public async Task<ServerAnswer> RecieveServerAnswer()
         {
-            return (await ReceiveObject()) is ServerAnswer serverAnswer ? serverAnswer : ServerAnswer.INVALID_COMMAND;
+            return (await ReceiveObject()) is ServerAnswer serverAnswer ? serverAnswer : ServerAnswer.InvalidCommand;
         }
 
 
@@ -74,13 +74,13 @@ namespace BusinessLogicLayer.Client
         {
             switch (typeCommand)
             {
-                case TypeCommand.SAVE:
+                case TypeCommand.Save:
                     return new SaveCommand(typeData);
-                case TypeCommand.SEARCH:
+                case TypeCommand.Search:
                     return new SearchCommand(typeData);
-                case TypeCommand.UPDATE:
+                case TypeCommand.Update:
                     return new UpdateCommand(typeData);
-                case TypeCommand.DELETE:
+                case TypeCommand.Delete:
                     return new DeleteCommand(typeData);
                 default:
                     return null;
