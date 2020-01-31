@@ -21,7 +21,8 @@
             <local:PassegersViewUserControl x:Name="PassengersView"></local:PassegersViewUserControl>
             <StackPanel Orientation="Horizontal" Margin="0,15">
                 <TextBlock x:Name="TotalTransportForm" Style="{StaticResource TextField}" Width="200"></TextBlock>
-                <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Margin="700,0" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
+                <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="110" HorizontalAlignment="Right" Margin="520,0,15,0" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click"></Button>
+                <Button x:Name="DeletePassenger" Content="Eliminar pasajero" Width="110" Margin="0" Style="{StaticResource PrimaryButton}" Click="DeletePassenger_Click"></Button>
             </StackPanel>
             <local:FinalcialInformationViewUserControl x:Name="FinancialInformationFields"></local:FinalcialInformationViewUserControl>
             <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">

@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Common;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -49,8 +50,8 @@ namespace View
 
         public void AfterRegister()
         {
-            AddNewTicket.IsOpen = false;
-            PassengersView.Passengers.ItemsSource = CurrentTransportForm.Tickets;
+            CloseAddNewTicket();
+
             PassengersView.Passengers.Items.Refresh();
             CurrentTransportForm.UpdateTotalValue();
             TotalTransportForm.Text = "Total planilla: " + CurrentTransportForm.TotalValue.ToString();
@@ -70,6 +71,33 @@ namespace View
         private void SaveTransportForm_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void DeletePassenger_Click(object sender, RoutedEventArgs e)
+        {
+            if (PassengersView.Passengers.SelectedItem is null)
+            {
+                MessageBox.Show("No ha seleccionado ningún pasajero.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            Ticket ticket = PassengersView.Passengers.SelectedItem as Ticket;
+
+            if (await MainWindow.Client.Send(TypeCommand.Delete, TypeData.Ticket, ticket.Number))
+            {
+                ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
+
+                if (answer == ServerAnswer.SuccessfullyRemoved)
+                {
+                    MessageBox.Show("Pasajero eliminado con éxito.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CurrentTransportForm.RemoveTicket(ticket);
+                    CurrentTransportForm.UpdateTotalValue();
+                    TotalTransportForm.Text = "Total planilla: " + CurrentTransportForm.TotalValue.ToString();
+                    PassengersView.Passengers.Items.Refresh();
+                }
+                else
+                    MessageBox.Show("Pasajero no eliminado, verifique si lo elimino anteriormente.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

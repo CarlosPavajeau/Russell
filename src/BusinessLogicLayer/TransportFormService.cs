@@ -85,6 +85,23 @@ namespace BusinessLogicLayer
             }
         }
 
+        public bool DeleteTicket(string primaryKey)
+        {
+            try
+            {
+                dbConnection.Open();
+                return _transportFormRepository.DeleteTicket(primaryKey);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
         public TransportForm Search(string primaryKey)
         {
             try

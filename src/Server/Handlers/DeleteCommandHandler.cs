@@ -33,12 +33,12 @@ namespace Server.Handlers
                     result = vehicleService.Delete(DataPacket.Data as string);
                     break;
                 case TypeData.Ticket:
-                    //TransportFormService transportFormService = new TransportFormService();
-                    result = false;
+                    TransportFormService transportFormService = new TransportFormService();
+                    result = transportFormService.DeleteTicket(DataPacket.Data as string);
                     break;
             }
 
-            return result;
+            return result ? ServerAnswer.SuccessfullyRemoved : ServerAnswer.DeletionFailed;
         }
     }
 }

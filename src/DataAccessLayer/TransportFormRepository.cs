@@ -90,6 +90,11 @@ namespace DataAccessLayer
             return _ticketRepository.Save(data);
         }
 
+        public bool DeleteTicket(string primaryKey)
+        {
+            return _ticketRepository.Delete(primaryKey);
+        }
+
         public TransportForm Search(string primaryKey)
         {
             using (var command = CreateCommand())
@@ -237,7 +242,7 @@ namespace DataAccessLayer
             }
         }
 
-        class TicketRepository : Repository, ISave<Ticket>
+        class TicketRepository : Repository, ISave<Ticket>, IDelete
         {
             static readonly string[] TICKET_FIELDS = { "@ticket_number", "@seats", "@ticket_date", "@total",
                                                    "@transport_form_number", "@passenger"};
@@ -265,6 +270,18 @@ namespace DataAccessLayer
 
                     command.ExecuteNonQuery();
                     return true;
+                }
+            }
+
+            public bool Delete(string primaryKey)
+            {
+                using (var command = CreateCommand())
+                {
+                    command.CommandText = "DELETE tickets WHERE ticket_number = @ticket_number";
+
+                    command.Parameters.Add(CreateDbParameter(command, "@ticket_number", primaryKey));
+
+                    return command.ExecuteNonQuery() > 0;
                 }
             }
         }

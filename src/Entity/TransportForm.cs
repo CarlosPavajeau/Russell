@@ -82,6 +82,12 @@ namespace Entity
             ValueOfTickets += ticket.Total;
         }
 
+        public void RemoveTicket(Ticket ticket)
+        {
+            Tickets.Remove(ticket);
+            ValueOfTickets -= ticket.Total;
+        }
+
         public void UpdateTotalValue()
         {
             TotalValue = ValueOfTickets + FinalcialInformation.Total;
