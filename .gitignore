@@ -1,12 +1,16 @@
 .vscode
 .vs
 .obj
+
 Build
 bin
 obj
+Properties
+
 *.dll
 *.pdb
 *.cache
 *.json
 *.props
 *.targets
+*.user
