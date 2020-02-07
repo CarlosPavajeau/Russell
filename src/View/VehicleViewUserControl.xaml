@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="View.VehicleViewUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="1080">
+    <Grid Background="White">
+        <StackPanel Margin="10">
+            <TextBlock Text="Información de vehículo" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,20">
+                <TextBlock x:Name="LicensePlate" Text="Placa: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="InternalNumber" Text="Número interno: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="PropertyCardNumber" Text="Número de tarjeta de propiedad: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="Improntas" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="ChassisNumber" Text="Número de chasis: " Style="{StaticResource TextField}" Margin="0,0,25,0"></TextBlock>
+                <TextBlock x:Name="EngineNumber" Text="Número de motor: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="Características del vehículo" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="Color" Text="Color: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="Mark" Text="Marca: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="Type" Text="Tipo: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="Model" Text="Modelo: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20">
+                <TextBlock x:Name="ModelNumber" Text="Número modelo: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="Chairs" Text="Número de sillas: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="Empleados" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel>
+                <TextBlock Text="Propietatio" Style="{StaticResource TextField}" FontSize="20"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock x:Name="OwnerId" Text="Identificación: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                    <TextBlock x:Name="OwnerName" Text="Nombre: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                </StackPanel>
+                <TextBlock Text="Conductor" Style="{StaticResource TextField}" FontSize="20" Margin="0,15,0,0"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock x:Name="DriverId" Text="Identificación: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                    <TextBlock x:Name="DriverName" Text="Nombre: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="Información legal (Fecha de renovación - Fecha de vencimiento)" Style="{StaticResource TitleText}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="SOAT" Text="SOAT: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="License" Text="Licencia: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="OperationCard" Text="Tarjeta de operación: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock x:Name="BiMonthlyRevision" Text="Revisión Bi-Mensual: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
+                <TextBlock x:Name="Technreview" Text="Revisión Tecnomecánica: " Style="{StaticResource TextField}"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

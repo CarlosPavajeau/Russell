@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="730" d:DesignWidth="1080">
-    <Grid>
+    <Grid x:Name="MainPanel">
         <StackPanel Margin="10">
             <TextBlock Text="Búsqueda de vehículo" Style="{StaticResource TitleText}" Margin="0,30"></TextBlock>
             <local:SearchFields x:Name="SearchFields" Loaded="SearchFields_Loaded"></local:SearchFields>
