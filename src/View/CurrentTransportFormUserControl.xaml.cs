@@ -2,8 +2,11 @@
 using Common;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Threading;
 
 using static Entity.FinalcialInformationType;
+using System.Threading.Tasks;
 
 namespace View
 {
@@ -68,9 +71,9 @@ namespace View
             AddNewTicket.IsOpen = false;
         }
 
-        private void SaveTransportForm_Click(object sender, RoutedEventArgs e)
+        private async void SaveTransportForm_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private async void DeletePassenger_Click(object sender, RoutedEventArgs e)
@@ -81,16 +84,16 @@ namespace View
                 return;
             }
 
-            Ticket ticket = PassengersView.Passengers.SelectedItem as Ticket;
+            string ticket_number = (PassengersView.Passengers.SelectedItem as Ticket).Number;
 
-            if (await MainWindow.Client.Send(TypeCommand.Delete, TypeData.Ticket, ticket.Number))
+            if (await MainWindow.Client.Send(TypeCommand.Delete, TypeData.Ticket, ticket_number))
             {
                 ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
                 if (answer == ServerAnswer.SuccessfullyRemoved)
                 {
                     MessageBox.Show("Pasajero eliminado con éxito.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
-                    CurrentTransportForm.RemoveTicket(ticket);
+                    CurrentTransportForm.RemoveTicket(ticket_number);
                     CurrentTransportForm.UpdateTotalValue();
                     TotalTransportForm.Text = "Total planilla: " + CurrentTransportForm.TotalValue.ToString();
                     PassengersView.Passengers.Items.Refresh();

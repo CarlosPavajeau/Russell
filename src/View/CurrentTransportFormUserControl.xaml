@@ -25,7 +25,8 @@
                 <Button x:Name="DeletePassenger" Content="Eliminar pasajero" Width="110" Margin="0" Style="{StaticResource PrimaryButton}" Click="DeletePassenger_Click"></Button>
             </StackPanel>
             <local:FinalcialInformationViewUserControl x:Name="FinancialInformationFields"></local:FinalcialInformationViewUserControl>
-            <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
+            <TextBlock x:Name="SaveResult" Text="" Visibility="Hidden" Style="{StaticResource TextField}" Margin="0,5,0,0"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,10" HorizontalAlignment="Center">
                 <Button x:Name="SaveTransportForm" Content="Guardar" Style="{StaticResource PrimaryButton}" Click="SaveTransportForm_Click"></Button>
                 <Button x:Name="EndTransportForm" Content="Finalizar" Margin="20" Style="{StaticResource PrimaryButton}"></Button>
                 <Button x:Name="PrintTransportForm" Content="Imprimir" Style="{StaticResource PrimaryButton}"></Button>
