@@ -12,10 +12,5 @@ namespace View
         {
             InitializeComponent();
         }
-
-        public void AddPassenger(Ticket ticket)
-        {
-            Passengers.Items.Add(ticket);
-        }
     }
 }
