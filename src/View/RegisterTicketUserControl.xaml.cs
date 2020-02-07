@@ -18,6 +18,7 @@ namespace View
         public RegisterTicketUserControl()
         {
             InitializeComponent();
+            TicketCode.Text += $"{CurrentTransportFormUserControl.CurrentTransportForm.Number}-{CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Count + 1}";
             TicketDate.Text += DateTime.Now.ToShortDateString();
             TicketDispatcher.Text += MainWindow.AdministrativeEmployee.Name;
         }
@@ -67,11 +68,13 @@ namespace View
         {
             ServerAnswer answer = await MainWindow.Client.RecieveServerAnswer();
 
-            if (answer == ServerAnswer.SaveSuccessful)
-                _afterRegister?.AfterRegister();
-            else
-                MessageBox.Show("Error");
+            if (answer != ServerAnswer.SaveSuccessful)
+            {
+                MessageBox.Show("Pasajero no registrado. Revise el estado de su conexion.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Remove(CurrentTransportFormUserControl.CurrentTransportForm.Tickets.Last());
+            }
 
+            _afterRegister?.AfterRegister();
         }
 
         private void ReturnButton_Click(object sender, RoutedEventArgs e)

@@ -6,30 +6,31 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="730" d:DesignWidth="1080">
-    <Grid Background="White">
-        <StackPanel Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="TicketCode" Text="Código del ticket: " Style="{StaticResource TextField}" Margin="0,0,100,0"></TextBlock>
-                <TextBlock x:Name="TicketDate" Text="Fecha: " Style="{StaticResource TextField}" Margin="0,0,50,0"></TextBlock>
-                <TextBlock x:Name="TicketDispatcher" Text="Despachador: " Style="{StaticResource TextField}"></TextBlock>
-            </StackPanel>
-            <StackPanel Margin="0,30">
-                <TextBlock Text="Pasajero:" Style="{StaticResource TextField}"></TextBlock>
+    <Grid Background="#02111b" Width="800" Height="300">
+        <StackPanel Margin="1" Background="White">
+            <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="PassenderID" Style="{StaticResource TextBoxStyle}" Width="170" Margin="0,0,5,0"></TextBox>
-                    <Button x:Name="SearhPassenger" Style="{StaticResource PrimaryButton}" Margin="0" Width="35" Click="SearhPassenger_Click">
-                        <Image Source="Assets/Pictures/Search32x32.png"></Image>
-                    </Button>
+                    <TextBlock x:Name="TicketCode" Text="Código del ticket: " Style="{StaticResource TextField}" Margin="0,0,70,0"></TextBlock>
+                    <TextBlock x:Name="TicketDate" Text="Fecha: " Style="{StaticResource TextField}" Margin="0,0,50,0"></TextBlock>
+                    <TextBlock x:Name="TicketDispatcher" Text="Despachador: " Style="{StaticResource TextField}" Margin="0,0,15,0"></TextBlock>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Puestos:" Style="{StaticResource TextField}"></TextBlock>
-                <TextBox x:Name="SeatsField" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Width="175"></TextBox>
-            </StackPanel>
-            <TextBlock Text="Total: " Style="{StaticResource TextField}" Margin="0,30"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="ReturnButton" Content="Cerrar" Width="100" Style="{StaticResource PrimaryButton}" Margin="20,0,100,0" Click="ReturnButton_Click"></Button>
-                <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="120" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click" Margin="0,0,0,0"></Button>
+                <StackPanel Margin="0,30,0,10">
+                    <TextBlock Text="Pasajero:" Style="{StaticResource TextField}"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="PassenderID" Style="{StaticResource TextBoxStyle}" Width="175" Margin="0,0,7,0"></TextBox>
+                        <Button x:Name="SearhPassenger" Style="{StaticResource PrimaryButton}" Margin="0" Width="35" Click="SearhPassenger_Click">
+                            <Image Source="Assets/Pictures/Search32x32.png"></Image>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Puestos:" Style="{StaticResource TextField}"></TextBlock>
+                    <TextBox x:Name="SeatsField" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Width="175"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,50" HorizontalAlignment="Center">
+                    <Button x:Name="ReturnButton" Content="Cerrar" Width="100" Style="{StaticResource PrimaryButton}" Margin="0,0,70,0" Click="ReturnButton_Click"></Button>
+                    <Button x:Name="AddNewPassenger" Content="Agregar pasajero" Width="120" Style="{StaticResource PrimaryButton}" Click="AddNewPassenger_Click" Margin="0,0,0,0"></Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
         <Popup x:Name="SelectPerson" Placement="Center"></Popup>
