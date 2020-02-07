@@ -82,8 +82,9 @@ namespace Entity
             ValueOfTickets += ticket.Total;
         }
 
-        public void RemoveTicket(Ticket ticket)
+        public void RemoveTicket(string ticket_number)
         {
+            Ticket ticket = Tickets.Find(tic => tic.Number == ticket_number);
             Tickets.Remove(ticket);
             ValueOfTickets -= ticket.Total;
         }
