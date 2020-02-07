@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="730" d:DesignWidth="1080">
-    <Grid Background="#FF3232" Width="520" Height="230">
-        <StackPanel Margin="3" Background="White">
-            <TextBlock Text="Personas registradas" Style="{StaticResource TitleText}"></TextBlock>
-            <DataGrid x:Name="People" Height="100" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" Margin="5">
+    <Grid Background="#02111b" Width="720" Height="300">
+        <StackPanel Margin="0.6" Background="White">
+            <TextBlock Text="Listado de personas" Style="{StaticResource TitleText}"></TextBlock>
+            <DataGrid x:Name="People" Height="175" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" Margin="5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Identificación" Binding="{Binding ID}" Width="250"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="250"></DataGridTextColumn>
