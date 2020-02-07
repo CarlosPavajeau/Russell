@@ -11,6 +11,7 @@
             <TextBlock Text="Pasajeros" Style="{StaticResource TitleText}"></TextBlock>
             <DataGrid x:Name="Passengers" Height="150" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Número de Ticket" Width="120" Binding="{Binding Number}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Identificación" Width="120" Binding="{Binding Passenger.ID}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nombre" Width="200" Binding="{Binding Passenger.Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Asientos" Width="100" Binding="{Binding Seats}"></DataGridTextColumn>

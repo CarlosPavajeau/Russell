@@ -22,7 +22,7 @@
                     <DataGridTextColumn Header="Convenio encomienda" Binding="{Binding Agreement}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Vehículo" Binding="{Binding Vehicle.LicensePlate}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Conductor" Binding="{Binding Vehicle.Driver.Name}"></DataGridTextColumn>
-                    <!---<DataGridTextColumn Header="Total" Binding="{Binding Total}"></DataGridTextColumn>-->
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
