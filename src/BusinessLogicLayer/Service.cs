@@ -1,18 +1,19 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
+using Common;
 
 namespace BusinessLogicLayer
 {
     public abstract class Service
     {
-        const string CONNECTION_SQL_STR = @"Data Source=DESKTOP-ND2GLJC\SQLEXPRESS;Initial Catalog=db_cootransnevada;Integrated Security=True; MultipleActiveResultSets=true;";
-        const string CONNECTION_ORACLE_STR = @"User Id=cootransnevada; password=cootransnevada; Data Source=localhost:1521/xepdb1; Pooling=false;";
-
+        const string DB_CONNECTION_CONFIG_FILE = @"db_connection.conf";
+        static readonly string CONNECTION_STR = ConfigLoader.LoadDBConnectionString(DB_CONNECTION_CONFIG_FILE);
+       
         protected DbConnection dbConnection;
 
         public Service()
         {
-            dbConnection = new SqlConnection(CONNECTION_SQL_STR);
+            dbConnection = new SqlConnection(@CONNECTION_STR);
         }
     }
 }
