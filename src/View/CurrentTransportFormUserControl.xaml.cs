@@ -7,6 +7,7 @@ using System.Threading;
 
 using static Entity.FinalcialInformationType;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace View
 {
@@ -73,7 +74,63 @@ namespace View
 
         private async void SaveTransportForm_Click(object sender, RoutedEventArgs e)
         {
-            
+            KeyValuePair<string, Dictionary<FinalcialInformationType, decimal>> valuesToUpdate = new KeyValuePair<string, Dictionary<FinalcialInformationType, decimal>>(CurrentTransportForm.Number, new Dictionary<FinalcialInformationType, decimal>());
+
+            AddFinancialInformationIfChange(ReplacementFund, valuesToUpdate.Value, FinancialInformationFields.ReplacementFundField.Text);
+            AddFinancialInformationIfChange(SocialContribution, valuesToUpdate.Value, FinancialInformationFields.SocialContributionField.Text);
+            AddFinancialInformationIfChange(TireService, valuesToUpdate.Value, FinancialInformationFields.TireServiceField.Text);
+            AddFinancialInformationIfChange(VehicleFixService, valuesToUpdate.Value, FinancialInformationFields.VehicleFixServiceField.Text);
+            AddFinancialInformationIfChange(NonContractualSecureService, valuesToUpdate.Value, FinancialInformationFields.NonConSecServiceField.Text);
+            AddFinancialInformationIfChange(ConstactInsuranceService, valuesToUpdate.Value, FinancialInformationFields.ConstInsuServiceField.Text);
+            AddFinancialInformationIfChange(SocialProtection, valuesToUpdate.Value, FinancialInformationFields.SocialProtectionField.Text);
+            AddFinancialInformationIfChange(ExtraordinaryProtection, valuesToUpdate.Value, FinancialInformationFields.ExtraordinaryProtectionField.Text);
+            AddFinancialInformationIfChange(Administration, valuesToUpdate.Value, FinancialInformationFields.AdministrationField.Text);
+            AddFinancialInformationIfChange(Others, valuesToUpdate.Value, FinancialInformationFields.OthersField.Text);
+
+            if (valuesToUpdate.Value.Count == 0)
+            {
+                SaveResult.Text = "La información financiera se encuentra actualizada.";
+                SaveResult.Foreground = Brushes.Blue;
+            }
+            else
+            {
+                if (await MainWindow.Client.Send(TypeCommand.Update, TypeData.TransportForm, valuesToUpdate))
+                {
+                    if (await MainWindow.Client.RecieveServerAnswer() == ServerAnswer.SuccessfullyModified)
+                    {
+                        SaveResult.Text = "Información financiera actualizada éxitosamente!";
+                        SaveResult.Foreground = Brushes.ForestGreen;
+                        UpdateCurrentTransportForm(valuesToUpdate.Value);
+                    }
+                    else
+                    {
+                        SaveResult.Text = "Información financiera no actualizada, por favor revise los valores digitados.";
+                        SaveResult.Foreground = Brushes.IndianRed;
+                    }
+                }
+            }
+
+            SaveResult.Visibility = Visibility.Visible;
+            await Task.Run(() => Thread.Sleep(3000));
+            SaveResult.Visibility = Visibility.Hidden;
+        }
+
+        private void UpdateCurrentTransportForm(Dictionary<FinalcialInformationType, decimal> newValues)
+        {
+            foreach (var value in newValues) 
+                CurrentTransportForm.FinalcialInformation[value.Key] = value.Value;
+            CurrentTransportForm.UpdateTotalValue();
+            FinancialInformationFields.SubTotal.Text = CurrentTransportForm.FinalcialInformation.Total.ToString();
+            TotalTransportForm.Text = "Total planilla: " + CurrentTransportForm.TotalValue.ToString();
+        }
+
+        private void AddFinancialInformationIfChange(FinalcialInformationType type, Dictionary<FinalcialInformationType, decimal> valuesToUpdate, string newValueStr)
+        {
+            if (decimal.TryParse(newValueStr, out decimal newValue))
+            {
+                if (newValue != CurrentTransportForm.FinalcialInformation[type])
+                    valuesToUpdate[type] = newValue;
+            }
         }
 
         private async void DeletePassenger_Click(object sender, RoutedEventArgs e)

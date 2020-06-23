@@ -15,12 +15,11 @@
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
                 <TextBlock Text="Contraseña" Style="{StaticResource TextField}"></TextBlock>
-                <PasswordBox x:Name="PasswordField" Width="200" Height="30" Style="{StaticResource PasswordField}"></PasswordBox>
+                <PasswordBox x:Name="PasswordField" Width="200" Height="30" Style="{StaticResource PasswordField}" KeyDown="PasswordField_KeyDown"></PasswordBox>
             </StackPanel>
             <TextBlock Text="¿Ha olvidado su contraseña?" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" Style="{StaticResource NormalText}"></TextBlock>
             <Button x:Name="LoginButton" Content="Ingresar" HorizontalAlignment="Center" Margin="0,30,0,0" Style="{StaticResource PrimaryButton}" Click="LoginButton_Click"></Button>
             <Button x:Name="ExitButton" Content="Salir" HorizontalAlignment="Left" Margin="20,165,0,0" Width="50" Style="{StaticResource PrimaryButton}" Click="ExitButton_Click"></Button>
-            
         </StackPanel>
     </Grid>
 </UserControl>

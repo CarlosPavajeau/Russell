@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Entity;
 
 namespace View
 {
@@ -21,6 +22,9 @@ namespace View
         public SettingsUserControl()
         {
             InitializeComponent();
+
+            if (MainWindow.AdministrativeEmployee.User.IsDispatcher())
+                UserSettingsButton.Visibility = Visibility.Collapsed;
         }
 
         private void UserSettingsButton_Click(object sender, RoutedEventArgs e)
