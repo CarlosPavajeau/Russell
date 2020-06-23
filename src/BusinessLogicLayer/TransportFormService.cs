@@ -119,12 +119,12 @@ namespace BusinessLogicLayer
             }
         }
 
-        public bool UpdateFinancialInformation(string transprotFormCode, FinalcialInformationType type, decimal newValue)
+        public bool UpdateFinancialInformation(string transprotFormCode, Dictionary<FinalcialInformationType, decimal> valuesToUpdate)
         {
             try
             {
                 dbConnection.Open();
-                return _transportFormRepository.UpdateFinalcialInformation(transprotFormCode, type, newValue);
+                return _transportFormRepository.UpdateFinalcialInformation(transprotFormCode, valuesToUpdate);
             }
             catch (Exception)
             {

@@ -13,10 +13,6 @@ namespace DataAccessLayer
                                                            "@value_of_tickets", "@total_value", "@license_plate", "@route_code", 
                                                            "@dispatcher"};
 
-        static readonly string[] FINANCIAL_INFORMATION_COLUMS = { "replacement_fund", "social_contribution", "tire_service", "vehicle_fix_service",
-                                                      "non_contractual_secure_service", "constact_insurance_service", "social_protection",
-                                                      "extraordinary_protection", "administration", "others" };
-
         private readonly FinalcialInformationRepository _finalcialInformationRepository;
         private readonly TicketRepository _ticketRepository;
 
@@ -147,7 +143,6 @@ namespace DataAccessLayer
             transportForm.AddFinalcialInformation(ExtraordinaryProtection, dbDataReader.GetDecimal(16));
             transportForm.AddFinalcialInformation(Administration, dbDataReader.GetDecimal(17));
             transportForm.AddFinalcialInformation(Others, dbDataReader.GetDecimal(18));
-            transportForm.UpdateTotalValue();
 
             using (var ticketCommand = CreateCommand())
             {
@@ -156,11 +151,10 @@ namespace DataAccessLayer
                 ticketCommand.Parameters.Add(CreateDbParameter(ticketCommand, "@transport_form_number", transportForm.Number));
 
                 DbDataReader ticketDataReader = ticketCommand.ExecuteReader();
+                PersonRepository personRepository = new PersonRepository(dbConnection);
 
                 while (ticketDataReader.Read())
                 {
-                    PersonRepository personRepository = new PersonRepository(dbConnection);
-
                     if (!(personRepository.Search(ticketDataReader.GetString(2)) is Person passenger))
                         continue;
 
@@ -168,19 +162,18 @@ namespace DataAccessLayer
                 }
             }
 
+            transportForm.UpdateTotalValue();
+
             return transportForm;
         }
 
-        public bool UpdateFinalcialInformation(string primaryKey, FinalcialInformationType informationType, decimal newValue)
+        public bool UpdateFinalcialInformation(string primaryKey, Dictionary<FinalcialInformationType, decimal> valuesToUpdate)
         {
-            return Update(primaryKey, FINANCIAL_INFORMATION_COLUMS[(int)informationType], newValue);
+            return _finalcialInformationRepository.Update(primaryKey, valuesToUpdate);
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            if (IsFinalcialInformationColum(columToModify))
-                return _finalcialInformationRepository.Update(primarykey, columToModify, newValue);
-
             using (var command = CreateCommand())
             {
                 command.CommandText = $"UPDATE transport_forms SET { columToModify } = @newValue WHERE transport_form_number = @transport_form_number";
@@ -190,11 +183,6 @@ namespace DataAccessLayer
 
                 return command.ExecuteNonQuery() > 0;
             }
-        }
-
-        private bool IsFinalcialInformationColum(string colum)
-        {
-            return Array.Exists(FINANCIAL_INFORMATION_COLUMS, cl => cl == colum);
         }
 
         public IList<TransportForm> GetAllData()
@@ -221,11 +209,25 @@ namespace DataAccessLayer
             return transportForms;
         }
 
-        class FinalcialInformationRepository : Repository, IUpdate
+        private class FinalcialInformationRepository : Repository, IUpdate
         {
+            static readonly string[] FINANCIAL_INFORMATION_COLUMS = { "replacement_fund", "social_contribution", "tire_service", "vehicle_fix_service",
+                                                      "non_contractual_secure_service", "constact_insurance_service", "social_protection",
+                                                      "extraordinary_protection", "administration", "others" };
             public FinalcialInformationRepository(DbConnection connection) : base(connection)
             {
 
+            }
+
+            public bool Update(string primaryKey, Dictionary<FinalcialInformationType, decimal> valuesToUpdate)
+            {
+                foreach (var newValue in valuesToUpdate)
+                {
+                    if (!Update(primaryKey, FINANCIAL_INFORMATION_COLUMS[(int)newValue.Key], newValue.Value))
+                        return false;
+                }
+
+                return true;
             }
 
             public bool Update(string primarykey, string columToModify, object newValue)
