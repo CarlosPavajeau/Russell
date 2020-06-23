@@ -1,17 +1,11 @@
-﻿using System.Net;
-using System.IO;
+﻿using System.Collections.Generic;
+using System.Net;
 
 namespace Common
 {
     public static class ConnectionSettings
     {
         const string FILE_CONFIG = @"conn_config.conf";
-
-        const string FILE_LOG = @"log.txt";
-
-        const string COMMENT = "#";
-
-        const char DELIMITER = '=';
 
         public const int ByteBufferSize = 8192;
 
@@ -40,61 +34,11 @@ namespace Common
 
             private void LoadConfigFromFile()
             {
-                try
-                {
-                    using (FileStream fileStream = new FileStream(FILE_CONFIG, FileMode.Open, FileAccess.Read))
-                    {
-                        using (StreamReader streamReader = new StreamReader(fileStream))
-                        {
-                            while (!streamReader.EndOfStream)
-                            {
-                                string data = streamReader.ReadLine();
+                Dictionary<string, string> config = ConfigLoader.LoadConfigFromFile(FILE_CONFIG);
 
-                                if (data.StartsWith(COMMENT))
-                                    continue;
-
-                                ProccessData(data);
-                            }
-                        }
-                    }
-                }
-                catch (IOException exception)
-                {
-                    using (FileStream fileStream = new FileStream(FILE_LOG, FileMode.Create, FileAccess.Write))
-                    {
-                        using (StreamWriter streamWriter = new StreamWriter(fileStream))
-                        {
-                            streamWriter.WriteLine($"Exception message: {exception.Message}");
-                            streamWriter.WriteLine($"StackTrace: {exception.StackTrace}");
-                            streamWriter.WriteLine($"Data: {exception.Data}");
-                        }
-                    }
-                    throw;
-                }
-            }
-
-            private void ProccessData(string data)
-            {
-                string[] config = data.Split(DELIMITER);
-
-                switch (config[0])
-                {
-                    case "IPAddress":
-                        {
-                            IPAddress = IPAddress.Parse(config[1]);
-                            break;
-                        }
-                    case "Port":
-                        {
-                            Port = int.Parse(config[1]);
-                            break;
-                        }
-                    case "MAX_CLIENTS":
-                        {
-                            MaxClients = int.Parse(config[1]);
-                            break;
-                        }
-                }
+                Port = int.Parse(config["Port"]);
+                MaxClients = int.Parse(config["LimitClients"]);
+                IPAddress = IPAddress.Parse(config["IPAddress"]);
             }
         }
     }
