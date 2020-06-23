@@ -73,11 +73,6 @@ namespace Entity
         public void AddTicket(Passenger passenger, int seats, DateTime date)
         {
             Ticket ticket = new Ticket($"{Number}-{(Tickets.Count + 1).ToString("000")}", passenger, Vehicle, Route, seats, date);
-            AddTicket(ticket);
-        }
-
-        private void AddTicket(Ticket ticket)
-        {
             Tickets.Add(ticket);
             ValueOfTickets += ticket.Total;
         }
