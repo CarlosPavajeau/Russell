@@ -9,7 +9,6 @@ jobs:
 
     steps:
       - checkout
-      - run: cd src
-      - run: dotnet restore
-      - run: dotnet build --configuration Release --no-restore
+      - run: dotnet restore src
+      - run: dotnet build --configuration Release --no-restore src
 
