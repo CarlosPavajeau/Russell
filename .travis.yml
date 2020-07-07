@@ -1,6 +1,6 @@
 language: csharp
 
-solution: Russell.sln
+solution: src/Russell.sln
 mono: none
 dotnet: 3.1.101
 
