@@ -1,9 +1,0 @@
-language: csharp
-solution: src/Russell.sln
-mono: none
-dotnet: 3.1.101
-
-script:
-  - cd src
-  - dotnet restore
-  - dotnet build --configuration Release --no-restore
