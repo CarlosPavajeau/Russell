@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Settings;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -8,9 +9,9 @@ namespace Server
 {
     public sealed class Server
     {
-        private Socket _serverSocket;
-        private List<ConnectedObject> _clients;
-        private static ManualResetEvent _connected = new ManualResetEvent(false);
+        private readonly Socket _serverSocket;
+        private readonly List<ConnectedObject> _clients;
+        private static readonly ManualResetEvent _connected = new ManualResetEvent(false);
 
         public Server()
         {
@@ -54,7 +55,7 @@ namespace Server
         {
             try
             {
-                ConnectedObject.Socket.BeginReceive(ConnectedObject.Message.ByteBuffer, 0, ConnectionSettings.ByteBufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallBack), ConnectedObject);
+                ConnectedObject.Socket.BeginReceive(ConnectedObject.Message.ByteBuffer, 0, GeneralSettings.ByteBufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallBack), ConnectedObject);
             }
             catch (SocketException)
             {
@@ -152,7 +153,13 @@ namespace Server
 
         private void SendReplyCallBack(IAsyncResult result)
         {
+            if (!CheckState(result, out string error, out ConnectedObject ConnectedObject))
+            {
+                Log.PrintMsg(error);
+                return;
+            }
 
+            Log.PrintMsg($"Data send to client {ConnectedObject.Socket.RemoteEndPoint}");
         }
 
         private void CloseClient(ConnectedObject ConnectedObject)

@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using Common.Settings;
+using System.Net.Sockets;
 
 namespace Common
 {
@@ -11,8 +12,8 @@ namespace Common
             try
             {
                 socket = CreateSocket();
-                socket.Bind(ConnectionSettings.IPEndPoint);
-                socket.Listen(ConnectionSettings.MaxClients);
+                socket.Bind(GeneralSettings.IPEndPoint);
+                socket.Listen(GeneralSettings.MaxClients);
             }
             catch (System.Exception)
             {

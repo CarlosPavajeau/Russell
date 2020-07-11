@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Settings;
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace BusinessLogicLayer.Client
         {
             try
             {
-                ConnectedObject.Socket.Connect(ConnectionSettings.IPEndPoint);
+                ConnectedObject.Socket.Connect(GeneralSettings.IPEndPoint);
 
                 while (!ConnectedObject.Socket.Connected)
-                    ConnectedObject.Socket.Connect(ConnectionSettings.IPEndPoint);
+                    ConnectedObject.Socket.Connect(GeneralSettings.IPEndPoint);
 
                 return true;
             }

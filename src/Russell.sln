@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{79A80F85-DCCA-4EF6-AADC-F3D2821ABBA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{B9AB5155-BF93-4CB3-BB42-072DE7DABC01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Russell", "View\Russell.csproj", "{B9AB5155-BF93-4CB3-BB42-072DE7DABC01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{2F848406-533F-46EF-94FC-F47C5FFB8E02}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{4703E2E3-64C2-4124-BFCD-EA599AFAEC4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{66566F5B-0BC5-4BEC-BCA6-612765CF3E87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{66566F5B-0BC5-4BEC-BCA6-612765CF3E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

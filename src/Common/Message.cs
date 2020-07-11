@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using Common.Settings;
+
+namespace Common
 {
     public sealed class Message
     {
@@ -9,13 +11,13 @@
 
         public Message()
         {
-            ByteBuffer = new byte[ConnectionSettings.ByteBufferSize];
+            ByteBuffer = new byte[GeneralSettings.ByteBufferSize];
         }
         public byte[] ByteBuffer { get; set; }
 
         public void Clear()
         {
-            ByteBuffer = new byte[ConnectionSettings.ByteBufferSize];
+            ByteBuffer = new byte[GeneralSettings.ByteBufferSize];
         }
     }
 }

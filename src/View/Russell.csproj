@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -30,6 +30,7 @@
     <None Remove="Assets\Pictures\User32x32.png" />
     <None Remove="Assets\Pictures\User48x48.png" />
     <None Remove="Assets\Pictures\Vehicle.png" />
+    <None Remove="configuration.conf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +64,12 @@
     <Resource Include="Assets\Pictures\User32x32.png" />
     <Resource Include="Assets\Pictures\User48x48.png" />
     <Resource Include="Assets\Pictures\Vehicle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="configuration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
