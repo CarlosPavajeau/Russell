@@ -13,6 +13,7 @@ namespace Common.Settings.Loaders
             Port = int.Parse(Settings["Port"]);
             MaxClients = int.Parse(Settings["LimitClients"]);
             IPAddress = IPAddress.Parse(Settings["IPAddress"]);
+            SecretKey = Settings["SecretKey"];
         }
 
         public IPAddress IPAddress { get; }
@@ -24,5 +25,6 @@ namespace Common.Settings.Loaders
         public IPEndPoint IPEndPoint { get; }
 
         public string ConnectionString => Settings["ConnectionString"];
+        public string SecretKey { get; }
     }
 }

@@ -19,5 +19,7 @@ namespace Common.Settings
         public static IPEndPoint IPEndPoint => new IPEndPoint(IPAddress, Port);
 
         public static string ConnectionString => SettingsLoader.ConnectionString;
+
+        public static string SecretKey => SettingsLoader.SecretKey;
     }
 }
