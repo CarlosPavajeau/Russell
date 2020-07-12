@@ -1,0 +1,6 @@
+{
+  "Port": "15000",
+  "IPAddress": "127.0.0.1",
+  "LimitClients": "10",
+  "SecretKey": "djl5JEI/RShIK01iUWVUaA=="
+}

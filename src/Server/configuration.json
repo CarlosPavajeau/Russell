@@ -1,0 +1,7 @@
+{
+  "Port": "15000",
+  "IPAddress": "127.0.0.1",
+  "LimitClients": "10",
+  "ConnectionString": "Data Source=DESKTOP-ND2GLJC\\SQLEXPRESS;Initial Catalog=db_cootransnevada;Integrated Security=True; MultipleActiveResultSets=true;",
+  "SecretKey": "djl5JEI/RShIK01iUWVUaA=="
+}

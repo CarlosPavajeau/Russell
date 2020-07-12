@@ -9,7 +9,6 @@ obj
 *.dll
 *.pdb
 *.cache
-*.json
 *.props
 *.targets
 *.user
