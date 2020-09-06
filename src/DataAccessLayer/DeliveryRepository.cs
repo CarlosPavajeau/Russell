@@ -1,11 +1,11 @@
-﻿using System.Data.Common;
-using Entity;
+﻿using Entity;
+using System.Data.Common;
 
 namespace DataAccessLayer
 {
     public abstract class DeliveryRepository : Repository, ISave<Delivery>, IUpdate, ICount
     {
-        static readonly string[] DELIVERY_FIELDS = { "@delivery_number", "@destination", "@delivery_date", "@state", 
+        static readonly string[] DELIVERY_FIELDS = { "@delivery_number", "@destination", "@delivery_date", "@state",
                                                      "@dispatcher", "@sender", "@receiver" };
 
         public DeliveryRepository(DbConnection connection) : base(connection)
@@ -17,24 +17,21 @@ namespace DataAccessLayer
         {
             get
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "SELECT COUNT(*) FROM deliveries";
-                    return (int)command.ExecuteScalar();
-                }
+                using DbCommand command = CreateCommand();
+                command.CommandText = "SELECT COUNT(*) FROM deliveries";
+                return (int)command.ExecuteScalar();
             }
         }
 
         public bool Save(Delivery data)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispatcher, sender, receiver)" +
-                                      "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispatcher, @sender, @receiver)";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "INSERT INTO deliveries(delivery_number, destination, delivery_date, state, dispatcher, sender, receiver)" +
+                                  "VALUES(@delivery_number, @destination, @delivery_date, @state, @dispatcher, @sender, @receiver)";
 
-                MapCommandParameters(command, DELIVERY_FIELDS,
-                    new object[]
-                    {
+            MapCommandParameters(command, DELIVERY_FIELDS,
+                new object[]
+                {
                         data.Number,
                         data.Destination,
                         data.Date,
@@ -42,24 +39,21 @@ namespace DataAccessLayer
                         data.Dispatcher.ID,
                         data.Sender.ID,
                         data.Receiver.ID
-                    });
+                });
 
-                command.ExecuteNonQuery();
-                return true;
-            }
+            command.ExecuteNonQuery();
+            return true;
         }
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = $"UPDATE deliveries SET {columToModify} = @newValue WHERE delivery_number = @primaryKey";
+            using DbCommand command = CreateCommand();
+            command.CommandText = $"UPDATE deliveries SET {columToModify} = @newValue WHERE delivery_number = @primaryKey";
 
-                command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
-                command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primarykey));
+            command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+            command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primarykey));
 
-                return command.ExecuteNonQuery() > 0;
-            }
+            return command.ExecuteNonQuery() > 0;
         }
     }
 }

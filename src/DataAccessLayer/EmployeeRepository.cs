@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Entity;
 
 namespace DataAccessLayer
 {
@@ -26,40 +26,36 @@ namespace DataAccessLayer
             }
             finally
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
-                                          "VALUES(@person_id, @cellphone, @email, @address)";
+                using DbCommand command = CreateCommand();
+                command.CommandText = "INSERT INTO employees(person_id, cellphone, email, address) " +
+                                      "VALUES(@person_id, @cellphone, @email, @address)";
 
-                    MapCommandParameters(command, EMPLOYEE_FIELDS,
-                        new object[]
-                        {
+                MapCommandParameters(command, EMPLOYEE_FIELDS,
+                    new object[]
+                    {
                         data.ID,
                         data.Cellphone,
                         data.Email,
                         data.Address
-                        });
+                    });
 
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
             return true;
         }
 
         public new Employee Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
-                                      "em.email, em.address FROM employees em " +
-                                      "JOIN people p ON em.person_id = p.person_id " +
-                                      "WHERE em.person_id = @person_id";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
+                                  "em.email, em.address FROM employees em " +
+                                  "JOIN people p ON em.person_id = p.person_id " +
+                                  "WHERE em.person_id = @person_id";
 
-                command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return dbDataReader.Read() ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return dbDataReader.Read() ? Map(dbDataReader) : null;
         }
 
         public new Employee Map(DbDataReader dbDataReader)
@@ -83,17 +79,15 @@ namespace DataAccessLayer
         {
             IList<Employee> employees = new List<Employee>();
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT em.person_id, p.first_name, p.second_name, p.last_name, p.second_last_name, em.cellphone, " +
                                       "em.email, em.address FROM employees em " +
                                       "JOIN people p ON em.person_id = p.person_id";
 
-                using (var dbDataReader = command.ExecuteReader())
-                {
-                    while (dbDataReader.Read())
-                        employees.Add(Map(dbDataReader));
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                while (dbDataReader.Read())
+                    employees.Add(Map(dbDataReader));
             }
 
             return employees;

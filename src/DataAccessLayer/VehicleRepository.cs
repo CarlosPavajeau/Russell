@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Entity;
 
 namespace DataAccessLayer
 {
@@ -23,48 +23,44 @@ namespace DataAccessLayer
 
         public bool Save(Vehicle data)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "INSERT INTO vehicles(license_plate, internal_number, property_card_number, state, owner, driver)" +
-                                      "VALUES(@license_plate, @internal_number, @property_card_number, @state, @owner, @driver)";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "INSERT INTO vehicles(license_plate, internal_number, property_card_number, state, owner, driver)" +
+                                  "VALUES(@license_plate, @internal_number, @property_card_number, @state, @owner, @driver)";
 
-                MapCommandParameters(command, VEHICLE_FIELDS,
-                    new object[]
-                    {
+            MapCommandParameters(command, VEHICLE_FIELDS,
+                new object[]
+                {
                         data.LicensePlate,
                         data.InternalNumber,
                         data.PropertyCardNumber,
                         data.State,
                         data.Owner.ID,
                         data.Driver.ID
-                    });
+                });
 
-                command.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-                _featureRepository.Save(data);
-                _imprintRepository.Save(data);
-                _legalInformationRepository.Save(data);
+            _featureRepository.Save(data);
+            _imprintRepository.Save(data);
+            _legalInformationRepository.Save(data);
 
-                return true;
-            }
+            return true;
         }
 
         public Vehicle Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
-                                      "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number "+
-                                      "FROM vehicles vh " +
-                                      "JOIN vehicle_features vhf ON vh.license_plate = vhf.license_plate " +
-                                      "JOIN imprints im ON vh.license_plate = im.license_plate " +
-                                      "WHERE vh.license_plate = @license_plate";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
+                                  "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number " +
+                                  "FROM vehicles vh " +
+                                  "JOIN vehicle_features vhf ON vh.license_plate = vhf.license_plate " +
+                                  "JOIN imprints im ON vh.license_plate = im.license_plate " +
+                                  "WHERE vh.license_plate = @license_plate";
 
-                command.Parameters.Add(CreateDbParameter(command, "@license_plate", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@license_plate", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return dbDataReader.Read() ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return dbDataReader.Read() ? Map(dbDataReader) : null;
         }
 
         public Vehicle Map(DbDataReader dbDataReader)
@@ -96,44 +92,42 @@ namespace DataAccessLayer
             vehicle.Imprint.EngineNumber = dbDataReader.GetString(12);
             vehicle.Imprint.ChassisNumber = dbDataReader.GetString(13);
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT legal_information_type, due_date, renovation_date " +
                                       "FROM legal_information WHERE license_plate = @license_plate ORDER BY legal_information_type";
 
                 command.Parameters.Add(CreateDbParameter(command, "@license_plate", vehicle.LicensePlate));
 
-                using (var legalInformationDR = command.ExecuteReader())
-                {
-                    if (!legalInformationDR.Read())
-                        return null;
+                using DbDataReader legalInformationDR = command.ExecuteReader();
+                if (!legalInformationDR.Read())
+                    return null;
 
-                    DateTime renovationDate, dueDate;
-                    dueDate = legalInformationDR.GetDateTime(1);
-                    renovationDate = legalInformationDR.GetDateTime(2);
+                DateTime renovationDate, dueDate;
+                dueDate = legalInformationDR.GetDateTime(1);
+                renovationDate = legalInformationDR.GetDateTime(2);
 
-                    vehicle.AddLegalInformation(LegalInformationType.BiMonthlyReview, dueDate, renovationDate);
-                    legalInformationDR.Read();
+                vehicle.AddLegalInformation(LegalInformationType.BiMonthlyReview, dueDate, renovationDate);
+                legalInformationDR.Read();
 
-                    dueDate = legalInformationDR.GetDateTime(1);
-                    renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.License, dueDate, renovationDate);
-                    legalInformationDR.Read();
+                dueDate = legalInformationDR.GetDateTime(1);
+                renovationDate = legalInformationDR.GetDateTime(2);
+                vehicle.AddLegalInformation(LegalInformationType.License, dueDate, renovationDate);
+                legalInformationDR.Read();
 
-                    dueDate = legalInformationDR.GetDateTime(1);
-                    renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.OperationCard, dueDate, renovationDate);
-                    legalInformationDR.Read();
+                dueDate = legalInformationDR.GetDateTime(1);
+                renovationDate = legalInformationDR.GetDateTime(2);
+                vehicle.AddLegalInformation(LegalInformationType.OperationCard, dueDate, renovationDate);
+                legalInformationDR.Read();
 
-                    dueDate = legalInformationDR.GetDateTime(1);
-                    renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.Soat, dueDate, renovationDate);
-                    legalInformationDR.Read();
+                dueDate = legalInformationDR.GetDateTime(1);
+                renovationDate = legalInformationDR.GetDateTime(2);
+                vehicle.AddLegalInformation(LegalInformationType.Soat, dueDate, renovationDate);
+                legalInformationDR.Read();
 
-                    dueDate = legalInformationDR.GetDateTime(1);
-                    renovationDate = legalInformationDR.GetDateTime(2);
-                    vehicle.AddLegalInformation(LegalInformationType.TechnomechanicalReview, dueDate, renovationDate);
-                }
+                dueDate = legalInformationDR.GetDateTime(1);
+                renovationDate = legalInformationDR.GetDateTime(2);
+                vehicle.AddLegalInformation(LegalInformationType.TechnomechanicalReview, dueDate, renovationDate);
             }
 
             return vehicle;
@@ -141,25 +135,21 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = CreateCommand())
-            {
-                return true;
-            }
+            using DbCommand command = CreateCommand();
+            return true;
         }
 
         public bool Delete(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                return true;
-            }
+            using DbCommand command = CreateCommand();
+            return true;
         }
 
         public IList<Vehicle> GetAllData()
         {
             IList<Vehicle> vehicles = new List<Vehicle>();
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT vh.license_plate, vh.internal_number, vh.property_card_number, vh.driver, vh.owner, vh.state, vhf.type," +
                                       "vhf.mark, vhf.model, vhf.model_number, vhf.color, vhf.chairs, im.engine_number, im.chassis_number " +
@@ -167,11 +157,9 @@ namespace DataAccessLayer
                                       "JOIN vehicle_features vhf ON vh.license_plate = vhf.license_plate " +
                                       "JOIN imprints im ON vh.license_plate = im.license_plate";
 
-                using (var dbDataReader = command.ExecuteReader())
-                {
-                    while (dbDataReader.Read())
-                        vehicles.Add(Map(dbDataReader));
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                while (dbDataReader.Read())
+                    vehicles.Add(Map(dbDataReader));
             }
 
             return vehicles;
@@ -179,7 +167,7 @@ namespace DataAccessLayer
 
         class VehicleFeatureRepository : Repository, ISave<Vehicle>, IUpdate
         {
-            static readonly string[] VEHICLE_FEATURE_FIELDS = { "@license_plate", "@type", "@mark", "@model", 
+            static readonly string[] VEHICLE_FEATURE_FIELDS = { "@license_plate", "@type", "@mark", "@model",
                                                                 "@model_number", "@color", "@chairs"};
 
             public VehicleFeatureRepository(DbConnection connection) : base(connection)
@@ -188,14 +176,13 @@ namespace DataAccessLayer
 
             public bool Save(Vehicle data)
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
-                                          "VALUES(@license_plate, @type, @mark, @model, @model_number, @color, @chairs)";
+                using DbCommand command = CreateCommand();
+                command.CommandText = "INSERT INTO vehicle_features(license_plate, type, mark, model, model_number, color, chairs)" +
+                                      "VALUES(@license_plate, @type, @mark, @model, @model_number, @color, @chairs)";
 
-                    MapCommandParameters(command, VEHICLE_FEATURE_FIELDS,
-                        new object[]
-                        {
+                MapCommandParameters(command, VEHICLE_FEATURE_FIELDS,
+                    new object[]
+                    {
                             data.LicensePlate,
                             data.Feature.Type,
                             data.Feature.Mark,
@@ -203,24 +190,21 @@ namespace DataAccessLayer
                             data.Feature.ModelNumber,
                             data.Feature.Color,
                             data.Feature.Chairs
-                        });
+                    });
 
-                    command.ExecuteNonQuery();
-                    return true;
-                }
+                command.ExecuteNonQuery();
+                return true;
             }
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = $"UPDATE vehicle_features SET { columToModify } = @newValue WHERE license_plate = @license_plate";
+                using DbCommand command = CreateCommand();
+                command.CommandText = $"UPDATE vehicle_features SET { columToModify } = @newValue WHERE license_plate = @license_plate";
 
-                    command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
-                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
+                command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+                command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
 
-                    return command.ExecuteNonQuery() > 0;
-                }
+                return command.ExecuteNonQuery() > 0;
             }
         }
 
@@ -235,35 +219,31 @@ namespace DataAccessLayer
 
             public bool Save(Vehicle data)
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO imprints(license_plate, engine_number, chassis_number)" +
-                                          "VALUES(@license_plate, @engine_number, @chassis_number)";
+                using DbCommand command = CreateCommand();
+                command.CommandText = "INSERT INTO imprints(license_plate, engine_number, chassis_number)" +
+                                      "VALUES(@license_plate, @engine_number, @chassis_number)";
 
-                    MapCommandParameters(command, IMPRINT_FIELDS,
-                        new object[]
-                        {
+                MapCommandParameters(command, IMPRINT_FIELDS,
+                    new object[]
+                    {
                             data.LicensePlate,
                             data.Imprint.EngineNumber,
                             data.Imprint.ChassisNumber
-                        });
+                    });
 
-                    command.ExecuteNonQuery();
-                    return true;
-                }
+                command.ExecuteNonQuery();
+                return true;
             }
 
             public bool Update(string primarykey, string columToModify, object newValue)
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = $"UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
+                using DbCommand command = CreateCommand();
+                command.CommandText = $"UPDATE imprints SET { columToModify } = @newValue WHERE license_plate = @license_plate";
 
-                    command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
-                    command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
+                command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+                command.Parameters.Add(CreateDbParameter(command, "@license_plate", primarykey));
 
-                    return command.ExecuteNonQuery() > 0;
-                }
+                return command.ExecuteNonQuery() > 0;
             }
         }
 
@@ -278,24 +258,22 @@ namespace DataAccessLayer
 
             public bool Save(Vehicle data)
             {
-                foreach (var legalInformation in data.LegalInformation.GetLegalInformation())
+                foreach (KeyValuePair<LegalInformationType, Dates> legalInformation in data.LegalInformation.GetLegalInformation())
                 {
-                    using (var command = CreateCommand())
-                    {
-                        command.CommandText = "INSERT INTO legal_information(license_plate, legal_information_type, due_date, renovation_date)" +
-                                              "VALUES(@license_plate, @legal_information_type, @due_date, @renovation_date)";
+                    using DbCommand command = CreateCommand();
+                    command.CommandText = "INSERT INTO legal_information(license_plate, legal_information_type, due_date, renovation_date)" +
+                                          "VALUES(@license_plate, @legal_information_type, @due_date, @renovation_date)";
 
-                        MapCommandParameters(command, LEGAL_INFORMATION_FIELDS,
-                            new object[]
-                            {
+                    MapCommandParameters(command, LEGAL_INFORMATION_FIELDS,
+                        new object[]
+                        {
                                 data.LicensePlate,
                                 legalInformation.Key.ToString(),
                                 legalInformation.Value.DueDate,
                                 legalInformation.Value.DateOfRenovation
-                            });
+                        });
 
-                        command.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
 
                 return true;

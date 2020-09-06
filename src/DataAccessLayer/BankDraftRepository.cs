@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Entity;
 
 namespace DataAccessLayer
 {
@@ -18,39 +18,35 @@ namespace DataAccessLayer
             if (!base.Save(data))
                 return false;
 
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "INSERT INTO bankdrafts(delivery_number, value_to_send, cost)" +
-                                      "VALUES(@delivery_number, @value_to_send, @cost)";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "INSERT INTO bankdrafts(delivery_number, value_to_send, cost)" +
+                                  "VALUES(@delivery_number, @value_to_send, @cost)";
 
-                MapCommandParameters(command, BANKDRAFT_FIELDS,
-                    new object[]
-                    {
+            MapCommandParameters(command, BANKDRAFT_FIELDS,
+                new object[]
+                {
                         data.Number,
                         data.ValueToSend,
                         data.Cost
-                    });
+                });
 
-                command.ExecuteNonQuery();
-                return true;
-            }
+            command.ExecuteNonQuery();
+            return true;
         }
 
         public BankDraft Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
-                                      "dl.dispatcher, bd.value_to_send, bd.cost " +
-                                      "FROM bankdrafts bd " +
-                                      "JOIN deliveries dl ON bd.delivery_number = dl.delivery_number" +
-                                      "WHERE bd.delivery_number = @delivery_number";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
+                                  "dl.dispatcher, bd.value_to_send, bd.cost " +
+                                  "FROM bankdrafts bd " +
+                                  "JOIN deliveries dl ON bd.delivery_number = dl.delivery_number" +
+                                  "WHERE bd.delivery_number = @delivery_number";
 
-                command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return dbDataReader.Read() ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return dbDataReader.Read() ? Map(dbDataReader) : null;
         }
 
         public BankDraft Map(DbDataReader dbDataReader)
@@ -92,18 +88,16 @@ namespace DataAccessLayer
         {
             IList<BankDraft> bankDrafts = new List<BankDraft>();
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, dl.receiver, " +
                                       "dl.dispatcher, bd.value_to_send, bd.cost " +
                                       "FROM bankdrafts bd " +
                                       "JOIN deliveries dl ON bd.delivery_number = dl.delivery_number";
 
-                using (var dbDataReader = command.ExecuteReader())
-                {
-                    while (dbDataReader.Read())
-                        bankDrafts.Add(Map(dbDataReader));
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                while (dbDataReader.Read())
+                    bankDrafts.Add(Map(dbDataReader));
             }
 
             return bankDrafts;

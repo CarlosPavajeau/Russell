@@ -24,58 +24,52 @@ namespace DataAccessLayer
             }
             finally
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
-                                          "VALUES(@person_id, @username, @passwordname, @type_user)";
+                using DbCommand command = CreateCommand();
+                command.CommandText = "INSERT INTO administrative_employees(person_id, username, passwordname, type_user) " +
+                                      "VALUES(@person_id, @username, @passwordname, @type_user)";
 
-                    MapCommandParameters(command, ADMINISTRATIVE_EMPLOYEE_FIELDS,
-                        new object[]
-                        {
+                MapCommandParameters(command, ADMINISTRATIVE_EMPLOYEE_FIELDS,
+                    new object[]
+                    {
                         data.ID,
                         data.User.AccessData.User,
                         data.User.AccessData.Password,
                         data.User.TypeUser.ToString()[0]
-                        });
+                    });
 
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
             return true;
         }
 
         public new AdministrativeEmployee Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
-                    "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
-                    "JOIN employees em ON em.person_id = ad.person_id JOIN people pe ON pe.person_id = ad.person_id " +
-                    "WHERE ad.username = @username";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
+                "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
+                "JOIN employees em ON em.person_id = ad.person_id JOIN people pe ON pe.person_id = ad.person_id " +
+                "WHERE ad.username = @username";
 
-                command.Parameters.Add(CreateDbParameter(command, "@username", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@username", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return (dbDataReader.Read()) ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return (dbDataReader.Read()) ? Map(dbDataReader) : null;
         }
 
         public AdministrativeEmployee Search(string primaryKey, bool searchByID)
         {
             if (searchByID)
             {
-                using (var command = CreateCommand())
-                {
-                    command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
-                        "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
-                        "JOIN employees em ON em.person_id = ad.person_id JOIN people pe ON pe.person_id = ad.person_id " +
-                        "WHERE ad.person_id = @person_id";
+                using DbCommand command = CreateCommand();
+                command.CommandText = "SELECT ad.person_id, pe.first_name, pe.second_name, pe.last_name, pe.second_last_name, " +
+                    "em.cellphone, em.email, em.address, ad.username, ad.passwordname, ad.type_user FROM administrative_employees ad " +
+                    "JOIN employees em ON em.person_id = ad.person_id JOIN people pe ON pe.person_id = ad.person_id " +
+                    "WHERE ad.person_id = @person_id";
 
-                    command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
+                command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
-                    using (var dbDataReader = command.ExecuteReader())
-                        return (dbDataReader.Read()) ? Map(dbDataReader) : null;
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                return (dbDataReader.Read()) ? Map(dbDataReader) : null;
             }
             else
                 return Search(primaryKey);
@@ -106,12 +100,10 @@ namespace DataAccessLayer
 
         public bool IsEmpty()
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT COUNT(*) FROM administrative_employees";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT COUNT(*) FROM administrative_employees";
 
-                return ((int)command.ExecuteScalar()) == 0;
-            }
+            return ((int)command.ExecuteScalar()) == 0;
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Entity;
 
 namespace DataAccessLayer
 {
@@ -11,7 +11,7 @@ namespace DataAccessLayer
 
         public CommendRepository(DbConnection connection) : base(connection)
         {
-            
+
         }
 
         public bool Save(Commend data)
@@ -19,41 +19,37 @@ namespace DataAccessLayer
             if (!base.Save(data))
                 return false;
 
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "INSERT INTO commends(delivery_number, freight_value, agreement, description, license_plate)" +
-                                      "VALUES(@delivery_number, @freight_value, @agreement, @description, @license_plate)";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "INSERT INTO commends(delivery_number, freight_value, agreement, description, license_plate)" +
+                                  "VALUES(@delivery_number, @freight_value, @agreement, @description, @license_plate)";
 
-                MapCommandParameters(command, COMMEND_FIELDS,
-                    new object[]
-                    {
+            MapCommandParameters(command, COMMEND_FIELDS,
+                new object[]
+                {
                         data.Number,
                         data.FreightValue,
                         data.Agreement,
                         data.Description,
                         data.Vehicle.LicensePlate
-                    });
+                });
 
-                command.ExecuteNonQuery();
-                return true;
-            }
+            command.ExecuteNonQuery();
+            return true;
         }
 
         public Commend Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
-                                      "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +
-                                      "FROM commends cm " +
-                                      "JOIN deliveries dl ON cm.delivery_number = dl.delivery_number" +
-                                      "WHERE cm.delivery_number = @delivery_number";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
+                                  "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +
+                                  "FROM commends cm " +
+                                  "JOIN deliveries dl ON cm.delivery_number = dl.delivery_number" +
+                                  "WHERE cm.delivery_number = @delivery_number";
 
-                command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@delivery_number", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return dbDataReader.Read() ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return dbDataReader.Read() ? Map(dbDataReader) : null;
         }
 
         public Commend Map(DbDataReader dbDataReader)
@@ -98,18 +94,16 @@ namespace DataAccessLayer
         {
             IList<Commend> commends = new List<Commend>();
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT dl.delivery_number, dl.delivery_date, dl.destination, dl.state, dl.sender, " +
                                       "dl.receiver, dl.dispatcher, cm.license_plate, cm.freight_value, cm.agreement, cm.description " +
                                       "FROM commends cm " +
                                       "JOIN deliveries dl ON cm.delivery_number = dl.delivery_number";
 
-                using (var dbDataReader = command.ExecuteReader())
-                {
-                    while (dbDataReader.Read())
-                        commends.Add(Map(dbDataReader));
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                while (dbDataReader.Read())
+                    commends.Add(Map(dbDataReader));
             }
 
             return commends;

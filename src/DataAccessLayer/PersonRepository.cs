@@ -14,37 +14,33 @@ namespace DataAccessLayer
 
         public bool Save(Person data)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "INSERT INTO people(person_id, first_name, second_name, last_name, second_last_name) " +
-                                      "VALUES(@person_id, @first_name, @second_name, @last_name, @second_last_name)";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "INSERT INTO people(person_id, first_name, second_name, last_name, second_last_name) " +
+                                  "VALUES(@person_id, @first_name, @second_name, @last_name, @second_last_name)";
 
-                MapCommandParameters(command, PERSON_FIELDS,
-                    new object[] {
+            MapCommandParameters(command, PERSON_FIELDS,
+                new object[] {
                         data.ID,
                         data.FirstName,
                         data.SecondName,
                         data.LastName,
                         data.SecondLastName
-                    });
+                });
 
-                command.ExecuteNonQuery();
-                return true;
-            }
+            command.ExecuteNonQuery();
+            return true;
         }
 
         public Person Search(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
-                                      "FROM people WHERE person_id = @person_id";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
+                                  "FROM people WHERE person_id = @person_id";
 
-                command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@person_id", primaryKey));
 
-                using (var dbDataReader = command.ExecuteReader())
-                    return dbDataReader.Read() ? Map(dbDataReader) : null;
-            }
+            using DbDataReader dbDataReader = command.ExecuteReader();
+            return dbDataReader.Read() ? Map(dbDataReader) : null;
         }
 
         public Person Map(DbDataReader dbDataReader)
@@ -62,43 +58,37 @@ namespace DataAccessLayer
 
         public bool Update(string primarykey, string columToModify, object newValue)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = $"UPDATE people SET { columToModify } = @newValue WHERE person_id = @primaryKey";
+            using DbCommand command = CreateCommand();
+            command.CommandText = $"UPDATE people SET { columToModify } = @newValue WHERE person_id = @primaryKey";
 
-                command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
-                command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primarykey));
+            command.Parameters.Add(CreateDbParameter(command, "@newValue", newValue));
+            command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primarykey));
 
-                return command.ExecuteNonQuery() > 0;
-            }
+            return command.ExecuteNonQuery() > 0;
         }
 
         public bool Delete(string primaryKey)
         {
-            using (var command = CreateCommand())
-            {
-                command.CommandText = "DELETE people WHERE person_id = @primaryKey";
+            using DbCommand command = CreateCommand();
+            command.CommandText = "DELETE people WHERE person_id = @primaryKey";
 
-                command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primaryKey));
+            command.Parameters.Add(CreateDbParameter(command, "@primaryKey", primaryKey));
 
-                return command.ExecuteNonQuery() > 0;
-            }
+            return command.ExecuteNonQuery() > 0;
         }
 
         public IList<Person> GetAllData()
         {
             IList<Person> people = new List<Person>();
 
-            using (var command = CreateCommand())
+            using (DbCommand command = CreateCommand())
             {
                 command.CommandText = "SELECT person_id, first_name, second_name, last_name, second_last_name " +
                                       "FROM people";
 
-                using (var dbDataReader = command.ExecuteReader())
-                {
-                    while (dbDataReader.Read())
-                        people.Add(Map(dbDataReader));
-                }
+                using DbDataReader dbDataReader = command.ExecuteReader();
+                while (dbDataReader.Read())
+                    people.Add(Map(dbDataReader));
             }
 
             return people;
